@@ -22,4 +22,8 @@ public String getTenTacGia(){
 public void setTenTacGia(String tenTacGia){
     this.tenTacGia = tenTacGia;
 }
+public void hienThi(){
+    System.out.println("Ma tac gia: " + maTacGia);
+    System.out.println("Ten tac gia: " + tenTacGia);
+}
 }

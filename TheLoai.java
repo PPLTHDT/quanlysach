@@ -21,4 +21,8 @@ public class TheLoai{
     public String setTenTheLoai( String tenTheLoai){
         this.tenTheLoai = tenTheLoai;
     }
+    public void hienThi(){
+        System.out.println("Ma the loai: " + maTheLoai);
+        System.out.println("Ten the loai: " + tenTheLoai);
+    }
 }

@@ -1,7 +1,5 @@
 package quanlysach;
-import java.util.Scanner;
 public class DanhSachSach{
-    private Scanner sc = new Scanner(System.in);
     public static final int MAX = 100;
     private Sach[] dsSach;
     private int soLuong;
@@ -41,7 +39,7 @@ public double nhapSoThapPhan(String tb){
     }
 
     public boolean  them(Sach s){
-        if(soLuong >= MAX){
+        if( s == null ||soLuong >= MAX){
             return false;
         }
             if(timKiem(s.getMaSach()) != null){
@@ -52,7 +50,7 @@ public double nhapSoThapPhan(String tb){
             return true;
     }
     public boolean suaTheoMa( String ma){
-        Sach s = timKiem(Ma);
+        Sach s = timKiem(ma);
         if( s == null){
             return false;
         }
@@ -87,7 +85,7 @@ public double nhapSoThapPhan(String tb){
         System.out.println("Tong so luong ton: " + tongTon);
         System.out.println("Tong gia tri cua kho: " + tongGiaTri);
     }
-    public Sach[] getDsSach(){
+    public Sach[] getDs(){
         Sach[] kq = new Sach[soLuong];
         for( int i = 0; i < soLuong; i++){
             kq[i] = dsSach[i];
@@ -133,7 +131,7 @@ public double nhapSoThapPhan(String tb){
 
             double gia = nhapSoThapPhan("Gia ban: ");
             int ton = nhapSoNguyen("So luong ton: ");
-            Sach s = new(ma, ten, dstg, nam, tl, nxb, gia, ton);
+            Sach s = new Sach(ma, ten, dsTG, nam, tl, nxb, gia, ton);
             if(them(s) == false){
                 System.out.println("Them bi loi.");
             }
@@ -147,6 +145,17 @@ public double nhapSoThapPhan(String tb){
             for( int i = 0; i < soLuong; i++){
                 dsSach[i].hienThi();
             }
+        }
+    }
+    public void napDuLieu( Sach[] ds){
+        dsSach = new Sach[MAX];
+        soLuong  = 0;
+        if(ds == null){
+            return;
+        }
+        for( int i = 0; i < ds.length && soLuong < MAX; i++){
+            dsSach[soLuong] = ds[i];
+            soLuong++;
         }
     }
 }
