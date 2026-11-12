@@ -1,21 +1,26 @@
-import java.time.LocalDate;
-
 public class CuaHangSach {
     private DanhSachSach danhSachSach;
-    private DanhSachHoaDon danhSachHoaDon;
-    private KhachHang[] khachHang;
+    private DanhSachTheLoai danhSachTheLoai;
+    private DanhSachTacGia danhSachTacGia;
+    private DanhSachNhaXuatBan danhSachNhaXuatBan;
+    private DanhSachKhachHang danhSachKhachHang;
     private DanhSachNhanVien danhSachNhanVien;
-    private int soLuongKhachHang;
+    private DanhSachHoaDon danhSachHoaDon;
+    private DanhSachPhieuNhap danhSachPhieuNhap;
+    private DanhSachKhuyenMai danhSachKhuyenMai;
     private ThongKe thongKe;
     private DocGhiFile docGhiFile;
-    private static final int MAX_KHACH_HANG = 100;
 
     public CuaHangSach() {
         this.danhSachSach = new DanhSachSach();
-        this.danhSachHoaDon = new DanhSachHoaDon();
-        this.khachHang = new KhachHang[MAX_KHACH_HANG];
+        this.danhSachTheLoai = new DanhSachTheLoai();
+        this.danhSachTacGia = new DanhSachTacGia();
+        this.danhSachNhaXuatBan = new DanhSachNhaXuatBan();
+        this.danhSachKhachHang = new DanhSachKhachHang();
         this.danhSachNhanVien = new DanhSachNhanVien();
-        this.soLuongKhachHang = 0;
+        this.danhSachHoaDon = new DanhSachHoaDon();
+        this.danhSachPhieuNhap = new DanhSachPhieuNhap();
+        this.danhSachKhuyenMai = new DanhSachKhuyenMai();
         this.thongKe = new ThongKe();
         this.docGhiFile = new DocGhiFile();
     }
@@ -26,19 +31,13 @@ public class CuaHangSach {
 
     public void docDuLieuTuFile() {
         if (docGhiFile != null) {
-            docGhiFile.docFileSach();
-            docGhiFile.docFileHoaDon();
+            // Goi doc du lieu tu file khi ghep code voi lop DocGhiFile
         }
     }
 
     public void ghiDuLieuRaFile() {
         if (docGhiFile != null) {
-            if (danhSachSach != null) {
-                docGhiFile.ghiFileSach(danhSachSach.getDsSach());
-            }
-            if (danhSachHoaDon != null) {
-                docGhiFile.ghiFileHoaDon(danhSachHoaDon.getDsHoaDon());
-            }
+            // Goi ghi du lieu ra file khi ghep code voi lop DocGhiFile
         }
     }
 
@@ -46,18 +45,20 @@ public class CuaHangSach {
         System.out.println("\n=================================================");
         System.out.println("       HE THONG QUAN LY CUA HANG SACH            ");
         System.out.println("=================================================");
-        System.out.println("1. Xem danh sach sach trong kho");
-        System.out.println("2. Xem danh sach hoa don");
-        System.out.println("3. Xem danh sach khach hang");
-        System.out.println("4. Xem danh sach nhan vien");
-        System.out.println("5. Lap hoa don ban sach truc tiep tai quay");
-        System.out.println("6. Them khach hang");
-        System.out.println("7. Them nhan vien");
-        System.out.println("8. Thong ke");
-        System.out.println("9. Ghi du lieu ra file");
-        System.out.println("0. Thoat chuong trinh");
+        System.out.println(" 1. Quan ly Kho Sach");
+        System.out.println(" 2. Quan ly The Loai");
+        System.out.println(" 3. Quan ly Tac Gia");
+        System.out.println(" 4. Quan ly Nha Xuat Ban");
+        System.out.println(" 5. Quan ly Khach Hang");
+        System.out.println(" 6. Quan ly Nhan Vien");
+        System.out.println(" 7. Quan ly Hoa Don Ban Hang (Lap hoa don)");
+        System.out.println(" 8. Quan ly Phieu Nhap Hang (Lap phieu nhap)");
+        System.out.println(" 9. Quan ly Khuyen Mai");
+        System.out.println(" 10. Thong ke bao cao");
+        System.out.println(" 11. Doc / Ghi du lieu file");
+        System.out.println(" 0. Thoat chuong trinh");
         System.out.println("=================================================");
-        System.out.print("Moi ban chon chuc nang (0 - 9): ");
+        System.out.print("Moi ban chon chuc nang (0 - 11): ");
     }
 
     public void xuLy() {
@@ -76,102 +77,71 @@ public class CuaHangSach {
                     if (danhSachSach != null) danhSachSach.xuat();
                     break;
                 case 2:
-                    if (danhSachHoaDon != null) danhSachHoaDon.xuat();
+                    if (danhSachTheLoai != null) danhSachTheLoai.xuat();
                     break;
                 case 3:
-                    System.out.println("\n--- DANH SACH KHACH HANG ---");
-                    for (int i = 0; i < soLuongKhachHang; i++) {
-                        if (khachHang[i] != null) khachHang[i].hienThiThongTin();
-                    }
+                    if (danhSachTacGia != null) danhSachTacGia.xuat();
                     break;
                 case 4:
-                    if (danhSachNhanVien != null) danhSachNhanVien.xuat();
+                    if (danhSachNhaXuatBan != null) danhSachNhaXuatBan.xuat();
                     break;
                 case 5:
-                    lapHoaDon();
+                    if (danhSachKhachHang != null) danhSachKhachHang.xuat();
                     break;
                 case 6:
-                    System.out.print("Nhap ma KH: ");
-                    String makh = Main.sc.nextLine().trim();
-                    System.out.print("Nhap ho ten: ");
-                    String ten = Main.sc.nextLine().trim();
-                    System.out.print("Nhap SDT: ");
-                    String sdt = Main.sc.nextLine().trim();
-                    themKhachHang(new KhachHang(makh, ten, sdt, "", "", makh, 0));
-                    System.out.println("Them khach hang thanh cong!");
+                    if (danhSachNhanVien != null) danhSachNhanVien.xuat();
                     break;
                 case 7:
-                    System.out.print("Nhap ma NV: ");
-                    String manv = Main.sc.nextLine().trim();
-                    System.out.print("Nhap ho ten: ");
-                    String tennv = Main.sc.nextLine().trim();
-                    System.out.print("Nhap chuc vu: ");
-                    String cv = Main.sc.nextLine().trim();
-                    themNhanVien(new NhanVien(manv, tennv, "", "", "", manv, cv, 5000000));
-                    System.out.println("Them nhan vien thanh cong!");
+                    lapHoaDon();
                     break;
                 case 8:
-                    if (thongKe != null) {
-                        thongKe.thongKeSach(danhSachSach);
-                        thongKe.thongKeDoanhThu(danhSachHoaDon);
-                        thongKe.thongKeNhanSu(danhSachNhanVien);
-                    }
+                    lapPhieuNhap();
                     break;
                 case 9:
+                    if (danhSachKhuyenMai != null) danhSachKhuyenMai.xuat();
+                    break;
+                case 10:
+                    if (thongKe != null) {
+                        thongKe.thongKeTonKho(danhSachSach);
+                        thongKe.thongKeDoanhThu(danhSachHoaDon);
+                        thongKe.thongKeKhachHang(danhSachKhachHang);
+                    }
+                    break;
+                case 11:
                     ghiDuLieuRaFile();
                     break;
                 case 0:
-                    System.out.println("Tam biet!");
+                    System.out.println("Tam biet quy khach!");
                     break;
                 default:
-                    System.out.println("Chuc nang khong hop le!");
+                    System.out.println("Chuc nang khong hop le, vui long chon lai!");
                     break;
             }
         } while (chon != 0);
     }
 
-    private void lapHoaDon() {
-        System.out.println("\n--- LAP HOA DON BAN SACH TAI QUAY ---");
-        if (danhSachSach == null || danhSachHoaDon == null) return;
-        danhSachSach.xuat();
-        System.out.print("Nhap ma sach: ");
-        String ma = Main.sc.nextLine().trim();
-        Sach s = danhSachSach.timKiem(ma);
-        if (s == null) {
-            System.out.println("Khong tim thay sach!");
-            return;
-        }
-        System.out.print("Nhap so luong mua: ");
-        int sl = 1;
-        try { sl = Integer.parseInt(Main.sc.nextLine().trim()); } catch (Exception e) {}
-        if (s.giamSoLuong(sl)) {
-            double tong = sl * s.getGiaBan();
-            String maHD = "HD" + (danhSachHoaDon.getSoLuong() + 1);
-            HoaDon hd = new HoaDon(maHD, LocalDate.now(), null, null, tong);
-            danhSachHoaDon.them(hd);
-            System.out.println("Lap hoa don thanh cong! Da tru so luong ton kho.");
-            hd.inHoaDon();
-        } else {
-            System.out.println("Khong du so luong trong kho!");
+    public void lapHoaDon() {
+        if (danhSachHoaDon != null) {
+            danhSachHoaDon.nhap();
         }
     }
 
-    public boolean themKhachHang(KhachHang kh) {
-        if (kh == null || soLuongKhachHang >= MAX_KHACH_HANG) return false;
-        khachHang[soLuongKhachHang++] = kh;
-        return true;
+    public void lapPhieuNhap() {
+        if (danhSachPhieuNhap != null) {
+            danhSachPhieuNhap.nhap();
+        }
     }
 
-    public boolean themNhanVien(NhanVien nv) {
-        if (danhSachNhanVien == null || nv == null) return false;
-        return danhSachNhanVien.themNhanVien(nv);
-    }
-
+    // Getter cac danh sach theo so do lop
     public DanhSachSach getDanhSachSach() { return danhSachSach; }
-    public DanhSachHoaDon getDanhSachHoaDon() { return danhSachHoaDon; }
-    public KhachHang[] getKhachHang() { return khachHang; }
+    public DanhSachTheLoai getDanhSachTheLoai() { return danhSachTheLoai; }
+    public DanhSachTacGia getDanhSachTacGia() { return danhSachTacGia; }
+    public DanhSachNhaXuatBan getDanhSachNhaXuatBan() { return danhSachNhaXuatBan; }
+    public DanhSachKhachHang getDanhSachKhachHang() { return danhSachKhachHang; }
     public DanhSachNhanVien getDanhSachNhanVien() { return danhSachNhanVien; }
-    public int getSoLuongKhachHang() { return soLuongKhachHang; }
+    public DanhSachHoaDon getDanhSachHoaDon() { return danhSachHoaDon; }
+    public DanhSachPhieuNhap getDanhSachPhieuNhap() { return danhSachPhieuNhap; }
+    public DanhSachKhuyenMai getDanhSachKhuyenMai() { return danhSachKhuyenMai; }
     public ThongKe getThongKe() { return thongKe; }
     public DocGhiFile getDocGhiFile() { return docGhiFile; }
 }
