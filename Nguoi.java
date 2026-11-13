@@ -1,34 +1,36 @@
 package doan;
 import java.util.Scanner;
-public abstract class People {
-    protected String maNguoi;
+public abstract class Nguoi {
+    protected String CCCD;
     protected String hoTen;
     protected String sdt;
     protected String email;
     protected String diaChi;
 
-    public People()
+    public Nguoi()
     {
-        maNguoi=null;
+        CCCD=null;
         hoTen=null;
         sdt=null;
         email=null;
         diaChi=null;
     }
-    public People(String maNguoi,String hoTen,String sdt,String email,String diaChi)
+    public Nguoi(String CCCD,String hoTen,String sdt,String email,String diaChi)
     {
-        this.maNguoi=maNguoi;
+        this.CCCD=CCCD;
         this.hoTen=hoTen;
         this.sdt=sdt;
         this.email=email;
         this.diaChi=diaChi;
 
     }
-    public void setMaNguoi()
+    public void setCCCD()
     {
         Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao ma nguoi :");
-        this.maNguoi=sc.nextLine();
+        System.out.printf("Nhap vao CCCD :");
+        this.CCCD=sc.nextLine();
+
+
     }
     public void setHoTen()
     {
@@ -72,7 +74,7 @@ public abstract class People {
     }
     public String getThongTin()
     {
-        return "Ma nguoi : "+maNguoi+"| Ho ten : "+hoTen+"| SDT : "+sdt+"| Email : "+email+"| Dia chi : "+diaChi;
+        return "-CCCD : "+CCCD+"| Ho ten : "+hoTen+"| SDT : "+sdt+"| Email : "+email+"| Dia chi : "+diaChi;
     }
     abstract public void hienThiThongTin();
     

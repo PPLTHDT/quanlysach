@@ -1,13 +1,13 @@
 package doan;
 import java.util.Scanner;
 
-public class nhanvien extends People {
+public class NhanVien extends Nguoi {
     private String maNV;
     private String chucVu;
     private double luongCoBan;
     private int soGioLam;
 
-    public nhanvien()
+    public NhanVien()
     {
         super();
         maNV=null;
@@ -15,9 +15,9 @@ public class nhanvien extends People {
         luongCoBan=0;
         soGioLam=0;
     }
-    public nhanvien(String maNguoi,String hoTen,String sdt,String email,String diaChi,String maNV,String chucVu,double luongCoBan,int soGioLam)
+    public NhanVien(String CCCD,String hoTen,String sdt,String email,String diaChi,String maNV,String chucVu,double luongCoBan,int soGioLam)
     {
-        super(maNguoi, hoTen, sdt, email, diaChi);
+        super(CCCD, hoTen, sdt, email, diaChi);
         this.maNV=maNV;
         this.chucVu=chucVu;
         this.luongCoBan=luongCoBan;

@@ -1,23 +1,25 @@
 package doan;
 import java.util.Scanner;
 
-public class quanly extends People {
+public class QuanLy extends Nguoi {
     private String maQL;
     private double phuCap;
     private String phongBan;
-    private static final double LUONG_CO_BAN=15000000;
+    private double luongCoBanQL=15000000;
 
-    public quanly()
+    public QuanLy()
     {
         super();
         maQL=null;
         phuCap=0;
+        phongBan=null;
     }
-    public quanly(String maNguoi,String hoTen,String sdt,String email,String diaChi,String maQL,double phuCap)
+    public QuanLy(String CCCD,String hoTen,String sdt,String email,String diaChi,String maQL,double phuCap,String phongBan)
     {
-        super(maNguoi, hoTen, sdt, email, diaChi);
+        super(CCCD, hoTen, sdt, email, diaChi);
         this.maQL=maQL;
         this.phuCap=phuCap;
+        this.phongBan=phongBan;
     }
     public void setMaQL()
     {
@@ -54,12 +56,12 @@ public class quanly extends People {
     }
     public double tinhLuong()
     {
-        return LUONG_CO_BAN+phuCap;
+        return luongCoBanQL+phuCap;
     }
     public void hienThiThongTin()
     {
         System.out.println(getThongTin());
-        System.out.println("Ma QL : "+maQL+"| Phu cap : "+phuCap+"| Luong co ban : "+LUONG_CO_BAN+"| Luong : "+tinhLuong());
+        System.out.println("Ma QL : "+maQL+"| Phu cap : "+phuCap+"| Luong co ban : "+luongCoBanQL+"| Luong : "+tinhLuong());
     }
 
 

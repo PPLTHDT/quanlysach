@@ -1,19 +1,19 @@
 package doan;
 import java.util.Scanner;
 
-public class khachhang extends People {
+public class KhachHang extends  Nguoi {
     private String maKH;
     private int diemTichLuy;
-    public khachhang()
+    public KhachHang()
     {
         super();
         maKH=null;
         diemTichLuy=0;
 
     }
-    public khachhang(String maNguoi,String hoTen,String sdt,String email,String diaChi,String maKH,int diemTichLuy)
+    public KhachHang(String CCCD,String hoTen,String sdt,String email,String diaChi,String maKH,int diemTichLuy)
     {
-        super(maNguoi, hoTen, sdt, email, diaChi);
+        super(CCCD, hoTen, sdt, email, diaChi);
         this.maKH=maKH;
         this.diemTichLuy=diemTichLuy;
     }
@@ -25,13 +25,18 @@ public class khachhang extends People {
     {
         this.diemTichLuy--;
     }
-    public void setMaKH(String maKH)
+    public void setMaKH()
     {
-        this.maKH=maKH;
+        Scanner sc=new Scanner(System.in);
+        System.out.printf("Nhap vao ma khach hang :");
+        this.maKH=sc.nextLine();
     }
-    public void setDiemTichLuy(int diemTichLuy)
+    public void setDiemTichLuy()
     {
-        this.diemTichLuy=diemTichLuy;
+        Scanner sc=new Scanner(System.in);
+        System.out.printf("Nhap vao diem tich luy :");
+        this.diemTichLuy=sc.nextInt();
+        sc.nextLine();
     }
     public String getMaKH()
     {

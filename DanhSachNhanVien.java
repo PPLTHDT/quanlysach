@@ -1,17 +1,17 @@
 package doan;
 import java.util.Scanner;
 
-public class quanlynhansu{
-    private nhanvien[] dsNV=new nhanvien[MAX_NV];
-    private quanly[] dsQL=new quanly[MAX_QL];
+public class DanhSachNhanVien{
+    private NhanVien[] dsNhanVien = new NhanVien[MAX_NV];
+    private QuanLy[] dsQuanLy = new QuanLy[MAX_QL];
     private int soluongNV=0,soluongQL=0;
     public static final int MAX_NV=20;
     public static final int MAX_QL=10;
     
     public void nhapNhanVien()
     {
-        nhanvien nv=new nhanvien();
-        nv.setMaNguoi();
+        NhanVien nv=new NhanVien();
+        nv.setCCCD();
         nv.setHoTen();
         nv.setSDT();
         nv.setEmail();
@@ -22,24 +22,24 @@ public class quanlynhansu{
         nv.setSoGioLam();
         themNhanVien(nv);
     }
-    public void xuat(nhanvien nv)
+    public void xuatNhanVien(NhanVien nv)
     {
         nv.hienThiThongTin();
     }
-    public boolean themNhanVien(nhanvien nv)
+    public boolean themNhanVien(NhanVien nv)
     {
         if(nv==null||soluongNV==MAX_NV)
         {
             return false;
         }
-        dsNV[soluongNV++]=nv;
+        dsNhanVien[soluongNV++]=nv;
         return true;
     }
     public boolean suaNhanVien(String maNV)
     {
         
         for (int i=0;i<soluongNV;i++) {
-            if(dsNV[i].getMaNV().equals(maNV))
+            if(dsNhanVien[i].getMaNV().equals(maNV))
             {
                 Scanner sc=new Scanner(System.in);
                 System.out.println("1.Sua ma nguoi.");
@@ -54,15 +54,15 @@ public class quanlynhansu{
                 System.out.println("Lua chon cua ban:");
                 int k=sc.nextInt();
                 switch (k) {
-                    case 1:dsNV[i].setMaNguoi();break;
-                    case 2:dsNV[i].setHoTen();;break;
-                    case 3:dsNV[i].setSDT();;break;
-                    case 4:dsNV[i].setEmail();;break;
-                    case 5:dsNV[i].setDiaChi();;break;
-                    case 6:dsNV[i].setMaNV();;break;
-                    case 7:dsNV[i].setChucVu();;break;
-                    case 8:dsNV[i].setLuongCoBan();;break;
-                    case 9:dsNV[i].setSoGioLam();;break;
+                    case 1:dsNhanVien[i].setCCCD();break;
+                    case 2:dsNhanVien[i].setHoTen();;break;
+                    case 3:dsNhanVien[i].setSDT();;break;
+                    case 4:dsNhanVien[i].setEmail();;break;
+                    case 5:dsNhanVien[i].setDiaChi();;break;
+                    case 6:dsNhanVien[i].setMaNV();;break;
+                    case 7:dsNhanVien[i].setChucVu();;break;
+                    case 8:dsNhanVien[i].setLuongCoBan();;break;
+                    case 9:dsNhanVien[i].setSoGioLam();;break;
                 
                     default:
                         break;
@@ -79,26 +79,26 @@ public class quanlynhansu{
     {
         for(int i=0;i<soluongNV;i++)
         {
-            if(dsNV[i].getMaNV().equals(maNV))
+            if(dsNhanVien[i].getMaNV().equals(maNV))
             {
                 for(int j=i;j<soluongNV-1;j++)
                 {
-                    dsNV[j]=dsNV[j+1];
+                    dsNhanVien[j]=dsNhanVien[j+1];
                 }
-                dsNV[soluongNV-1]=null;
+                dsNhanVien[soluongNV-1]=null;
                 soluongNV--;
                 return true;
             }
         }
         return false;
     }
-    public nhanvien timKiemNV(String maNV)
+    public NhanVien timKiemNV(String maNV)
     {
         for(int i=0;i<soluongNV;i++)
 
             {
-                if(dsNV[i].getMaNV().equals(maNV))
-                    return null;
+                if(dsNhanVien[i].getMaNV().equals(maNV))
+                    return dsNhanVien[i];
             }
         return null;
     }
@@ -107,15 +107,15 @@ public class quanlynhansu{
         double tongluong=0;
         for(int i=0;i<soluongNV;i++)
         {
-            tongluong+=dsNV[i].tinhLuong();
+            tongluong+=dsNhanVien[i].tinhLuong();
         }
         return tongluong;
     }
 
     public void nhapQuanLy()
     {
-        quanly ql=new quanly();
-        ql.setMaNguoi();
+        QuanLy ql=new QuanLy();
+        ql.setCCCD();
         ql.setHoTen();
         ql.setSDT();
         ql.setEmail();
@@ -124,30 +124,30 @@ public class quanlynhansu{
         ql.setPhuCap();
         themQuanLy(ql);
     }
-    public void xuatQuanLy(quanly ql)
+    public void xuatQuanLy(QuanLy ql)
     {
         ql.hienThiThongTin();
     }
-    public boolean themQuanLy(quanly ql)
+    public boolean themQuanLy(QuanLy ql)
     {
         if(ql==null||soluongQL==MAX_QL)
         {
             return false;
         }
-        dsQL[soluongQL++]=ql;
+        dsQuanLy[soluongQL++]=ql;
         return true;
     }
     public boolean xoaQuanLy(String maQL)
     {
         for(int i=0;i<soluongQL;i++)
         {
-            if(dsQL[i].getMaQL().equals(maQL))
+            if(dsQuanLy[i].getMaQL().equals(maQL))
             {
                 for(int j=i;j<soluongQL-1;j++)
                 {
-                    dsQL[j]=dsQL[j+1];
+                    dsQuanLy[j]=dsQuanLy[j+1];
                 }
-                dsQL[soluongQL-1]=null;
+                dsQuanLy[soluongQL-1]=null;
                 soluongQL--;
                 return true;
             }
@@ -157,7 +157,7 @@ public class quanlynhansu{
     public boolean suaQuanLy(String maQL)
     {
         for (int i=0;i<soluongQL;i++) {
-            if(dsQL[i].getMaQL().equals(maQL))
+            if(dsQuanLy[i].getMaQL().equals(maQL))
             {
                 Scanner sc=new Scanner(System.in);
                 System.out.println("1.Sua ma nguoi.");
@@ -170,13 +170,13 @@ public class quanlynhansu{
                 System.out.println("Lua chon cua ban:");
                 int k=sc.nextInt();
                 switch (k) {
-                    case 2:dsQL[i].setHoTen();;break;
-                    case 3:dsQL[i].setSDT();;break;
-                    case 1:dsQL[i].setMaNguoi();break;
-                    case 4:dsQL[i].setEmail();;break;
-                    case 5:dsQL[i].setDiaChi();;break;
-                    case 6:dsQL[i].setMaQL();;;break;
-                    case 7:dsQL[i].setPhuCap();;;break;
+                    case 2:dsQuanLy[i].setHoTen();;break;
+                    case 3:dsQuanLy[i].setSDT();;break;
+                    case 1:dsQuanLy[i].setCCCD();break;
+                    case 4:dsQuanLy[i].setEmail();;break;
+                    case 5:dsQuanLy[i].setDiaChi();;break;
+                    case 6:dsQuanLy[i].setMaQL();;;break;
+                    case 7:dsQuanLy[i].setPhuCap();;;break;
                 
                     default:
                         break;
@@ -187,12 +187,12 @@ public class quanlynhansu{
         }
         return false;
     }
-    public quanly timKiemQuanly(String maQL)
+    public QuanLy timKiemQuanly(String maQL)
     {
         for(int i=0;i<soluongQL;i++)
         {
-            if(dsQL[i].getMaQL().equals(maQL))
-                return dsQL[i];
+            if(dsQuanLy[i].getMaQL().equals(maQL))
+                return dsQuanLy[i];
         }
         return null;
     }
@@ -201,7 +201,7 @@ public class quanlynhansu{
         double tongluong=0;
         for(int i=0;i<soluongQL;i++)
         {
-            tongluong+=dsQL[i].tinhLuong();
+            tongluong+=dsQuanLy[i].tinhLuong();
         }
         return tongluong;
     }
@@ -219,17 +219,17 @@ public class quanlynhansu{
         System.out.println("Quan ly :");
         int qlkt=0,nvkt=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQL[i].getPhongBan().equals("ke toan"))
+            if(dsQuanLy[i].getPhongBan().equals("ke toan"))
             {
-                System.out.println(dsQL[i].getHoTen());
+                System.out.println(dsQuanLy[i].getHoTen());
                 qlkt++;
             }
         }
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNV[i].getChucVu().equals("ke toan"))
+            if(dsNhanVien[i].getChucVu().equals("ke toan"))
             {
-                System.out.println(dsNV[i].getHoTen());
+                System.out.println(dsNhanVien[i].getHoTen());
                 nvkt++;
             }  
         }
@@ -240,17 +240,17 @@ public class quanlynhansu{
         System.out.println("Quan ly :");
         int qlbv=0,nvbv=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQL[i].getPhongBan().equals("bao ve"))
+            if(dsQuanLy[i].getPhongBan().equals("bao ve"))
             {
-                System.out.println(dsQL[i].getHoTen());
+                System.out.println(dsQuanLy[i].getHoTen());
                 qlbv++;
             }   
         }
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNV[i].getChucVu().equals("bao ve"))
+            if(dsNhanVien[i].getChucVu().equals("bao ve"))
             {
-                System.out.println(dsNV[i].getHoTen());
+                System.out.println(dsNhanVien[i].getHoTen());
                 nvbv++;
             }
         }
@@ -261,9 +261,9 @@ public class quanlynhansu{
         System.out.println("Quan ly :");
         int qlk=0,nvk=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQL[i].getPhongBan().equals("kho"))
+            if(dsQuanLy[i].getPhongBan().equals("kho"))
             {
-                System.out.println(dsQL[i].getHoTen());
+                System.out.println(dsQuanLy[i].getHoTen());
                 qlk++;
             }
             
@@ -271,9 +271,9 @@ public class quanlynhansu{
 
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNV[i].getChucVu().equals("kho"))
+            if(dsNhanVien[i].getChucVu().equals("kho"))
             {
-                System.out.println(dsNV[i].getHoTen());
+                System.out.println(dsNhanVien[i].getHoTen());
                 nvk++;
             }
             
@@ -284,7 +284,7 @@ public class quanlynhansu{
 
 
     }
-    public void napDuLieu(nhanvien[] dsnv,quanly[] dsql)
+    public void napDuLieu(NhanVien[] dsnv,QuanLy[] dsql)
 {
     Scanner sc=new Scanner(System.in);
     System.out.println("1.Nap du lieu nhan vien.");
@@ -293,7 +293,7 @@ public class quanlynhansu{
     int k=sc.nextInt();
     switch (k) {
         case 1:
-            for (int i=0;i<soluongNV;i++) dsNV[i]=null;
+            for (int i=0;i<soluongNV;i++) dsNhanVien[i]=null;
             soluongNV=0;
             if(dsnv==null) break;
             for (int i=0;i<dsnv.length;i++) {
@@ -303,11 +303,11 @@ public class quanlynhansu{
                     System.out.println("Danh sach da day,bo qua mang du.");
                     break;
                 }
-                dsNV[soluongNV++]=dsnv[i];
+                dsNhanVien[soluongNV++]=dsnv[i];
             }
             break;
         case 2:
-            for (int i=0;i<soluongQL;i++) dsQL[i]=null;
+            for (int i=0;i<soluongQL;i++) dsQuanLy[i]=null;
             soluongQL=0;
             if(dsql==null) break;
             for (int i=0;i<dsql.length;i++) {
@@ -317,16 +317,30 @@ public class quanlynhansu{
                     System.out.println("Danh sach da day,bo qua mang du.");
                     break;
                 }
-                dsQL[soluongQL++]=dsql[i];
+                dsQuanLy[soluongQL++]=dsql[i];
             }
             break;
         default:
             break;
     }
 }
+    public void xuatDSNhanVien()
+    {
+        for(int i=0;i<soluongNV;i++)
+        {
+            xuatNhanVien(dsNhanVien[i]);
+        }
+    }
+    public void xuatDSQuanLy()
+    {
+        for(int i=0;i<soluongQL;i++)
+        {
+            xuatQuanLy(dsQuanLy[i]);
+        }
+    }
     public static void main(String[] args)
     {
-        quanlynhansu qlns=new quanlynhansu();
+        DanhSachNhanVien qlns=new DanhSachNhanVien();
         Scanner sc=new Scanner(System.in);
         int chon;
         do{
@@ -339,6 +353,8 @@ public class quanlynhansu{
             System.out.println("7.Xoa quan ly.");
             System.out.println("8.Tim quan ly.");
             System.out.println("9.Thong ke nhan su.");
+            System.out.println("10.Xuat nhan vien.");
+            System.out.println("11.Xuat quan ly.");
             System.out.println("0.OUT.");
             System.out.println("Lua chon cua ban :");
             chon=sc.nextInt();
@@ -358,7 +374,9 @@ public class quanlynhansu{
                 case 4:
                     System.out.println("Nhap vao ma nhan vien:");
                     a=sc.nextLine();
-                    System.out.println(qlns.timKiemNV(a).getThongTin());
+                    NhanVien nv = qlns.timKiemNV(a);
+                    if (nv == null) System.out.println("Khong tim thay.");
+                    else nv.hienThiThongTin();
                     break;
                 case 5:qlns.nhapQuanLy();break; 
                 case 6:
@@ -374,10 +392,17 @@ public class quanlynhansu{
                 case 8:
                     System.out.println("Nhap vao ma quan ly:");
                     a=sc.nextLine();
-                    System.out.println(qlns.timKiemNV(a).getThongTin());
+                    QuanLy ql = qlns.timKiemQuanly(a);
+                    if (ql == null) System.out.println("Khong tim thay.");
+                    else ql.hienThiThongTin();  
                     break;
                 case 9:
                     qlns.thongKeNhanSu();break;
+                case 10:
+                    qlns.xuatDSNhanVien();
+                    break;
+                case 11:
+                    qlns.xuatDSQuanLy();    
                 case 0:return;
             }
         }

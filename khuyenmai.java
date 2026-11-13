@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class khuyenmai {
+public class KhuyenMai {
     private String maKM;
     private String tenKM;
     private double phanTramGiam;
