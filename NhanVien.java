@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class NhanVien extends Nguoi {
     private String maNV;
     private String chucVu;
-    private double luongCoBan;
+    private double luongCoBanNV;
     private int soGioLam;
 
     public NhanVien()
@@ -12,7 +12,7 @@ public class NhanVien extends Nguoi {
         super();
         maNV=null;
         chucVu=null;
-        luongCoBan=0;
+        luongCoBanNV=0;
         soGioLam=0;
     }
     public NhanVien(String CCCD,String hoTen,String sdt,String email,String diaChi,String maNV,String chucVu,double luongCoBan,int soGioLam)
@@ -20,7 +20,7 @@ public class NhanVien extends Nguoi {
         super(CCCD, hoTen, sdt, email, diaChi);
         this.maNV=maNV;
         this.chucVu=chucVu;
-        this.luongCoBan=luongCoBan;
+        this.luongCoBanNV=luongCoBan;
         this.soGioLam=soGioLam;
     }
     public void setMaNV()
@@ -40,11 +40,11 @@ public class NhanVien extends Nguoi {
         Scanner sc=new Scanner(System.in);
         do{
             System.out.println("Nhap vao luong co ban : ");
-            this.luongCoBan=sc.nextDouble();
+            this.luongCoBanNV=sc.nextDouble();
             sc.nextLine();
 
         }
-        while(luongCoBan<0);
+        while(luongCoBanNV<0);
         
     }
     public void setSoGioLam()
@@ -67,7 +67,7 @@ public class NhanVien extends Nguoi {
     }
     public void setLuongCoBanNV(double luongCoBan)
     {
-        this.luongCoBan=luongCoBan;
+        this.luongCoBanNV=luongCoBan;
     }
     public void setSoGioLam(int soGioLam)
     {
@@ -82,9 +82,9 @@ public class NhanVien extends Nguoi {
     {
         return chucVu;
     }
-    public double getLuongCobanNV()
+    public double getLuongCoBanNV()
     {
-        return luongCoBan;
+        return luongCoBanNV;
     }
     public int getSoGioLam()
     {
@@ -92,12 +92,12 @@ public class NhanVien extends Nguoi {
     }
     public double tinhLuong()
     {
-        return luongCoBan*soGioLam;
+        return luongCoBanNV*soGioLam;
     }
     public void hienThiThongTin()
     {
         System.out.println(getThongTin());
-        System.out.println("Ma NV : "+maNV+"| Chuc vu : "+chucVu+"| Luong co ban : "+luongCoBan+"| So gio lam :"+soGioLam+"| Luong : "+tinhLuong());
+        System.out.println("Ma NV : "+maNV+"| Chuc vu : "+chucVu+"| Luong co ban : "+luongCoBanNV+"| So gio lam :"+soGioLam+"| Luong : "+tinhLuong());
     }
     
 }

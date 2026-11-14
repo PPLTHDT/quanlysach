@@ -5,7 +5,7 @@ public class QuanLy extends Nguoi {
     private String maQL;
     private double phuCap;
     private String phongBan;
-    private double luongCoBanQL;
+    private double luongCoBanQL=15000000;
 
     public QuanLy()
     {
@@ -34,7 +34,7 @@ public class QuanLy extends Nguoi {
             System.out.println("Nhap vao phu cap : ");
             phuCap=sc.nextDouble();
             sc.nextLine();
-        }while(phuCap>0);
+        }while(phuCap<0);
     }
     public void setPhongBan()
     {

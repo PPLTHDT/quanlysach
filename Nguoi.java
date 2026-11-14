@@ -24,6 +24,40 @@ public abstract class Nguoi {
         this.diaChi=diaChi;
 
     }
+
+    // ===== Setter nhap tu ban phim (UML: setCCCD() / setHoTen() / ...) =====
+    public void setCCCD()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.printf("Nhap vao CCCD :");
+        this.CCCD=sc.nextLine();
+    }
+    public void setHoTen()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.printf("Nhap vao ho ten :");
+        this.hoTen=sc.nextLine();
+    }
+    public void setSDT()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.printf("Nhap vao SDT :");
+        this.sdt=sc.nextLine();
+    }
+    public void setEmail()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.printf("Nhap vao email :");
+        this.email=sc.nextLine();
+    }
+    public void setDiaChi()
+    {
+        Scanner sc=new Scanner(System.in);
+        System.out.printf("Nhap vao dia chi :");
+        this.diaChi=sc.nextLine();
+    }
+
+    // ===== Setter co tham so (DocGhiFile dung de doc du lieu tu file) =====
     public void setCCCD(String cccd)
     {
         this.CCCD=cccd;
@@ -31,6 +65,10 @@ public abstract class Nguoi {
     public void setHoTen(String hoten)
     {
         this.hoTen=hoten;
+    }
+    public void setSDT(String sdt)
+    {
+        this.sdt=sdt;
     }
     public void setEmail(String email)
     {
@@ -40,10 +78,8 @@ public abstract class Nguoi {
     {
         this.diaChi=diachi;
     }
-    public void setSDT(String sdt)
-    {
-        this.sdt=sdt;
-    }
+
+    // ===== Getter =====
     public String getCCCD()
     {
         return CCCD;
@@ -69,5 +105,5 @@ public abstract class Nguoi {
         return "-CCCD : "+CCCD+"| Ho ten : "+hoTen+"| SDT : "+sdt+"| Email : "+email+"| Dia chi : "+diaChi;
     }
     abstract public void hienThiThongTin();
-    
+
 }

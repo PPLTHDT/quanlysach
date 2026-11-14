@@ -3,13 +3,13 @@ package doan;
 import java.util.Scanner;
 
 public class DanhSachKhachHang {
-    private KhachHang[] dsKhachHang = new KhachHang[MAX_KH];
+    private KhachHang[] dsKhachHang = new KhachHang[MAX];
     private int soLuong=0;
-    public static final int MAX_KH=100;
+    public static final int MAX=100;
 
-    public boolean themKH(KhachHang a)
+    public boolean them(KhachHang a)
     {
-        if(a==null||soLuong==MAX_KH)
+        if(a==null||soLuong==MAX)
         {
             return false;
         }
@@ -30,14 +30,22 @@ public class DanhSachKhachHang {
         kh.setMaKH();
         kh.setDiemTichLuy();
 
-        themKH(kh);
+        them(kh);
     }
     public void xuatKhachHang(KhachHang kh)
     {
         kh.hienThiThongTin();
     }
 
-    public boolean suaKH(String maKH)
+    public void xuat()
+    {
+        for(int i=0;i<soLuong;i++)
+        {
+            xuatKhachHang(dsKhachHang[i]);
+        }
+    }
+
+    public boolean suaTheoMa(String maKH)
     {
         for (int i=0;i<soLuong;i++) {
             if(dsKhachHang[i].getMaKH().equals(maKH))
@@ -71,7 +79,7 @@ public class DanhSachKhachHang {
         System.out.println("Khong tim thay ma KH nay.");
         return false;
     }
-    public boolean xoaKhachHang(String maKH)
+    public boolean xoaTheoMa(String maKH)
     {
         for(int i=0;i<soLuong;i++)
         {
@@ -116,7 +124,7 @@ public class DanhSachKhachHang {
             if(dsKH==null) return;
             for (int i=0;i<dsKH.length;i++) {
                 if(dsKH[i]==null)continue;
-                if(soLuong==MAX_KH)
+                if(soLuong==MAX)
                 {
                     System.out.println("Danh sach da day,bo qua mang du.");
                     break;
@@ -124,11 +132,11 @@ public class DanhSachKhachHang {
                 dsKhachHang[soLuong++]=dsKH[i];
             }
     }
-    public KhachHang[] getDS()
+    public KhachHang[] getDs()
     {
         return dsKhachHang;
     }
-    public int getSoluong()
+    public int getSoLuong()
     {
         return soLuong;
     }
@@ -154,12 +162,12 @@ public class DanhSachKhachHang {
                 case 2:
                     System.out.println("Nhap vao ma khach hang:");
                     String a=sc.nextLine();
-                    dskh.suaKH(a);
+                    dskh.suaTheoMa(a);
                     break;
                 case 3:
                     System.out.println("Nhap vao ma khach hang:");
                     a=sc.nextLine();
-                    dskh.xoaKhachHang(a);
+                    dskh.xoaTheoMa(a);
                     break;
                 case 4:
                     System.out.println("Nhap vao ma khach hang:");

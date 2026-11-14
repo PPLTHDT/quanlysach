@@ -42,7 +42,7 @@ public class DanhSachNhanVien{
             if(dsNhanVien[i].getMaNV().equals(maNV))
             {
                 Scanner sc=new Scanner(System.in);
-                System.out.println("1.Sua ma nguoi.");
+                System.out.println("1.Sua CCCD.");
                 System.out.println("2.Sua ho ten.");
                 System.out.println("3.Sua sdt.");
                 System.out.println("4.Sua email.");
@@ -160,7 +160,7 @@ public class DanhSachNhanVien{
             if(dsQuanLy[i].getMaQL().equals(maQL))
             {
                 Scanner sc=new Scanner(System.in);
-                System.out.println("1.Sua ma nguoi.");
+                System.out.println("1.Sua CCCD.");
                 System.out.println("2.Sua ho ten.");
                 System.out.println("3.Sua sdt.");
                 System.out.println("4.Sua email.");
@@ -285,45 +285,57 @@ public class DanhSachNhanVien{
 
     }
     public void napDuLieu(NhanVien[] dsnv,QuanLy[] dsql)
-{
-    Scanner sc=new Scanner(System.in);
-    System.out.println("1.Nap du lieu nhan vien.");
-    System.out.println("2.Nap du lieu quan ly.");
-    System.out.println("Lua chon cua ban :");
-    int k=sc.nextInt();
-    switch (k) {
-        case 1:
-            for (int i=0;i<soluongNV;i++) dsNhanVien[i]=null;
-            soluongNV=0;
-            if(dsnv==null) break;
+    {
+        for (int i=0;i<soluongNV;i++) dsNhanVien[i]=null;
+        soluongNV=0;
+        if(dsnv!=null)
+        {
             for (int i=0;i<dsnv.length;i++) {
                 if(dsnv[i]==null)continue;
                 if(soluongNV==MAX_NV)
                 {
-                    System.out.println("Danh sach da day,bo qua mang du.");
+                    System.out.println("Danh sach nhan vien da day,bo qua mang du.");
                     break;
                 }
                 dsNhanVien[soluongNV++]=dsnv[i];
             }
-            break;
-        case 2:
-            for (int i=0;i<soluongQL;i++) dsQuanLy[i]=null;
-            soluongQL=0;
-            if(dsql==null) break;
+        }
+        for (int i=0;i<soluongQL;i++) dsQuanLy[i]=null;
+        soluongQL=0;
+        if(dsql!=null)
+        {
             for (int i=0;i<dsql.length;i++) {
                 if(dsql[i]==null)continue;
                 if(soluongQL==MAX_QL)
                 {
-                    System.out.println("Danh sach da day,bo qua mang du.");
+                    System.out.println("Danh sach quan ly da day,bo qua mang du.");
                     break;
                 }
                 dsQuanLy[soluongQL++]=dsql[i];
             }
-            break;
-        default:
-            break;
+        }
     }
-}
+    public void xuat()
+    {
+        xuatDSNhanVien();
+        xuatDSQuanLy();
+    }
+    public NhanVien[] getDsNhanVien()
+    {
+        return dsNhanVien;
+    }
+    public QuanLy[] getDsQuanLy()
+    {
+        return dsQuanLy;
+    }
+    public int getSoLuongNV()
+    {
+        return soluongNV;
+    }
+    public int getSoLuongQL()
+    {
+        return soluongQL;
+    }
     public void xuatDSNhanVien()
     {
         for(int i=0;i<soluongNV;i++)
@@ -402,7 +414,8 @@ public class DanhSachNhanVien{
                     qlns.xuatDSNhanVien();
                     break;
                 case 11:
-                    qlns.xuatDSQuanLy();    
+                    qlns.xuatDSQuanLy();
+                    break;
                 case 0:return;
             }
         }

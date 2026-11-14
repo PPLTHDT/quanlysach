@@ -17,13 +17,13 @@ public class KhachHang extends  Nguoi {
         this.maKH=maKH;
         this.diemTichLuy=diemTichLuy;
     }
-    public void tangDiemTichLuy(int diemTichLuy)
+    public void tangDiemTichLuy(int diem)
     {
-        diemTichLuy++;
+        this.diemTichLuy+=diem;
     }
-    public void giamDiemTichLuy(int diemTichLuy)
+    public void giamDiemTichLuy(int diem)
     {
-        diemTichLuy--;
+        this.diemTichLuy-=diem;
     }
     public void setMaKH()
     {
