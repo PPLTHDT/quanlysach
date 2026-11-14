@@ -77,7 +77,7 @@ public class CuaHangSach {
                     if (danhSachSach != null) danhSachSach.xuat();
                     break;
                 case 2:
-                    if (danhSachTheLoai != null) danhSachTheLoai.xuat();
+                    quanLyTheLoai();
                     break;
                 case 3:
                     if (danhSachTacGia != null) danhSachTacGia.xuat();
@@ -120,16 +120,29 @@ public class CuaHangSach {
         } while (chon != 0);
     }
 
-    public void lapHoaDon() {
+    private void lapHoaDon() {
         if (danhSachHoaDon != null) {
             danhSachHoaDon.nhap();
         }
     }
 
-    public void lapPhieuNhap() {
+    private void lapPhieuNhap() {
         if (danhSachPhieuNhap != null) {
             danhSachPhieuNhap.nhap();
         }
+    }
+
+    private void quanLyTheLoai() {
+        if (danhSachTheLoai != null) {
+            danhSachTheLoai.xuat();
+        }
+    }
+
+    private boolean xoaTheLoai(String ma) {
+        if (danhSachTheLoai != null) {
+            return danhSachTheLoai.xoaTheoMa(ma);
+        }
+        return false;
     }
 
     // Getter cac danh sach theo so do lop

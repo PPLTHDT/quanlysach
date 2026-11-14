@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class DanhSachPhieuNhap {
     private PhieuNhap[] dsPhieuNhap;
@@ -29,16 +28,13 @@ public class DanhSachPhieuNhap {
             return false;
         }
 
-        Scanner sc = Main.sc;
         System.out.println("=== SUA THONG TIN PHIEU NHAP [" + ma + "] ===");
-        System.out.print("Nhap ten nha xuat ban moi (de trong de giu nguyen): ");
-        String tenNXB = sc.nextLine().trim();
-        if (!tenNXB.isEmpty()) {
-            if (pn.getNhaXuatBan() == null) {
-                pn.setNhaXuatBan(new NhaXuatBan("", tenNXB, ""));
-            } else {
-                pn.getNhaXuatBan().setTenNXB(tenNXB);
-            }
+        String tenCu = (pn.getNhaXuatBan() != null) ? pn.getNhaXuatBan().getTenNXB() : "";
+        String tenNXB = Main.docChuoiGiuCu("Nhap ten nha xuat ban moi", tenCu);
+        if (pn.getNhaXuatBan() == null) {
+            pn.setNhaXuatBan(new NhaXuatBan("", tenNXB, ""));
+        } else {
+            pn.getNhaXuatBan().setTenNXB(tenNXB);
         }
         System.out.println("Sua thong tin phieu nhap thanh cong!");
         return true;
@@ -79,56 +75,28 @@ public class DanhSachPhieuNhap {
     }
 
     public void nhap() {
-        Scanner sc = Main.sc;
         System.out.println("\n--- NHAP THONG TIN PHIEU NHAP MOI ---");
-        System.out.print("Nhap ma phieu nhap (vd: PN01): ");
-        String maPN = sc.nextLine().trim();
+        String maPN = Main.docChuoi("Nhap ma phieu nhap (vd: PN01): ");
 
         if (timKiem(maPN) != null) {
             System.out.println("Loi: Ma phieu nhap nay da ton tai!");
             return;
         }
 
-        System.out.print("Nhap ten nha xuat ban: ");
-        String tenNXB = sc.nextLine().trim();
+        String tenNXB = Main.docChuoi("Nhap ten nha xuat ban: ");
         NhaXuatBan nxb = new NhaXuatBan("NXB_" + maPN, tenNXB, "");
 
         PhieuNhap pn = new PhieuNhap(maPN, LocalDate.now(), nxb);
 
-        System.out.print("Nhap so luong loai sach muon nhap: ");
-        int n = 0;
-        try {
-            n = Integer.parseInt(sc.nextLine().trim());
-        } catch (Exception e) {
-            n = 0;
-        }
+        int n = Main.docSoNguyen("Nhap so luong loai sach muon nhap: ");
 
         for (int i = 0; i < n; i++) {
             System.out.println("\n-> Nhap chi tiet thu " + (i + 1) + ":");
-            System.out.print("  Ma chi tiet (vd: CT01): ");
-            String maCT = sc.nextLine().trim();
-
-            System.out.print("  Ma sach: ");
-            String maSach = sc.nextLine().trim();
-
-            System.out.print("  Ten sach: ");
-            String tenSach = sc.nextLine().trim();
-
-            System.out.print("  So luong nhap: ");
-            int sl = 0;
-            try {
-                sl = Integer.parseInt(sc.nextLine().trim());
-            } catch (Exception e) {
-                sl = 1;
-            }
-
-            System.out.print("  Don gia nhap (VND): ");
-            double donGia = 0.0;
-            try {
-                donGia = Double.parseDouble(sc.nextLine().trim());
-            } catch (Exception e) {
-                donGia = 0.0;
-            }
+            String maCT = Main.docChuoi("  Ma chi tiet (vd: CT01): ");
+            String maSach = Main.docChuoi("  Ma sach: ");
+            String tenSach = Main.docChuoi("  Ten sach: ");
+            int sl = Main.docSoNguyen("  So luong nhap: ");
+            double donGia = Main.docSoThuc("  Don gia nhap (VND): ");
 
             Sach sach = new Sach(maSach, tenSach, 2024, donGia * 1.2, 0);
             ChiTietPhieuNhap ct = new ChiTietPhieuNhap(maCT, sach, sl, donGia);
@@ -175,9 +143,9 @@ public class DanhSachPhieuNhap {
             }
         }
 
-        System.out.printf("Tong chi phi da chi cho nhap sach : %,15.0f VND%n", tongChiPhi);
+        System.out.printf("Tong chi phi da chi cho nhap sach : %18s%n", Main.dinhDangTien(tongChiPhi));
         if (soLuong > 0) {
-            System.out.printf("Phieu nhap co gia tri lon nhat     : %s (%,.0f VND)%n", maMax, maxTien);
+            System.out.printf("Phieu nhap co gia tri lon nhat     : %s (%s)%n", maMax, Main.dinhDangTien(maxTien));
         }
         System.out.println("========================================================");
     }

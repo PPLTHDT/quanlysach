@@ -11,6 +11,13 @@ public class ChiTietPhieuNhap {
         this.donGiaNhap = 0.0;
     }
 
+    public ChiTietPhieuNhap(Sach sach, int soLuongNhap, double donGiaNhap) {
+        this.maCT = "";
+        this.sach = sach;
+        this.soLuongNhap = soLuongNhap;
+        this.donGiaNhap = donGiaNhap;
+    }
+
     public ChiTietPhieuNhap(String maCT, Sach sach, int soLuongNhap, double donGiaNhap) {
         this.maCT = maCT;
         this.sach = sach;

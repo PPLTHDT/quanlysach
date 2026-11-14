@@ -53,7 +53,7 @@ public class PhieuNhap {
     public void inPhieuNhap() {
         System.out.println("========== THONG TIN PHIEU NHAP ==========");
         System.out.println("Ma phieu nhap : " + maPhieuNhap);
-        System.out.println("Ngay nhap     : " + ngayNhap);
+        System.out.println("Ngay nhap     : " + Main.dinhDangNgay(ngayNhap));
         System.out.println("Nha xuat ban  : " + (nhaXuatBan != null ? nhaXuatBan.getTenNXB() : "(Chua co)"));
         System.out.println("--- Danh sach chi tiet sach nhap ---");
         if (soLuongChiTiet == 0) {
@@ -62,11 +62,13 @@ public class PhieuNhap {
             for (int i = 0; i < soLuongChiTiet; i++) {
                 ChiTietPhieuNhap ct = dsChiTiet[i];
                 String tenSach = (ct.getSach() != null) ? ct.getSach().getTenSach() : "(Khong co ten)";
-                System.out.printf("  %d. Ma CT: %-6s | Sach: %-22s | SL: %-3d | Don gia: %,10.0f | Thanh tien: %,12.0f VND%n",
-                        (i + 1), ct.getMaCT(), tenSach, ct.getSoLuongNhap(), ct.getDonGiaNhap(), ct.tinhThanhTien());
+                System.out.printf("  %d. Ma CT: %-6s | Sach: %-22s | SL: %-3d | Don gia: %12s | Thanh tien: %14s%n",
+                        (i + 1), ct.getMaCT(), tenSach, ct.getSoLuongNhap(),
+                        Main.dinhDangTien(ct.getDonGiaNhap()),
+                        Main.dinhDangTien(ct.tinhThanhTien()));
             }
         }
-        System.out.printf("Tong tien     : %,15.0f VND%n", tinhTongTien());
+        System.out.println("Tong tien     : " + Main.dinhDangTien(tinhTongTien()));
         System.out.println("==========================================");
     }
 
