@@ -1,15 +1,28 @@
-public class Chitietphieunhap {
+public class ChiTietPhieuNhap {
+    private String maCT;
     private Sach sach;
     private int soLuongNhap;
     private double donGiaNhap;
 
-    public Chitietphieunhap(){
+    public ChiTietPhieuNhap(){
 
     }
-    public Chitietphieunhap(Sach sach , int soLuongNhap , double donGiaNhap){
+    public ChiTietPhieuNhap(Sach sach , int soLuongNhap , double donGiaNhap){
         this.sach=sach;
         setSoLuongNhap(soLuongNhap);
         setDonGiaNhap(donGiaNhap);
+    }
+    public ChiTietPhieuNhap(String maCT, Sach sach , int soLuongNhap , double donGiaNhap){
+        this.maCT=maCT;
+        this.sach=sach;
+        setSoLuongNhap(soLuongNhap);
+        setDonGiaNhap(donGiaNhap);
+    }
+    public String getMaCT(){
+        return maCT;
+    }
+    public void setMaCT(String maCT){
+        this.maCT=maCT;
     }
     public double tinhThanhTien(){
         return donGiaNhap * soLuongNhap;

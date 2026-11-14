@@ -19,12 +19,12 @@ public class HoaDon{
         this.ngayLap= LocalDate.now();
         this.dsChiTiet= new ChiTietHoaDon[SoChiTietBanDau];
     }
-    public HoaDon(String maHD , LocalDate ngayLap , double tongTien , KhachHang khachHang, NhanVien nhanVien , ThanhToan thanhToan){
+    public HoaDon(String maHD , LocalDate ngayLap , KhachHang khachHang, NhanVien nhanVien){
         this.maHD = maHD;
         this.ngayLap = ngayLap != null ? ngayLap : LocalDate.now();
         this.khachHang= khachHang;
         this.nhanVien= nhanVien;
-        this.thanhToan= thanhToan;
+        this.thanhToan= null;
         this.dsChiTiet = new ChiTietHoaDon[SoChiTietBanDau];
         this.soluongChiTiet =0;
         this.tongTien=0;
@@ -75,7 +75,10 @@ public class HoaDon{
     public double getTienGiam(){
         return tienGiam;
     }
-    public void setApDungKhuyenMai(KhuyenMai km){
+    public void setTienGiam(double tienGiam){
+        this.tienGiam= tienGiam;
+    }
+    public void apDungKhuyenMai(KhuyenMai km){
         if(km != null && km.conHieuLuc()){
             this.khuyenMai =km;
         }else{
@@ -86,16 +89,16 @@ public class HoaDon{
         }
         tinhTongTien();
     }
-    public void themChiTiet(ChiTietHoaDon ct){
+    public boolean themChiTiet(ChiTietHoaDon ct){
         if(ct== null){
-            return;
+            return false;
         }
         for(int i=0;i<soluongChiTiet;i++){
             ChiTietHoaDon cu = dsChiTiet[i];
             if(cu.getSach() != null && ct.getSach() != null && cu.getSach().getMaSach().equals(ct.getSach().getMaSach())){
                 cu.setSoLuong(cu.getSoLuong()+ ct.getSoLuong());
                 tinhTongTien();
-                return;
+                return true;
             }
         }
         if(soluongChiTiet == dsChiTiet.length){
@@ -103,6 +106,7 @@ public class HoaDon{
         }
         dsChiTiet[soluongChiTiet++]= ct;
         tinhTongTien();
+        return true;
     }
     public double tinhTongTien(){
         double tong =0;
@@ -110,14 +114,14 @@ public class HoaDon{
             tong += dsChiTiet[i].tinhThanhTien();
         }
         tienGiam =0;
-        if(tienGiam != null && khuyenMai.conHieuLuc()){
+        if(khuyenMai != null && khuyenMai.conHieuLuc()){
             tienGiam = khuyenMai.tinhTienGiam(tong);
-            if(tienGiam > 0){
-                tienGiam=tong;
-            }
         }
-        tongTien=tong;
+        tongTien = tong - tienGiam;
         return tongTien;
+    }
+    public double tinhTienPhaiTra(){
+        return tinhTongTien();
     }
     public boolean thucHienThanhToan(double tienKhachDua){
         if(thanhToan ==null || soluongChiTiet ==0){

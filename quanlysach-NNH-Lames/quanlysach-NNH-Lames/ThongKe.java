@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
-public class Thongke {
+public class ThongKe {
     public double tongDoanhThu(HoaDon[] ds, int n){
         double tong =0;
         for(int i=0;i<n;i++){
@@ -11,7 +11,7 @@ public class Thongke {
         }
         return tong;
     }
-    public double doangThuTheoNgay(HoaDon[] ds, int n, LocalDate ngay){
+    public double doanhThuTheoNgay(HoaDon[] ds, int n, LocalDate ngay){
         double tong =0;
         for(int i=0;i<n;i++){
             if(ds[i] != null && ds[i].getNgayLap().equals(ngay)){
@@ -20,7 +20,7 @@ public class Thongke {
         }
         return tong;
     }
-    public double doanhthuTheoThang(HoaDon[] ds, int n, int thang , int nam){
+    public double doanhThuTheoThang(HoaDon[] ds, int n, int thang , int nam){
         double tong =0;
         for(int i=0;i<n;i++){
             if(ds[i] == null){
@@ -63,7 +63,7 @@ public class Thongke {
     public double[] doanhThu12Thang(HoaDon[] ds, int n, int thang, int nam){
         double[] kq= new double[12];
         for(int i=1;i<=12;i++){
-            kq[i-1] = doanhthuTheoThang(ds, n, i, nam);
+            kq[i-1] = doanhThuTheoThang(ds, n, i, nam);
         }
         return kq;
     }
@@ -171,7 +171,6 @@ public void thongKeTongQuan(HoaDon[] dsHD, int nHD, Sach[] dsSach, int nSach) {
     inSachBanChay(dsHD, nHD, dsSach, nSach, 5);
     inSachSapHet(dsSach, nSach, 5);
 }
-}
 public int demKhachHang(KhachHang[] dsHD , int nHD , KhachHang[] dsKH, int nKH){
     int dem =0;
     for(int i=0;i<nKH;i++){
@@ -274,5 +273,5 @@ public void thongKeChiTietKhachHang(HoaDon[] dsHD, int nHD, KhachHang[] dsKH, in
     }
     System.out.println(dong);
 }
-
+}
  

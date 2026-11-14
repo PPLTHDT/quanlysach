@@ -424,7 +424,7 @@ public class DocGhiFile {
                 KhuyenMai km = f[5].isEmpty() ? null : dsKM.timKiem(f[5]);
 
                 HoaDon h = new HoaDon(f[1], docNgay(f[2]), kh, nv);
-                h.setKhuyenMai(km);
+                h.apDungKhuyenMai(km);
 
                 for (int k = i + 1; k < j; k++) {
                     try {
