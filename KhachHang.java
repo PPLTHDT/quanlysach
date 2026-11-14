@@ -17,13 +17,13 @@ public class KhachHang extends  Nguoi {
         this.maKH=maKH;
         this.diemTichLuy=diemTichLuy;
     }
-    public void tangDiemTichLuy()
+    public void tangDiemTichLuy(int diemTichLuy)
     {
-        this.diemTichLuy++;
+        diemTichLuy++;
     }
-    public void giamDiemTichLuy()
+    public void giamDiemTichLuy(int diemTichLuy)
     {
-        this.diemTichLuy--;
+        diemTichLuy--;
     }
     public void setMaKH()
     {
@@ -37,6 +37,14 @@ public class KhachHang extends  Nguoi {
         System.out.printf("Nhap vao diem tich luy :");
         this.diemTichLuy=sc.nextInt();
         sc.nextLine();
+    }
+    public void setMaKH(String maKH)
+    {
+        this.maKH=maKH;
+    }
+    public void setDiemTichLuy(int diemTichLuy)
+    {
+        this.diemTichLuy=diemTichLuy;
     }
     public String getMaKH()
     {

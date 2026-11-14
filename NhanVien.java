@@ -57,6 +57,22 @@ public class NhanVien extends Nguoi {
         }
         while(soGioLam<0);
     }
+    public void setMaNV(String maNV)
+    {
+        this.maNV=maNV;
+    }
+    public void setChucVu(String chucVu)
+    {
+        this.chucVu=chucVu;
+    }
+    public void setLuongCoBanNV(double luongCoBan)
+    {
+        this.luongCoBan=luongCoBan;
+    }
+    public void setSoGioLam(int soGioLam)
+    {
+        this.soGioLam=soGioLam;
+    }
 
     public String getMaNV()
     {
@@ -66,7 +82,7 @@ public class NhanVien extends Nguoi {
     {
         return chucVu;
     }
-    public double getLuongCoban()
+    public double getLuongCobanNV()
     {
         return luongCoBan;
     }

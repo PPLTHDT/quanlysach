@@ -24,37 +24,29 @@ public abstract class Nguoi {
         this.diaChi=diaChi;
 
     }
-    public void setCCCD()
+    public void setCCCD(String cccd)
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao CCCD :");
-        this.CCCD=sc.nextLine();
-
-
+        this.CCCD=cccd;
     }
-    public void setHoTen()
+    public void setHoTen(String hoten)
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao ho ten :");
-        this.hoTen=sc.nextLine();
+        this.hoTen=hoten;
     }
-    public void setEmail()
+    public void setEmail(String email)
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao email :");
-        this.email=sc.nextLine();
+        this.email=email;
     }
-    public void setDiaChi()
+    public void setDiaChi(String diachi)
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao dia chi :");
-        this.diaChi=sc.nextLine();
+        this.diaChi=diachi;
     }
-    public void setSDT()
+    public void setSDT(String sdt)
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao SDT :");
-        this.sdt=sc.nextLine();
+        this.sdt=sdt;
+    }
+    public String getCCCD()
+    {
+        return CCCD;
     }
     public String getHoTen()
     {

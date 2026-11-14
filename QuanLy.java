@@ -5,7 +5,7 @@ public class QuanLy extends Nguoi {
     private String maQL;
     private double phuCap;
     private String phongBan;
-    private double luongCoBanQL=15000000;
+    private double luongCoBanQL;
 
     public QuanLy()
     {
@@ -41,6 +41,26 @@ public class QuanLy extends Nguoi {
         Scanner sc=new Scanner(System.in);
         System.out.println("Nhap vao phong ban(ke toan,bao ve,kho) :");
         phongBan=sc.nextLine();
+    }
+    public void setMaQL(String maQL)
+    {
+        this.maQL=maQL;
+    }
+    public void setPhuCap(double phuCap)
+    {
+        this.phuCap=phuCap;
+    }
+    public void setPhongBan(String phongBan)
+    {
+        this.phongBan=phongBan;
+    }
+    public void setLuongCoBanQL(double luongCoBanQL)
+    {
+        this.luongCoBanQL=luongCoBanQL;
+    }
+    public double getLuongCoBanQL()
+    {
+        return luongCoBanQL;
     }
     public String getMaQL()
     {
