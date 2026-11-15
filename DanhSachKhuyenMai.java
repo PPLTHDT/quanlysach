@@ -128,4 +128,63 @@ public class DanhSachKhuyenMai {
     public int getSoLuong() {
         return soLuong;
     }
+
+    public void menu() {
+        int chon;
+        do {
+            System.out.println();
+            System.out.println("--- DanhSachKhuyenMai: QUAN LY KHUYEN MAI ---");
+            System.out.println("1. Them");
+            System.out.println("2. Xem danh sach");
+            System.out.println("3. Sua theo ma");
+            System.out.println("4. Xoa theo ma");
+            System.out.println("5. Tim kiem theo ma");
+            System.out.println("6. Thong ke");
+            System.out.println("0. Quay lai");
+            chon = Main.docSoNguyen("Chon: ");
+            switch (chon) {
+                case 1:
+                    nhap();
+                    break;
+                case 2:
+                    xuat();
+                    break;
+                case 3: {
+                    String ma = Main.docChuoi("Nhap ma can sua: ");
+                    if (suaTheoMa(ma)) {
+                        System.out.println("Sua thanh cong!");
+                    } else {
+                        System.out.println("Khong tim thay ma " + ma);
+                    }
+                    break;
+                }
+                case 4: {
+                    String ma = Main.docChuoi("Nhap ma can xoa: ");
+                    if (xoaTheoMa(ma)) {
+                        System.out.println("Xoa thanh cong!");
+                    } else {
+                        System.out.println("Khong tim thay ma " + ma);
+                    }
+                    break;
+                }
+                case 5: {
+                    String ma = Main.docChuoi("Nhap ma can tim: ");
+                    KhuyenMai kq = timKiem(ma);
+                    if (kq == null) {
+                        System.out.println("Khong tim thay ma " + ma);
+                    } else {
+                        kq.hienThi();
+                    }
+                    break;
+                }
+                case 6:
+                    thongKe();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le!");
+            }
+        } while (chon != 0);
+    }
 }
