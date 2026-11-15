@@ -268,7 +268,7 @@ public class DanhSachKhachHang {
 
 
 
-    public static void main(String[] args)
+    public void menuDanhSachKhachHang()
     {
         DanhSachKhachHang dskh=new DanhSachKhachHang();
         Scanner sc=new Scanner(System.in);
