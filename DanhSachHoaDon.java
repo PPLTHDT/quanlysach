@@ -215,6 +215,48 @@ public class DanhSachHoaDon {
         }
     }
 
+    public void menu() {
+        int chon;
+        do {
+            System.out.println();
+            System.out.println("--- DanhSachHoaDon: QUAN LY HOA DON ---");
+            System.out.println("1. Xem danh sach");
+            System.out.println("2. Sua ngay lap hoa don");
+            System.out.println("3. Xoa (da tieu chi / da thuoc tinh)");
+            System.out.println("4. Tim kiem (da tieu chi / da thuoc tinh)");
+            System.out.println("5. Thong ke");
+            System.out.println("0. Quay lai");
+            chon = Main.docSoNguyen("Chon: ");
+            switch (chon) {
+                case 1:
+                    xuat();
+                    break;
+                case 2: {
+                    String ma = Main.docChuoi("Nhap ma can sua: ");
+                    if (suaTheoMa(ma)) {
+                        System.out.println("Sua thanh cong!");
+                    } else {
+                        System.out.println("Khong tim thay ma " + ma);
+                    }
+                    break;
+                }
+                case 3:
+                    menuXoa(); // Goi menu xoa da thuoc tinh
+                    break;
+                case 4:
+                    menuTimKiem(); // Goi menu tim kiem da thuoc tinh
+                    break;
+                case 5:
+                    thongKe();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le!");
+            }
+        } while (chon != 0);
+    }
+
     public void menuXoa() {
         System.out.println("\n--- XOA HOA DON ---");
         System.out.println("1. Xoa theo ma hoa don");
