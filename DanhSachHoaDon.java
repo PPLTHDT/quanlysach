@@ -109,6 +109,61 @@ public class DanhSachHoaDon {
         return ketQua;
     }
 
+    public void menu() {
+        int chon;
+        do {
+            System.out.println();
+            System.out.println("--- DanhSachHoaDon: QUAN LY HOA DON ---");
+            System.out.println("1. Xem danh sach");
+            System.out.println("2. Sua ngay");
+            System.out.println("3. Xoa theo ma");
+            System.out.println("4. Tim kiem theo ma");
+            System.out.println("5. Thong ke");
+            System.out.println("0. Quay lai");
+            chon = Main.docSoNguyen("Chon: ");
+            switch (chon) {
+                case 1:
+                    xuat();
+                    break;
+                case 2: {
+                    String ma = Main.docChuoi("Nhap ma can sua: ");
+                    if (suaTheoMa(ma)) {
+                        System.out.println("Sua thanh cong!");
+                    } else {
+                        System.out.println("Khong tim thay ma " + ma);
+                    }
+                    break;
+                }
+                case 3: {
+                    String ma = Main.docChuoi("Nhap ma can xoa: ");
+                    if (xoaTheoMa(ma)) {
+                        System.out.println("Xoa thanh cong! (Ton kho va diem tich luy khong duoc hoan lai)");
+                    } else {
+                        System.out.println("Khong tim thay ma " + ma);
+                    }
+                    break;
+                }
+                case 4: {
+                    String ma = Main.docChuoi("Nhap ma can tim: ");
+                    HoaDon kq = timKiem(ma);
+                    if (kq == null) {
+                        System.out.println("Khong tim thay ma " + ma);
+                    } else {
+                        kq.inHoaDon();
+                    }
+                    break;
+                }
+                case 5:
+                    thongKe();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Lua chon khong hop le!");
+            }
+        } while (chon != 0);
+    }
+
     public int getSoLuong() {
         return soLuong;
     }
