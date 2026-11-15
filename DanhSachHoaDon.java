@@ -11,11 +11,12 @@ public class DanhSachHoaDon {
 
     // Tim vi tri cua phan tu theo ma, khong thay tra ve -1
     private int timViTri(String ma) {
-        for (int i = 0; i < soLuong; i++) {
-            if (dsHoaDon[i].getMaHD().equals(ma)) {
+        for(int i = 0; i < soLuong; i++) {
+            if(dsHoaDon[i].getMaHD().equalsIgnoreCase(ma)) {
                 return i;
             }
         }
+
         return -1;
     }
 
@@ -109,60 +110,174 @@ public class DanhSachHoaDon {
         return ketQua;
     }
 
-    public void menu() {
-        int chon;
-        do {
-            System.out.println();
-            System.out.println("--- DanhSachHoaDon: QUAN LY HOA DON ---");
-            System.out.println("1. Xem danh sach");
-            System.out.println("2. Sua ngay");
-            System.out.println("3. Xoa theo ma");
-            System.out.println("4. Tim kiem theo ma");
-            System.out.println("5. Thong ke");
-            System.out.println("0. Quay lai");
-            chon = Main.docSoNguyen("Chon: ");
-            switch (chon) {
-                case 1:
-                    xuat();
-                    break;
-                case 2: {
-                    String ma = Main.docChuoi("Nhap ma can sua: ");
-                    if (suaTheoMa(ma)) {
-                        System.out.println("Sua thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay ma " + ma);
-                    }
-                    break;
-                }
-                case 3: {
-                    String ma = Main.docChuoi("Nhap ma can xoa: ");
-                    if (xoaTheoMa(ma)) {
-                        System.out.println("Xoa thanh cong! (Ton kho va diem tich luy khong duoc hoan lai)");
-                    } else {
-                        System.out.println("Khong tim thay ma " + ma);
-                    }
-                    break;
-                }
-                case 4: {
-                    String ma = Main.docChuoi("Nhap ma can tim: ");
-                    HoaDon kq = timKiem(ma);
-                    if (kq == null) {
-                        System.out.println("Khong tim thay ma " + ma);
-                    } else {
-                        kq.inHoaDon();
-                    }
-                    break;
-                }
-                case 5:
-                    thongKe();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Lua chon khong hop le!");
-            }
-        } while (chon != 0);
+    public int getSoLuong() {
+        return soLuong;
     }
+
+    public void menuTimKiem() {
+        System.out.println("\n--- TIM KIEM HOA DON ---");
+        System.out.println("1. Theo ma hoa don");
+        System.out.println("2. Theo ngay lap (dd/MM/yyyy)");
+        System.out.println("3. Theo ma hoac ten khach hang");
+        System.out.println("4. Theo ma hoac ten nhan vien lap");
+        System.out.println("5. Theo khoang tien phai tra");
+        System.out.println("6. Loc hoa don co ap dung ma khuyen mai");
+        System.out.println("0. Quay lai");
+        int chon = Main.docSoNguyen("Chon cach tim: ");
+        boolean thay = false;
+        switch (chon) {
+            case 1: {
+                String ma = Main.docChuoi("Nhap ma HD: ");
+                HoaDon hd = timKiem(ma);
+                if (hd != null) {
+                    hd.inHoaDon();
+                } else {
+                    System.out.println("Khong tim thay ma " + ma);
+                }
+                break;
+            }
+            case 2: {
+                java.time.LocalDate ngay = Main.docNgay("Nhap ngay lap");
+                for (int i = 0; i < soLuong; i++) {
+                    if (dsHoaDon[i].getNgayLap().equals(ngay)) {
+                        dsHoaDon[i].inHoaDon();
+                        thay = true;
+                    }
+                }
+                if (!thay) {
+                    System.out.println("Khong tim thay hoa don nao trong ngay nay!");
+                }
+                break;
+            }
+            case 3: {
+                String tuKhoa = Main.docChuoi("Nhap ma hoac ten khach hang: ").toLowerCase();
+                for (int i = 0; i < soLuong; i++) {
+                    KhachHang kh = dsHoaDon[i].getKhachHang();
+                    if (kh != null && (kh.getMaKH().toLowerCase().contains(tuKhoa)
+                            || kh.getHoTen().toLowerCase().contains(tuKhoa))) {
+                        dsHoaDon[i].inHoaDon();
+                        thay = true;
+                    }
+                }
+                if (!thay) {
+                    System.out.println("Khong tim thay hoa don cua khach hang nay!");
+                }
+                break;
+            }
+            case 4: {
+                String tuKhoa = Main.docChuoi("Nhap ma hoac ten nhan vien: ").toLowerCase();
+                for (int i = 0; i < soLuong; i++) {
+                    NhanVien nv = dsHoaDon[i].getNhanVien();
+                    if (nv != null && (nv.getMaNV().toLowerCase().contains(tuKhoa)
+                            || nv.getHoTen().toLowerCase().contains(tuKhoa))) {
+                        dsHoaDon[i].inHoaDon();
+                        thay = true;
+                    }
+                }
+                if (!thay) {
+                    System.out.println("Khong tim thay hoa don do nhan vien nay lap!");
+                }
+                break;
+            }
+            case 5: {
+                double min = Main.docSoThuc("Tong tien toi thieu: ");
+                double max = Main.docSoThuc("Tong tien toi da: ");
+                for (int i = 0; i < soLuong; i++) {
+                    double tien = dsHoaDon[i].tinhTienPhaiTra();
+                    if (tien >= min && tien <= max) {
+                        dsHoaDon[i].inHoaDon();
+                        thay = true;
+                    }
+                }
+                if (!thay) {
+                    System.out.println("Khong tim thay hoa don nao trong khoang tien nay!");
+                }
+                break;
+            }
+            case 6: {
+                String maKM = Main.docChuoi("Nhap ma KM (Enter de xem tat ca HD co khuyen mai): ").toLowerCase();
+                for (int i = 0; i < soLuong; i++) {
+                    KhuyenMai km = dsHoaDon[i].getKhuyenMai();
+                    if (km != null && (maKM.equals("") || km.getMaKM().toLowerCase().contains(maKM))) {
+                        dsHoaDon[i].inHoaDon();
+                        thay = true;
+                    }
+                }
+                if (!thay) {
+                    System.out.println("Khong tim thay hoa don nao phu hop!");
+                }
+                break;
+            }
+            case 0:
+                break;
+            default:
+                System.out.println("Lua chon khong hop le!");
+        }
+    }
+
+    public void menuXoa() {
+        System.out.println("\n--- XOA HOA DON ---");
+        System.out.println("1. Xoa theo ma hoa don");
+        System.out.println("2. Xoa theo ngay lap (dd/MM/yyyy)");
+        System.out.println("3. Xoa theo ma khach hang");
+        System.out.println("4. Xoa theo ma nhan vien lap");
+        System.out.println("5. Xoa theo phuong thuc thanh toan (Tien mat / Chuyen khoan)");
+        System.out.println("0. Quay lai");
+        int chon = Main.docSoNguyen("Chon cach xoa: ");
+        switch (chon) {
+            case 1: {
+                String ma = Main.docChuoi("Nhap ma HD can xoa: ");
+                if (xoaTheoMa(ma)) {
+                    System.out.println("Xoa thanh cong!");
+                } else {
+                    System.out.println("Khong tim thay ma " + ma);
+                }
+                break;
+            }
+            case 2: {
+                java.time.LocalDate ngay = Main.docNgay("Nhap ngay lap can xoa");
+                int dem = 0;
+                for (int i = 0; i < soLuong; i++) {
+                    if (dsHoaDon[i].getNgayLap().equals(ngay)) {
+                        xoaTheoMa(dsHoaDon[i].getMaHD());
+                        i--;
+                        dem++;
+                    }
+                }
+                System.out.println(dem > 0 ? "Da xoa " + dem + " hoa don!" : "Khong tim thay hoa don trong ngay nay!");
+                break;
+            }
+            case 3: {
+                String maKH = Main.docChuoi("Nhap ma KH can xoa hoa don: ");
+                int dem = 0;
+                for (int i = 0; i < soLuong; i++) {
+                    if (dsHoaDon[i].getKhachHang() != null
+                            && dsHoaDon[i].getKhachHang().getMaKH().equalsIgnoreCase(maKH)) {
+                        xoaTheoMa(dsHoaDon[i].getMaHD());
+                        i--;
+                        dem++;
+                    }
+                }
+                System.out.println(dem > 0 ? "Da xoa " + dem + " hoa don cua KH " + maKH : "Khong tim thay hoa don nao!");
+                break;
+            }
+            case 4: {
+                String maNV = Main.docChuoi("Nhap ma NV can xoa hoa don: ");
+                int dem = 0;
+                for (int i = 0; i < soLuong; i++) {
+                    if (dsHoaDon[i].getNhanVien() != null
+                            && dsHoaDon[i].getNhanVien().getMaNV().equalsIgnoreCase(maNV)) {
+                        xoaTheoMa(dsHoaDon[i].getMaHD());
+                        i--;
+                        dem++;
+                    }
+                }
+                System.out.println(dem > 0 ? "Da xoa " + dem + " hoa don cua NV " + maNV : "Khong tim thay hoa don nao!");
+            }
+        }
+    }
+}
+
 
     public int getSoLuong() {
         return soLuong;
