@@ -279,7 +279,3 @@ public class DanhSachHoaDon {
 }
 
 
-    public int getSoLuong() {
-        return soLuong;
-    }
-}
