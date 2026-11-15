@@ -18,7 +18,7 @@ public class TheLoai{
     public String getTenTheLoai(){
         return tenTheLoai;
     }
-    public String setTenTheLoai( String tenTheLoai){
+    public void setTenTheLoai( String tenTheLoai){
         this.tenTheLoai = tenTheLoai;
     }
     public void hienThi(){

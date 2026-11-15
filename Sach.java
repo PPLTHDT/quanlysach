@@ -84,17 +84,19 @@ public class Sach{
     public void hienThi(){
         System.out.println("Ma sach: " + maSach);
         System.out.println("Ten sach: " + tenSach);
-        System.out.println("Tac gia: ");
+        System.out.print("Tac gia: ");
         for( int i = 0; i < dsTacGia.length; i++){
-            System.out.println( dsTacGia[i].getTenTacGia() + "; ");
+            System.out.print(dsTacGia[i].getTenTacGia());
+            if( i < dsTacGia.length - 1){
+                System.out.print("; ");
+            }
         }
         System.out.println();
-        System.out.println( "Nam xuat ban: " + namXuatBan);
-        System.out.println("The loai: " + theLoai.getTenTheLoai());
-        System.out.println("Nha xuat ban: " + nhaXuatBan.getTenNXB());
+        System.out.println("Nam xuat ban: " + namXuatBan);
+        System.out.println("The loai: " + (theLoai == null ? "" : theLoai.getTenTheLoai()));
+        System.out.println("Nha xuat ban: " + (nhaXuatBan == null ? "" : nhaXuatBan.getTenNXB()));
         System.out.println("So luong ton: " + soLuongTon);
         System.out.println("Gia ban: " + giaBan);
         System.out.println();
-
     }
 }
