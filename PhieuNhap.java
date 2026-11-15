@@ -28,7 +28,20 @@ public class PhieuNhap {
     }
 
     public boolean themChiTiet(ChiTietPhieuNhap ct) {
-        if (ct == null || soLuongChiTiet >= MAX_CHI_TIET) {
+        if (ct == null || ct.getSach() == null || ct.getSoLuongNhap() <= 0 || ct.getDonGiaNhap() < 0) {
+            return false;
+        }
+        // Neu sach da co trong phieu nhap thi cong don so luong
+        for (int i = 0; i < soLuongChiTiet; i++) {
+            if (dsChiTiet[i].getSach() != null
+                    && dsChiTiet[i].getSach().getMaSach().equalsIgnoreCase(ct.getSach().getMaSach())) {
+                dsChiTiet[i].setSoLuongNhap(dsChiTiet[i].getSoLuongNhap() + ct.getSoLuongNhap());
+                dsChiTiet[i].setDonGiaNhap(ct.getDonGiaNhap());
+                tinhTongTien();
+                return true;
+            }
+        }
+        if (soLuongChiTiet >= MAX_CHI_TIET) {
             return false;
         }
         dsChiTiet[soLuongChiTiet++] = ct;
@@ -39,14 +52,18 @@ public class PhieuNhap {
     public double tinhTongTien() {
         tongTien = 0.0;
         for (int i = 0; i < soLuongChiTiet; i++) {
-            tongTien += dsChiTiet[i].tinhThanhTien();
+            if (dsChiTiet[i] != null) {
+                tongTien += dsChiTiet[i].tinhThanhTien();
+            }
         }
         return tongTien;
     }
 
     public void nhapKho() {
         for (int i = 0; i < soLuongChiTiet; i++) {
-            dsChiTiet[i].capNhatSoLuong();
+            if (dsChiTiet[i] != null) {
+                dsChiTiet[i].capNhatSoLuong();
+            }
         }
     }
 
@@ -62,7 +79,7 @@ public class PhieuNhap {
             for (int i = 0; i < soLuongChiTiet; i++) {
                 ChiTietPhieuNhap ct = dsChiTiet[i];
                 String tenSach = (ct.getSach() != null) ? ct.getSach().getTenSach() : "(Khong co ten)";
-                System.out.printf("  %d. Ma CT: %-6s | Sach: %-22s | SL: %-3d | Don gia: %12s | Thanh tien: %14s%n",
+                System.out.printf("  %d. Ma CT: %-7s | Sach: %-22s | SL: %-3d | Don gia: %12s | Thanh tien: %14s%n",
                         (i + 1), ct.getMaCT(), tenSach, ct.getSoLuongNhap(),
                         Main.dinhDangTien(ct.getDonGiaNhap()),
                         Main.dinhDangTien(ct.tinhThanhTien()));
@@ -82,8 +99,26 @@ public class PhieuNhap {
     public NhaXuatBan getNhaXuatBan() { return nhaXuatBan; }
     public void setNhaXuatBan(NhaXuatBan nhaXuatBan) { this.nhaXuatBan = nhaXuatBan; }
 
-    public ChiTietPhieuNhap[] getDsChiTiet() { return dsChiTiet; }
-    public void setDsChiTiet(ChiTietPhieuNhap[] dsChiTiet) { this.dsChiTiet = dsChiTiet; }
+    public ChiTietPhieuNhap[] getDsChiTiet() {
+        ChiTietPhieuNhap[] kq = new ChiTietPhieuNhap[soLuongChiTiet];
+        for (int i = 0; i < soLuongChiTiet; i++) {
+            kq[i] = dsChiTiet[i];
+        }
+        return kq;
+    }
+
+    public void setDsChiTiet(ChiTietPhieuNhap[] dsChiTiet) {
+        this.dsChiTiet = new ChiTietPhieuNhap[MAX_CHI_TIET];
+        this.soLuongChiTiet = 0;
+        if (dsChiTiet != null) {
+            for (int i = 0; i < dsChiTiet.length && soLuongChiTiet < MAX_CHI_TIET; i++) {
+                if (dsChiTiet[i] != null) {
+                    this.dsChiTiet[soLuongChiTiet++] = dsChiTiet[i];
+                }
+            }
+        }
+        tinhTongTien();
+    }
 
     public int getSoLuongChiTiet() { return soLuongChiTiet; }
     public void setSoLuongChiTiet(int soLuongChiTiet) { this.soLuongChiTiet = soLuongChiTiet; }
