@@ -1,4 +1,4 @@
-package doan;
+package cuahangsach;
 import java.util.Scanner;
 
 public class QuanLy extends Nguoi {
@@ -78,6 +78,7 @@ public class QuanLy extends Nguoi {
     {
         return luongCoBanQL+phuCap;
     }
+    @Override 
     public void hienThiThongTin()
     {
         System.out.println(getThongTin());

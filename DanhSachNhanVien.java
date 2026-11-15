@@ -1,4 +1,4 @@
-package doan;
+package cuahangsach;
 import java.util.Scanner;
 
 public class DanhSachNhanVien{
@@ -26,6 +26,13 @@ public class DanhSachNhanVien{
     {
         nv.hienThiThongTin();
     }
+    public void themNNV(int n)
+    {
+        for(int i=1;i<=n;i++)
+        {
+            nhapNhanVien();
+        }
+    }
     public boolean themNhanVien(NhanVien nv)
     {
         if(nv==null||soluongNV==MAX_NV)
@@ -39,7 +46,7 @@ public class DanhSachNhanVien{
     {
         
         for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getMaNV().equals(maNV))
+            if(dsNhanVien[i].getMaNV().contains(maNV))
             {
                 Scanner sc=new Scanner(System.in);
                 System.out.println("1.Sua CCCD.");
@@ -79,7 +86,7 @@ public class DanhSachNhanVien{
     {
         for(int i=0;i<soluongNV;i++)
         {
-            if(dsNhanVien[i].getMaNV().equals(maNV))
+            if(dsNhanVien[i].getMaNV().contains(maNV))
             {
                 for(int j=i;j<soluongNV-1;j++)
                 {
@@ -92,15 +99,93 @@ public class DanhSachNhanVien{
         }
         return false;
     }
-    public NhanVien timKiemNV(String maNV)
+    public NhanVien timKiemMaNV(String maNV)
     {
         for(int i=0;i<soluongNV;i++)
 
             {
-                if(dsNhanVien[i].getMaNV().equals(maNV))
+                if(dsNhanVien[i].getMaNV().contains(maNV))
                     return dsNhanVien[i];
             }
         return null;
+    }
+    public NhanVien timKiemHoTenNV(String hoTen)
+    {
+        for(int i=0;i<soluongNV;i++)
+
+            {
+                if(dsNhanVien[i].getHoTen().contains(hoTen))
+                    return dsNhanVien[i];
+            }
+        return null;
+    }
+    public NhanVien timKiemSdtNV(String SDT)
+    {
+        for(int i=0;i<soluongNV;i++)
+
+            {
+                if(dsNhanVien[i].getSDT().contains(SDT))
+                    return dsNhanVien[i];
+            }
+        return null;
+    }
+    public void timKiemNV()
+    {
+        int k;
+        do{
+            System.out.println("1.Tim kiem theo ma NV.");
+            System.out.println("2.Tim kiem theo ten NV.");
+            System.out.println("3.Tim kiem theo sdt NV.");
+            System.out.println("0.OUT.");
+            System.out.println("Lua chon cua ban:");
+            Scanner sc=new Scanner(System.in);
+            k=sc.nextInt();
+            sc.nextLine();
+
+            NhanVien nv;
+            switch (k) {
+                case 1:
+                    {
+                        
+                        System.out.println("Nhap vao ma NV:");
+                        String ma=sc.nextLine();
+                        nv=timKiemMaNV(ma);
+                        if (nv != null) {
+                            nv.hienThiThongTin();
+                        } else {
+                            System.out.println("Khong tim thay nhan vien!");
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        System.out.println("Nhap vao ho ten NV:");
+                        String ten=sc.nextLine();
+                        nv=timKiemHoTenNV(ten);
+                        if (nv != null) {
+                            nv.hienThiThongTin();
+                        } else {
+                            System.out.println("Khong tim thay nhan vien!");
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        System.out.println("Nhap vao SDT NV:");
+                        String s=sc.nextLine();
+                        nv=timKiemSdtNV(s);
+                        if (nv != null) {
+                            nv.hienThiThongTin();
+                        } else {
+                            System.out.println("Khong tim thay nhan vien!");
+                        }
+                        break;
+                    }
+                case 0:return;
+            }
+        }while(k!=0);
+        
+        
     }
     public double tongLuongNV()
     {
@@ -137,11 +222,18 @@ public class DanhSachNhanVien{
         dsQuanLy[soluongQL++]=ql;
         return true;
     }
+    public void themNQL(int n)
+    {
+        for(int i=1;i<=n;i++)
+        {
+            nhapQuanLy();
+        }
+    }
     public boolean xoaQuanLy(String maQL)
     {
         for(int i=0;i<soluongQL;i++)
         {
-            if(dsQuanLy[i].getMaQL().equals(maQL))
+            if(dsQuanLy[i].getMaQL().contains(maQL))
             {
                 for(int j=i;j<soluongQL-1;j++)
                 {
@@ -157,7 +249,7 @@ public class DanhSachNhanVien{
     public boolean suaQuanLy(String maQL)
     {
         for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getMaQL().equals(maQL))
+            if(dsQuanLy[i].getMaQL().contains(maQL))
             {
                 Scanner sc=new Scanner(System.in);
                 System.out.println("1.Sua CCCD.");
@@ -187,14 +279,75 @@ public class DanhSachNhanVien{
         }
         return false;
     }
-    public QuanLy timKiemQuanly(String maQL)
+    public QuanLy timKiemMaQL(String maQL)
     {
         for(int i=0;i<soluongQL;i++)
         {
-            if(dsQuanLy[i].getMaQL().equals(maQL))
+            if(dsQuanLy[i].getMaQL().contains(maQL))
                 return dsQuanLy[i];
         }
         return null;
+    }
+    public QuanLy timKiemHoTenQL(String hoTen)
+    {
+        for(int i=0;i<soluongQL;i++)
+        {
+            if(dsQuanLy[i].getHoTen().contains(hoTen))
+                return dsQuanLy[i];
+        }
+        return null;
+    }
+    public QuanLy timKiemSdtQL(String SDT)
+    {
+        for(int i=0;i<soluongQL;i++)
+        {
+            if(dsQuanLy[i].getSDT().contains(SDT))
+                return dsQuanLy[i];
+        }
+        return null;
+    }
+    
+    public void timKiemQuanly()
+    {
+        int k;
+        do{
+            System.out.println("1.Tim kiem theo ma QL.");
+            System.out.println("2.Tim kiem theo ten QL.");
+            System.out.println("3.Tim kiem theo sdt QL.");
+            System.out.println("0.OUT.");
+            System.out.println("Lua chon cua ban:");
+            Scanner sc=new Scanner(System.in);
+            k=sc.nextInt();
+            sc.nextLine();
+
+            switch (k) {
+                case 1:
+                    {
+                        System.out.println("Nhap vao ma QL:");
+                        String ma=sc.nextLine();
+                        System.out.println(timKiemMaQL(ma));
+                        break;
+                    }
+                case 2:
+                    {
+                        System.out.println("Nhap vao ho ten QL:");
+                        String ten=sc.nextLine();
+                        System.out.println(timKiemHoTenQL(ten));
+                        break;
+                    }
+                case 3:
+                    {
+                        System.out.println("Nhap vao SDT QL:");
+                        String s=sc.nextLine();
+                        System.out.println(timKiemSdtQL(s)); 
+                        break;
+                    }
+                case 0:return;
+            }
+        }while(k!=0);
+
+
+
     }
     public double tongLuongQL()
     {
@@ -219,7 +372,7 @@ public class DanhSachNhanVien{
         System.out.println("Quan ly :");
         int qlkt=0,nvkt=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan().equals("ke toan"))
+            if(dsQuanLy[i].getPhongBan().contains("ke toan"))
             {
                 System.out.println(dsQuanLy[i].getHoTen());
                 qlkt++;
@@ -227,7 +380,7 @@ public class DanhSachNhanVien{
         }
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu().equals("ke toan"))
+            if(dsNhanVien[i].getChucVu().contains("ke toan"))
             {
                 System.out.println(dsNhanVien[i].getHoTen());
                 nvkt++;
@@ -240,7 +393,7 @@ public class DanhSachNhanVien{
         System.out.println("Quan ly :");
         int qlbv=0,nvbv=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan().equals("bao ve"))
+            if(dsQuanLy[i].getPhongBan().contains("bao ve"))
             {
                 System.out.println(dsQuanLy[i].getHoTen());
                 qlbv++;
@@ -248,7 +401,7 @@ public class DanhSachNhanVien{
         }
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu().equals("bao ve"))
+            if(dsNhanVien[i].getChucVu().contains("bao ve"))
             {
                 System.out.println(dsNhanVien[i].getHoTen());
                 nvbv++;
@@ -261,7 +414,7 @@ public class DanhSachNhanVien{
         System.out.println("Quan ly :");
         int qlk=0,nvk=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan().equals("kho"))
+            if(dsQuanLy[i].getPhongBan().contains("kho"))
             {
                 System.out.println(dsQuanLy[i].getHoTen());
                 qlk++;
@@ -271,7 +424,7 @@ public class DanhSachNhanVien{
 
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu().equals("kho"))
+            if(dsNhanVien[i].getChucVu().contains("kho"))
             {
                 System.out.println(dsNhanVien[i].getHoTen());
                 nvk++;
@@ -357,16 +510,18 @@ public class DanhSachNhanVien{
         int chon;
         do{
             System.out.println("1.Them nhan vien.");
-            System.out.println("2.Sua nhan vien.");
-            System.out.println("3.Xoa nhan vien.");
-            System.out.println("4.Tim nhan vien.");
-            System.out.println("5.Them quan ly.");
-            System.out.println("6.Sua quan ly.");
-            System.out.println("7.Xoa quan ly.");
-            System.out.println("8.Tim quan ly.");
-            System.out.println("9.Thong ke nhan su.");
-            System.out.println("10.Xuat nhan vien.");
-            System.out.println("11.Xuat quan ly.");
+            System.out.println("2.Them N nhan vien.");
+            System.out.println("3.Sua nhan vien.");
+            System.out.println("4.Xoa nhan vien.");
+            System.out.println("5.Tim nhan vien.");
+            System.out.println("6.Them quan ly.");
+            System.out.println("7.Them N quan ly.");
+            System.out.println("8.Sua quan ly.");
+            System.out.println("9.Xoa quan ly.");
+            System.out.println("10.Tim quan ly.");
+            System.out.println("11.Thong ke nhan su.");
+            System.out.println("12.Xuat nhan vien.");
+            System.out.println("13.Xuat quan ly.");
             System.out.println("0.OUT.");
             System.out.println("Lua chon cua ban :");
             chon=sc.nextInt();
@@ -374,46 +529,49 @@ public class DanhSachNhanVien{
             switch (chon) {
                 case 1:qlns.nhapNhanVien();break;
                 case 2:
+                    System.out.println("Nhap vao so luong nhan vien :");
+                    int n=sc.nextInt();
+                    qlns.themNNV(n);
+                    break;
+                case 3:
                     System.out.println("Nhap vao ma nhan vien:");
                     String a=sc.nextLine();
                     qlns.suaNhanVien(a);
                     break;
-                case 3:
+                case 4:
                     System.out.println("Nhap vao ma nhan vien:");
                     a=sc.nextLine();
                     qlns.xoaNhanVien(a);
                     break;
-                case 4:
-                    System.out.println("Nhap vao ma nhan vien:");
-                    a=sc.nextLine();
-                    NhanVien nv = qlns.timKiemNV(a);
-                    if (nv == null) System.out.println("Khong tim thay.");
-                    else nv.hienThiThongTin();
+                case 5:
+                    qlns.timKiemNV();
                     break;
-                case 5:qlns.nhapQuanLy();break; 
-                case 6:
+                case 6:qlns.nhapQuanLy();break; 
+                case 7:
+                    System.out.println("Nhap vao so luong quan ly :");
+                    int p=sc.nextInt();
+                    qlns.themNQL(p);
+                    break;
+                    
+                case 8:
                     System.out.println("Nhap vao ma quan ly:");
                     a=sc.nextLine();
                     qlns.suaQuanLy(a);
                     break;
-                case 7:
+                case 9:
                     System.out.println("Nhap vao ma quan ly:");
                     a=sc.nextLine();
                     qlns.xoaQuanLy(a);
                     break;
-                case 8:
-                    System.out.println("Nhap vao ma quan ly:");
-                    a=sc.nextLine();
-                    QuanLy ql = qlns.timKiemQuanly(a);
-                    if (ql == null) System.out.println("Khong tim thay.");
-                    else ql.hienThiThongTin();  
-                    break;
-                case 9:
-                    qlns.thongKeNhanSu();break;
                 case 10:
-                    qlns.xuatDSNhanVien();
+                    qlns.timKiemQuanly(); 
                     break;
                 case 11:
+                    qlns.thongKeNhanSu();break;
+                case 12:
+                    qlns.xuatDSNhanVien();
+                    break;
+                case 13:
                     qlns.xuatDSQuanLy();
                     break;
                 case 0:return;

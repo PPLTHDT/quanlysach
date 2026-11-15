@@ -1,4 +1,4 @@
-package doan;
+package cuahangsach;
 import java.util.Scanner;
 
 public class KhachHang extends  Nguoi {
@@ -54,6 +54,7 @@ public class KhachHang extends  Nguoi {
     {
         return diemTichLuy;
     }
+    @Override 
     public void hienThiThongTin(){
         System.out.println(getThongTin());
         System.out.println("Ma khach hang : "+maKH+"| Diem tich luy : "+diemTichLuy);

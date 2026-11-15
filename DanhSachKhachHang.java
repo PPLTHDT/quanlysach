@@ -1,4 +1,4 @@
-package doan;
+package cuahangsach;
 
 import java.util.Scanner;
 
@@ -31,6 +31,13 @@ public class DanhSachKhachHang {
         kh.setDiemTichLuy();
 
         them(kh);
+    }
+    public void themNKhachHang(int n)
+    {
+        for(int i=0;i<n;i++)
+        {
+            nhapKhachHang();
+        }
     }
     public void xuatKhachHang(KhachHang kh)
     {
@@ -98,11 +105,11 @@ public class DanhSachKhachHang {
         System.out.println("Khong tim thay ma KH nay");
         return false;
     }
-    public KhachHang timKiem(String maKH)
+    public KhachHang timKiemMa(String maKH)
     {
         for(int i=0;i<soLuong;i++)
         {
-            if(dsKhachHang[i].getMaKH().equals(maKH))
+            if(dsKhachHang[i].getMaKH().contains(maKH))
             {
                 return dsKhachHang[i];
             }
@@ -110,12 +117,130 @@ public class DanhSachKhachHang {
         System.out.println("Khong tim thay ma kh nay.");
         return null;
     }
-    public void thongKe()
+    public KhachHang timKiemTen(String hoten)
     {
         for(int i=0;i<soLuong;i++)
         {
-            xuatKhachHang(dsKhachHang[i]);
+            if(dsKhachHang[i].getHoTen().contains(hoten))
+            {
+                return dsKhachHang[i];
+            }
         }
+        System.out.println("Khong tim thay khach hang nay.");
+        return null;
+     }
+    public KhachHang timKiemSDT(String sdt)
+    {
+        for(int i=0;i<soLuong;i++)
+        {
+            if(dsKhachHang[i].getSDT().contains(sdt))
+                return dsKhachHang[i];
+        }
+        System.out.println("Khong tim thay khach hang nay.");
+        return null;
+
+    }
+    public void timKiem()
+    {
+        int k;
+        do{
+            System.out.println("1.Tim kiem theo ma KH.");
+            System.out.println("2.Tim kiem theo ten KH.");
+            System.out.println("3.Tim kiem theo sdt KH.");
+            System.out.println("0.OUT.");
+            System.out.println("Lua chon cua ban:");
+            Scanner sc=new Scanner(System.in);
+            k=sc.nextInt();
+            sc.nextLine();
+
+            switch (k) {
+                case 1:
+                    {
+                        System.out.println("Nhap vao ma KH:");
+                        String ma=sc.nextLine();
+                        System.out.println(timKiemMa(ma));
+                        break;
+                    }
+                case 2:
+                    {
+                        System.out.println("Nhap vao ho ten KH:");
+                        String ten=sc.nextLine();
+                        System.out.println(timKiemTen(ten));
+                        break;
+                    }
+                case 3:
+                    {
+                        System.out.println("Nhap vao SDT KH:");
+                        String s=sc.nextLine();
+                        System.out.println(timKiemSDT(s)); 
+                        break;
+                    }
+                case 0:return;
+            }
+        }while(k!=0);
+    }
+    public void thongKeTheoMa(String maKH)
+    {
+        for(int i=0;i<soLuong;i++)
+        {
+            if(dsKhachHang[i].getMaKH().contains(maKH))
+            {
+                System.out.println(dsKhachHang[i].hienThiThongTin());
+            }
+        }
+    }
+    
+    public void thongKeTheoTen(String hoTen)
+    {
+        for(int i=0;i<soLuong;i++)
+        {
+            if(dsKhachHang[i].getHoTen().contains(hoTen))
+            {
+                System.out.println(dsKhachHang[i].hienThiThongTin());
+            }
+        }
+    }
+    public void thongKeTheoSDT(String sdt)
+    {
+        for(int i=0;i<soLuong;i++)
+        {
+            if(dsKhachHang[i].getSDT().contains(sdt))
+            {
+                System.out.println(dsKhachHang[i].hienThiThongTin());
+            }
+        }
+    }
+    public void thongKe()
+    {
+        Scanner sc=new Scanner(System.in);
+        int p;
+        do{
+            System.out.println("1.Thong ke KH theo ma.");
+            System.out.println("2.Thong ke KH theo ten.");
+            System.out.println("3.Thong ke KH theo sdt. ");
+            System.out.println("0.OUT. ");
+            System.out.println("Lua chon cua ban :");
+            p=sc.nextInt();
+            sc.nextLine();
+            switch (p) {
+                case 1:
+                    System.out.println("Nhap vao ma KH :");
+                    String ma=sc.nextLine();
+                    thongKeTheoMa(ma);
+                    break;
+                case 2:
+                    System.out.println("Nhap vao ten KH :");
+                    String ten=sc.nextLine();
+                    thongKeTheoTen(ten);
+                    break;
+                case 3:
+                    System.out.println("Nhap vao sdt KH :");
+                    String sdt=sc.nextLine();
+                    thongKeTheoSDT(sdt);
+                    break;
+                case 0:return;
+            }
+        }while(p!=0);
     }
     public void napDuLieu(KhachHang[] dsKH)
     {
@@ -142,6 +267,7 @@ public class DanhSachKhachHang {
     }
 
 
+
     public static void main(String[] args)
     {
         DanhSachKhachHang dskh=new DanhSachKhachHang();
@@ -149,34 +275,35 @@ public class DanhSachKhachHang {
         int chon;
         do{
             System.out.println("1.Them khach hang.");
-            System.out.println("2.Sua khach hang.");
-            System.out.println("3.Xoa khach hang.");
-            System.out.println("4.Tim khach hang.");
-            System.out.println("5.Thong ke khach hang.");
+            System.out.println("2.Them vao N khach hang.");
+            System.out.println("3.Sua khach hang.");
+            System.out.println("4.Xoa khach hang.");
+            System.out.println("5.Tim khach hang.");
+            System.out.println("6.Thong ke khach hang.");
             System.out.println("0.OUT.");
             System.out.println("Lua chon cua ban :");
             chon=sc.nextInt();
             sc.nextLine();
             switch (chon) {
                 case 1:dskh.nhapKhachHang();break;
-                case 2:
+                case 2:System.out.println("Nhap vao N khach hang : ");
+                int c=sc.nextInt();
+                dskh.themNKhachHang(c);
+                break;
+                case 3:
                     System.out.println("Nhap vao ma khach hang:");
                     String a=sc.nextLine();
                     dskh.suaTheoMa(a);
                     break;
-                case 3:
+                case 4:
                     System.out.println("Nhap vao ma khach hang:");
                     a=sc.nextLine();
                     dskh.xoaTheoMa(a);
                     break;
-                case 4:
-                    System.out.println("Nhap vao ma khach hang:");
-                    a=sc.nextLine();
-                    KhachHang kh = dskh.timKiem(a);
-                    if (kh == null) System.out.println("Khong tim thay.");
-                    else kh.hienThiThongTin();
-                    break;
                 case 5:
+                    dskh.timKiem();
+                    break;
+                case 6:
                     dskh.thongKe();break;   
                 case 0:return;
             }

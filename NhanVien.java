@@ -1,4 +1,4 @@
-package doan;
+package cuahangsach;
 import java.util.Scanner;
 
 public class NhanVien extends Nguoi {
@@ -94,6 +94,7 @@ public class NhanVien extends Nguoi {
     {
         return luongCoBanNV*soGioLam;
     }
+    @Override 
     public void hienThiThongTin()
     {
         System.out.println(getThongTin());
