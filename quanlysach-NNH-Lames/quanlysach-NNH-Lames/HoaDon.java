@@ -11,13 +11,13 @@ public class HoaDon{
     private KhachHang khachHang;
     private NhanVien nhanVien;
     private KhuyenMai khuyenMai;
-    private ChiTietHoaDon[] dsChiTiet;
+    private ChiTietPhieu[] dsChiTiet;
     private int soluongChiTiet;
     private ThanhToan thanhToan;
 
     public HoaDon(){
         this.ngayLap= LocalDate.now();
-        this.dsChiTiet= new ChiTietHoaDon[SoChiTietBanDau];
+        this.dsChiTiet= new ChiTietPhieu[SoChiTietBanDau];
     }
     public HoaDon(String maHD , LocalDate ngayLap , KhachHang khachHang, NhanVien nhanVien){
         this.maHD = maHD;
@@ -25,7 +25,7 @@ public class HoaDon{
         this.khachHang= khachHang;
         this.nhanVien= nhanVien;
         this.thanhToan= null;
-        this.dsChiTiet = new ChiTietHoaDon[SoChiTietBanDau];
+        this.dsChiTiet = new ChiTietPhieu[SoChiTietBanDau];
         this.soluongChiTiet =0;
         this.tongTien=0;
         this.tienGiam=0;
@@ -54,13 +54,16 @@ public class HoaDon{
     public void setKhachHang(KhachHang khachHang){
         this.khachHang= khachHang;
     }
+    public KhuyenMai getKhuyenMai(){
+        return khuyenMai;
+    }
     public NhanVien getNhanVien(){
         return nhanVien;
     }
     public void setNhanVien(NhanVien nhanVien){
         this.nhanVien=nhanVien;
     }
-    public ChiTietHoaDon[] getDsChiTiet(){
+    public ChiTietPhieu[] getDsChiTiet(){
         return Arrays.copyOf(dsChiTiet,soluongChiTiet);
     }
     public int getSoLuongChiTiet(){
@@ -94,7 +97,7 @@ public class HoaDon{
             return false;
         }
         for(int i=0;i<soluongChiTiet;i++){
-            ChiTietHoaDon cu = dsChiTiet[i];
+            ChiTietHoaDon cu = (ChiTietHoaDon) dsChiTiet[i];
             if(cu.getSach() != null && ct.getSach() != null && cu.getSach().getMaSach().equals(ct.getSach().getMaSach())){
                 cu.setSoLuong(cu.getSoLuong()+ ct.getSoLuong());
                 tinhTongTien();

@@ -1,65 +1,68 @@
-public class ChiTietPhieuNhap {
-    private String maCT;
-    private Sach sach;
-    private int soLuongNhap;
-    private double donGiaNhap;
+public class ChiTietPhieuNhap extends ChiTietPhieu {
+    public ChiTietPhieuNhap() {
+        super();
+    }
 
-    public ChiTietPhieuNhap(){
+    public ChiTietPhieuNhap(Sach sach, int soLuongNhap, double donGiaNhap) {
+        this(taoMaCT("CTPN"), sach, soLuongNhap, donGiaNhap);
+    }
 
+    public ChiTietPhieuNhap(String maCT, Sach sach, int soLuongNhap, double donGiaNhap) {
+        super(maCT, soLuongNhap, donGiaNhap);
+        this.sach = sach;
     }
-    public ChiTietPhieuNhap(Sach sach , int soLuongNhap , double donGiaNhap){
-        this.sach=sach;
-        setSoLuongNhap(soLuongNhap);
-        setDonGiaNhap(donGiaNhap);
+
+    public int getSoLuongNhap() {
+        return soLuong;
     }
-    public ChiTietPhieuNhap(String maCT, Sach sach , int soLuongNhap , double donGiaNhap){
-        this.maCT=maCT;
-        this.sach=sach;
-        setSoLuongNhap(soLuongNhap);
-        setDonGiaNhap(donGiaNhap);
+
+    public void setSoLuongNhap(int soLuongNhap) {
+        if (soLuongNhap <= 0) {
+            throw new IllegalArgumentException("So luong nhap phai lon hon 0");
+        }
+        this.soLuong = soLuongNhap;
     }
-    public String getMaCT(){
-        return maCT;
+
+    public double getDonGiaNhap() {
+        return donGia;
     }
-    public void setMaCT(String maCT){
-        this.maCT=maCT;
+
+    public void setDonGiaNhap(double donGiaNhap) {
+        if (donGiaNhap <= 0) {
+            throw new IllegalArgumentException("Don gia nhap phai lon hon 0");
+        }
+        this.donGia = donGiaNhap;
     }
-    public double tinhThanhTien(){
-        return donGiaNhap * soLuongNhap;
+
+    @Override
+    public double tinhThanhTien() {
+        return donGia * soLuong;
     }
-    public void capNhatSoLuong(){
-        if(sach != null && soLuongNhap >0){
-            sach.tangSoLuong(soLuongNhap);
+
+    public void capNhatSoLuong() {
+        if (sach != null && soLuong > 0) {
+            sach.tangSoLuong(soLuong);
         }
     }
-    public void hienThiThongTin(){
-    System.out.println("Ten sach : "+(sach != null ? sach.getTenSach() : "(khong co)")+"| So luong nhap : "+soLuongNhap+"| Don gia nhap : "+String.format("%,.0f", donGiaNhap)+"| Thanh tien : "+String.format("%,.0f", tinhThanhTien()));
-}
-public void xuat(){
-    hienThiThongTin();
-}
-    public Sach getSach(){
-        return sach;
+
+    @Override
+    public void hienThiThongTin() {
+        System.out.println("Ma CT : " + maCT
+                + "| Ten sach : " + (sach != null ? sach.getTenSach() : "(khong co)")
+                + "| So luong nhap : " + soLuong
+                + "| Don gia nhap : " + String.format("%,.0f", donGia)
+                + "| Thanh tien : " + String.format("%,.0f", tinhThanhTien()));
     }
-    public void setSach(Sach sach){
-        this.sach=sach;
+
+    public void xuat() {
+        hienThiThongTin();
     }
-    public int getSoLuongNhap(){
-        return soLuongNhap;
-    }
-    public void setSoLuongNhap(int soLuongNhap){
-        if(soLuongNhap <= 0){
-            throw new IllegalArgumentException("nhap sai ");
-        }
-        this.soLuongNhap=soLuongNhap;
-    }
-    public double getDonGiaNhap(){
-        return donGiaNhap;
-    }
-    public void setDonGiaNhap(double donGiaNhap){
-        if(donGiaNhap<=0){
-            throw new IllegalArgumentException(" nhap sai ");
-        }
-        this.donGiaNhap=donGiaNhap;
+
+    @Override
+    public String dongFile() {
+        return String.join("|", "CT", maCT,
+                sach == null ? "" : sach.getMaSach(),
+                String.valueOf(soLuong),
+                String.valueOf(donGia));
     }
 }
