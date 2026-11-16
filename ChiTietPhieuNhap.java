@@ -1,3 +1,5 @@
+package cuahangsach;
+
 public class ChiTietPhieuNhap {
     private static int demMa = 0;
 
@@ -27,6 +29,20 @@ public class ChiTietPhieuNhap {
         this.sach = sach;
         setSoLuongNhap(soLuongNhap);
         setDonGiaNhap(donGiaNhap);
+    }
+
+    public ChiTietPhieuNhap(ChiTietPhieuNhap other) {
+        if (other != null) {
+            this.maCT = other.maCT;
+            this.sach = other.sach;
+            this.soLuongNhap = other.soLuongNhap;
+            this.donGiaNhap = other.donGiaNhap;
+        } else {
+            this.maCT = taoMaCT();
+            this.sach = null;
+            this.soLuongNhap = 0;
+            this.donGiaNhap = 0.0;
+        }
     }
 
     private static String taoMaCT() {

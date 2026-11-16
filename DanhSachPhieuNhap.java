@@ -1,3 +1,5 @@
+package cuahangsach;
+
 import java.time.LocalDate;
 
 public class DanhSachPhieuNhap {
@@ -46,7 +48,7 @@ public class DanhSachPhieuNhap {
             String maCu = (pn.getNhaXuatBan() != null) ? pn.getNhaXuatBan().getMaNXB() : "";
             String maNXBMoi = Main.docChuoiGiuCu("Ma NXB moi", maCu);
             if (!maNXBMoi.isEmpty()) {
-                NhaXuatBan nxb = dsNXB.timKiem(maNXBMoi);
+                NhaXuatBan nxb = dsNXB.timTheoMa(maNXBMoi);
                 if (nxb != null) {
                     pn.setNhaXuatBan(nxb);
                 } else {
@@ -123,7 +125,7 @@ public class DanhSachPhieuNhap {
         LocalDate ngayNhap = Main.docNgay("Ngay nhap");
 
         String maNXB = Main.docChuoi("Nhap ma nha xuat ban: ");
-        NhaXuatBan nxb = dsNXB.timKiem(maNXB);
+        NhaXuatBan nxb = dsNXB.timTheoMa(maNXB);
         if (nxb == null) {
             System.out.println("Khong tim thay Nha Xuat Ban co ma: " + maNXB);
             return;
@@ -136,7 +138,7 @@ public class DanhSachPhieuNhap {
             System.out.println("\n-> Nhap chi tiet thu " + (i + 1) + ":");
             String maCT = Main.docChuoi("  Ma chi tiet (Enter de tu sinh): ");
             String maSach = Main.docChuoi("  Ma sach: ");
-            Sach sach = dsSach.timKiem(maSach);
+            Sach sach = dsSach.timTheoMa(maSach);
             if (sach == null) {
                 System.out.println("  Khong tim thay sach co ma: " + maSach + " trong kho!");
                 continue;
@@ -169,6 +171,14 @@ public class DanhSachPhieuNhap {
         }
     }
 
+    public void themNhieu() {
+        int k = Main.docSoNguyen("Nhap so luong phieu nhap can them (k): ");
+        for (int i = 0; i < k; i++) {
+            System.out.println("\n=== Nhap phieu nhap thu " + (i + 1) + "/" + k + " ===");
+            nhap();
+        }
+    }
+
     public void xuat() {
         if (soLuong == 0) {
             System.out.println("\n(Danh sach phieu nhap hien dang trong)");
@@ -184,27 +194,114 @@ public class DanhSachPhieuNhap {
     }
 
     public void thongKe() {
-        System.out.println("\n========================================================");
-        System.out.println("           THONG KE DANH SACH PHIEU NHAP HANG           ");
-        System.out.println("========================================================");
-        System.out.println("Tong so luong phieu nhap: " + soLuong);
-        double tongChiPhi = 0.0;
-        PhieuNhap maxPN = null;
+        System.out.println("\n--- THONG KE PHIEU NHAP ---");
+        System.out.println("1. Thong ke tong quan (Tong so phieu, tong chi phi, phieu lon nhat)");
+        System.out.println("2. Thong ke theo Nha Xuat Ban");
+        System.out.println("3. Thong ke theo Nam nhap hang");
+        System.out.println("0. Quay lai");
+        int chon = Main.docSoNguyen("Chon: ");
+        switch (chon) {
+            case 1: {
+                System.out.println("\n========================================================");
+                System.out.println("           THONG KE DANH SACH PHIEU NHAP HANG           ");
+                System.out.println("========================================================");
+                System.out.println("Tong so luong phieu nhap: " + soLuong);
+                double tongChiPhi = 0.0;
+                PhieuNhap maxPN = null;
 
-        for (int i = 0; i < soLuong; i++) {
-            double tien = dsPhieuNhap[i].tinhTongTien();
-            tongChiPhi += tien;
-            if (maxPN == null || tien > maxPN.getTongTien()) {
-                maxPN = dsPhieuNhap[i];
+                for (int i = 0; i < soLuong; i++) {
+                    double tien = dsPhieuNhap[i].tinhTongTien();
+                    tongChiPhi += tien;
+                    if (maxPN == null || tien > maxPN.getTongTien()) {
+                        maxPN = dsPhieuNhap[i];
+                    }
+                }
+
+                System.out.println("Tong chi phi da chi cho nhap sach : " + Main.dinhDangTien(tongChiPhi));
+                if (maxPN != null) {
+                    System.out.println("Phieu nhap co gia tri lon nhat     : " + maxPN.getMaPhieuNhap()
+                            + " (" + Main.dinhDangTien(maxPN.getTongTien()) + ")");
+                }
+                System.out.println("========================================================");
+                break;
             }
+            case 2: {
+                if (soLuong == 0) {
+                    System.out.println("Danh sach phieu nhap dang trong!");
+                    break;
+                }
+                String[] tenNXB = new String[soLuong];
+                int[] soPhieu = new int[soLuong];
+                double[] tongTien = new double[soLuong];
+                int k = 0;
+                for (int i = 0; i < soLuong; i++) {
+                    String key = (dsPhieuNhap[i].getNhaXuatBan() != null)
+                            ? dsPhieuNhap[i].getNhaXuatBan().getTenNXB()
+                            : "(Chua ro NXB)";
+                    int vt = -1;
+                    for (int j = 0; j < k; j++) {
+                        if (tenNXB[j].equalsIgnoreCase(key)) {
+                            vt = j;
+                            break;
+                        }
+                    }
+                    if (vt == -1) {
+                        tenNXB[k] = key;
+                        soPhieu[k] = 1;
+                        tongTien[k] = dsPhieuNhap[i].tinhTongTien();
+                        k++;
+                    } else {
+                        soPhieu[vt]++;
+                        tongTien[vt] += dsPhieuNhap[i].tinhTongTien();
+                    }
+                }
+                System.out.println("\n--- THONG KE THEO NHA XUAT BAN ---");
+                for (int j = 0; j < k; j++) {
+                    System.out.println("  - " + tenNXB[j] + ": " + soPhieu[j]
+                            + " phieu | Tong tien: " + Main.dinhDangTien(tongTien[j]));
+                }
+                break;
+            }
+            case 3: {
+                if (soLuong == 0) {
+                    System.out.println("Danh sach phieu nhap dang trong!");
+                    break;
+                }
+                int[] nam = new int[soLuong];
+                int[] soPhieu = new int[soLuong];
+                double[] tongTien = new double[soLuong];
+                int k = 0;
+                for (int i = 0; i < soLuong; i++) {
+                    int y = (dsPhieuNhap[i].getNgayNhap() != null) ? dsPhieuNhap[i].getNgayNhap().getYear() : 0;
+                    int vt = -1;
+                    for (int j = 0; j < k; j++) {
+                        if (nam[j] == y) {
+                            vt = j;
+                            break;
+                        }
+                    }
+                    if (vt == -1) {
+                        nam[k] = y;
+                        soPhieu[k] = 1;
+                        tongTien[k] = dsPhieuNhap[i].tinhTongTien();
+                        k++;
+                    } else {
+                        soPhieu[vt]++;
+                        tongTien[vt] += dsPhieuNhap[i].tinhTongTien();
+                    }
+                }
+                System.out.println("\n--- THONG KE THEO NAM NHAP HANG ---");
+                for (int j = 0; j < k; j++) {
+                    System.out.println("  - Nam " + nam[j] + ": " + soPhieu[j]
+                            + " phieu | Tong tien: " + Main.dinhDangTien(tongTien[j]));
+                }
+                break;
+            }
+            case 0:
+                break;
+            default:
+                System.out.println("Lua chon khong hop le!");
         }
-
-        System.out.println("Tong chi phi da chi cho nhap sach : " + Main.dinhDangTien(tongChiPhi));
-        if (maxPN != null) {
-            System.out.println("Phieu nhap co gia tri lon nhat     : " + maxPN.getMaPhieuNhap()
-                    + " (" + Main.dinhDangTien(maxPN.getTongTien()) + ")");
-        }
-        System.out.println("========================================================");
     }
 
     public void napDuLieu(PhieuNhap[] ds) {
@@ -358,12 +455,13 @@ public class DanhSachPhieuNhap {
         do {
             System.out.println();
             System.out.println("--- DanhSachPhieuNhap: QUAN LY PHIEU NHAP ---");
-            System.out.println("1. Lap phieu nhap moi");
-            System.out.println("2. Xem danh sach");
-            System.out.println("3. Sua theo ma");
-            System.out.println("4. Xoa (da tieu chi / da thuoc tinh)");
-            System.out.println("5. Tim kiem (da tieu chi / da thuoc tinh)");
-            System.out.println("6. Thong ke");
+            System.out.println("1. Lap 1 phieu nhap moi");
+            System.out.println("2. Lap k phieu nhap moi");
+            System.out.println("3. Xem danh sach phieu nhap");
+            System.out.println("4. Sua theo ma");
+            System.out.println("5. Xoa (da tieu chi / da thuoc tinh)");
+            System.out.println("6. Tim kiem (da tieu chi / da thuoc tinh)");
+            System.out.println("7. Thong ke (theo nhieu khoa)");
             System.out.println("0. Quay lai");
             chon = Main.docSoNguyen("Chon: ");
             switch (chon) {
@@ -371,9 +469,12 @@ public class DanhSachPhieuNhap {
                     nhap();
                     break;
                 case 2:
+                    themNhieu();
+                    break;
+                case 3:
                     xuat();
                     break;
-                case 3: {
+                case 4: {
                     String ma = Main.docChuoi("Nhap ma can sua: ");
                     if (suaTheoMa(ma)) {
                         System.out.println("Sua thanh cong!");
@@ -382,13 +483,13 @@ public class DanhSachPhieuNhap {
                     }
                     break;
                 }
-                case 4:
+                case 5:
                     menuXoa();
                     break;
-                case 5:
+                case 6:
                     menuTimKiem();
                     break;
-                case 6:
+                case 7:
                     thongKe();
                     break;
                 case 0:
