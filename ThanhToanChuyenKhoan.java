@@ -1,3 +1,4 @@
+package cuahangsach;
 public class ThanhToanChuyenKhoan implements ThanhToan {
     private String soTaiKhoan;
     private String nganHang;
