@@ -1,4 +1,4 @@
-public class DanhSachHoaDon {
+ public class DanhSachHoaDon {
     public static final int MAX = 100;
 
     private HoaDon[] dsHoaDon;
@@ -30,6 +30,49 @@ public class DanhSachHoaDon {
         dsHoaDon[soLuong] = x;
         soLuong++;
         return true;
+    }
+
+    // Them toi da n hoa don tu mang ds, tra ve so hoa don them thanh cong
+    public int themN(HoaDon[] ds, int n) {
+        if (ds == null || n <= 0) {
+            return 0;
+        }
+        int dem = 0;
+        for (int i = 0; i < ds.length && i < n; i++) {
+            if (them(ds[i])) { // them() da kiem tra null, day mang, trung ma
+                dem++;
+            }
+        }
+        return dem;
+    }
+
+    // Them tat ca hoa don trong mang ds
+    public int themN(HoaDon[] ds) {
+        return ds == null ? 0 : themN(ds, ds.length);
+    }
+
+    // Nhap N hoa don tu ban phim
+    public void nhapN() {
+        int n = Main.docSoNguyen("Nhap so hoa don can them: ");
+        if (n <= 0) {
+            System.out.println("So luong khong hop le!");
+            return;
+        }
+        int dem = 0;
+        for (int i = 1; i <= n; i++) {
+            if (soLuong >= MAX) {
+                System.out.println("Danh sach da day, dung o hoa don thu " + i);
+                break;
+            }
+            System.out.println("--- Hoa don thu " + i + "/" + n + " ---");
+            HoaDon hd = Main.lapHoaDon(); // TODO: doi ten cho dung voi ham tao hoa don trong Main
+            if (them(hd)) {
+                dem++;
+            } else {
+                System.out.println("Khong them duoc (null hoac trung ma)!");
+            }
+        }
+        System.out.println("Da them " + dem + "/" + n + " hoa don!");
     }
 
     public HoaDon timKiem(String ma) {
@@ -225,6 +268,7 @@ public class DanhSachHoaDon {
             System.out.println("3. Xoa (da tieu chi / da thuoc tinh)");
             System.out.println("4. Tim kiem (da tieu chi / da thuoc tinh)");
             System.out.println("5. Thong ke");
+            System.out.println("6. Them N hoa don");
             System.out.println("0. Quay lai");
             chon = Main.docSoNguyen("Chon: ");
             switch (chon) {
@@ -248,6 +292,9 @@ public class DanhSachHoaDon {
                     break;
                 case 5:
                     thongKe();
+                    break;
+                case 6:
+                    nhapN();
                     break;
                 case 0:
                     break;
@@ -315,9 +362,12 @@ public class DanhSachHoaDon {
                     }
                 }
                 System.out.println(dem > 0 ? "Da xoa " + dem + " hoa don cua NV " + maNV : "Khong tim thay hoa don nao!");
+                break;
             }
+            case 0:
+                break;
+            default:
+                System.out.println("Lua chon khong hop le!");
         }
     }
 }
-
-
