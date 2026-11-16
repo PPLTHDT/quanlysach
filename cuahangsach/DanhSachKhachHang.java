@@ -1,7 +1,5 @@
 package cuahangsach;
 
-import java.util.Scanner;
-
 public class DanhSachKhachHang {
     private KhachHang[] dsKhachHang = new KhachHang[MAX];
     private int soLuong=0;
@@ -57,7 +55,6 @@ public class DanhSachKhachHang {
         for (int i=0;i<soLuong;i++) {
             if(dsKhachHang[i].getMaKH().equals(maKH))
             {
-                Scanner sc=new Scanner(System.in);
                 System.out.println("1.Sua can cuoc cong dan.");
                 System.out.println("2.Sua ho ten.");
                 System.out.println("3.Sua sdt.");
@@ -65,16 +62,15 @@ public class DanhSachKhachHang {
                 System.out.println("5.Sua dia chi.");
                 System.out.println("6.Sua ma khach hang.");
                 System.out.println("7.Sua diem tich luy.");
-                System.out.println("Lua chon cua ban:");
-                int k=sc.nextInt();
+                int k = Main.docSoNguyen("Lua chon cua ban: ");
                 switch (k) {
                     case 1:dsKhachHang[i].setCCCD();break;
-                    case 2:dsKhachHang[i].setHoTen();;break;
-                    case 3:dsKhachHang[i].setSDT();;break;
-                    case 4:dsKhachHang[i].setEmail();;break;
-                    case 5:dsKhachHang[i].setDiaChi();;break;
-                    case 6:dsKhachHang[i].setMaKH();;break;
-                    case 7:dsKhachHang[i].setDiemTichLuy();;break;
+                    case 2:dsKhachHang[i].setHoTen();break;
+                    case 3:dsKhachHang[i].setSDT();break;
+                    case 4:dsKhachHang[i].setEmail();break;
+                    case 5:dsKhachHang[i].setDiaChi();break;
+                    case 6:dsKhachHang[i].setMaKH();break;
+                    case 7:dsKhachHang[i].setDiemTichLuy();break;
                 
                     default:
                         break;
@@ -148,30 +144,24 @@ public class DanhSachKhachHang {
             System.out.println("2.Tim kiem theo ten KH.");
             System.out.println("3.Tim kiem theo sdt KH.");
             System.out.println("0.OUT.");
-            System.out.println("Lua chon cua ban:");
-            Scanner sc=new Scanner(System.in);
-            k=sc.nextInt();
-            sc.nextLine();
+            k = Main.docSoNguyen("Lua chon cua ban: ");
 
             switch (k) {
                 case 1:
                     {
-                        System.out.println("Nhap vao ma KH:");
-                        String ma=sc.nextLine();
+                        String ma = Main.docChuoi("Nhap vao ma KH: ");
                         System.out.println(timKiemMa(ma));
                         break;
                     }
                 case 2:
                     {
-                        System.out.println("Nhap vao ho ten KH:");
-                        String ten=sc.nextLine();
+                        String ten = Main.docChuoi("Nhap vao ho ten KH: ");
                         System.out.println(timKiemTen(ten));
                         break;
                     }
                 case 3:
                     {
-                        System.out.println("Nhap vao SDT KH:");
-                        String s=sc.nextLine();
+                        String s = Main.docChuoi("Nhap vao SDT KH: ");
                         System.out.println(timKiemSDT(s)); 
                         break;
                     }
@@ -212,30 +202,24 @@ public class DanhSachKhachHang {
     }
     public void thongKe()
     {
-        Scanner sc=new Scanner(System.in);
         int p;
         do{
             System.out.println("1.Thong ke KH theo ma.");
             System.out.println("2.Thong ke KH theo ten.");
             System.out.println("3.Thong ke KH theo sdt. ");
             System.out.println("0.OUT. ");
-            System.out.println("Lua chon cua ban :");
-            p=sc.nextInt();
-            sc.nextLine();
+            p = Main.docSoNguyen("Lua chon cua ban: ");
             switch (p) {
                 case 1:
-                    System.out.println("Nhap vao ma KH :");
-                    String ma=sc.nextLine();
+                    String ma = Main.docChuoi("Nhap vao ma KH: ");
                     thongKeTheoMa(ma);
                     break;
                 case 2:
-                    System.out.println("Nhap vao ten KH :");
-                    String ten=sc.nextLine();
+                    String ten = Main.docChuoi("Nhap vao ten KH: ");
                     thongKeTheoTen(ten);
                     break;
                 case 3:
-                    System.out.println("Nhap vao sdt KH :");
-                    String sdt=sc.nextLine();
+                    String sdt = Main.docChuoi("Nhap vao sdt KH: ");
                     thongKeTheoSDT(sdt);
                     break;
                 case 0:return;
@@ -266,12 +250,9 @@ public class DanhSachKhachHang {
         return soLuong;
     }
 
-
-
     public void menu()
     {
         DanhSachKhachHang dskh=new DanhSachKhachHang();
-        Scanner sc=new Scanner(System.in);
         int chon;
         do{
             System.out.println("1.Them khach hang.");
@@ -281,23 +262,19 @@ public class DanhSachKhachHang {
             System.out.println("5.Tim khach hang.");
             System.out.println("6.Thong ke khach hang.");
             System.out.println("0.OUT.");
-            System.out.println("Lua chon cua ban :");
-            chon=sc.nextInt();
-            sc.nextLine();
+            chon = Main.docSoNguyen("Lua chon cua ban: ");
             switch (chon) {
                 case 1:dskh.nhapKhachHang();break;
-                case 2:System.out.println("Nhap vao N khach hang : ");
-                int c=sc.nextInt();
-                dskh.themNKhachHang(c);
-                break;
+                case 2:
+                    int c = Main.docSoNguyen("Nhap vao N khach hang: ");
+                    dskh.themNKhachHang(c);
+                    break;
                 case 3:
-                    System.out.println("Nhap vao ma khach hang:");
-                    String a=sc.nextLine();
+                    String a = Main.docChuoi("Nhap vao ma khach hang: ");
                     dskh.suaTheoMa(a);
                     break;
                 case 4:
-                    System.out.println("Nhap vao ma khach hang:");
-                    a=sc.nextLine();
+                    a = Main.docChuoi("Nhap vao ma khach hang: ");
                     dskh.xoaTheoMa(a);
                     break;
                 case 5:
