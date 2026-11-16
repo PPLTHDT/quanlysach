@@ -1,3 +1,5 @@
+﻿package CuaHangSach;
+
 public abstract class ChiTietPhieu implements ITinhTien {
     private static int soLuongDaTao = 0;
 

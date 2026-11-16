@@ -1,3 +1,5 @@
+﻿package CuaHangSach;
+
 public interface ITinhTien {
     double tinhThanhTien();
 

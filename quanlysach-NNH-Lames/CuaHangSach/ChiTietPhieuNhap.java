@@ -1,3 +1,5 @@
+﻿package CuaHangSach;
+
 public class ChiTietPhieuNhap extends ChiTietPhieu {
     public ChiTietPhieuNhap() {
         super();
