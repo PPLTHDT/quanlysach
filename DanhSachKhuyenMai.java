@@ -1,3 +1,4 @@
+package cuahangsach;
 public class DanhSachKhuyenMai {
     public static final int MAX = 100;
 
