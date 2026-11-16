@@ -1,4 +1,4 @@
-package quanlysach;
+package cuahangsach;
 public class TacGia{
     private String maTacGia;
     private String tenTacGia;

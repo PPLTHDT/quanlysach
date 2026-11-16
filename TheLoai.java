@@ -1,4 +1,4 @@
-package quanlysach;
+package cuahangsach;
 public class TheLoai{
     private String maTheLoai;
     private String tenTheLoai;

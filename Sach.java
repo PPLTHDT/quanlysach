@@ -1,4 +1,4 @@
-package quanlysach;
+package cuahangsach;
 public class Sach{
     private String maSach;
     private String tenSach;

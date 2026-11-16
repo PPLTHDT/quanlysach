@@ -1,4 +1,4 @@
-package quanlysach;
+package cuahangsach;
 public class NhaXuatBan{
     private String maNXB;
     private String tenNXB;
