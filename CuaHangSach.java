@@ -1,4 +1,5 @@
 package cuahangsach;
+
 import java.time.LocalDate;
 
 public class CuaHangSach {
@@ -15,10 +16,10 @@ public class CuaHangSach {
     private DocGhiFile docGhiFile;
 
     public CuaHangSach() {
-        this.danhSachSach = new DanhSachSach();
         this.danhSachTheLoai = new DanhSachTheLoai();
         this.danhSachTacGia = new DanhSachTacGia();
         this.danhSachNhaXuatBan = new DanhSachNhaXuatBan();
+        this.danhSachSach = new DanhSachSach(this.danhSachTacGia, this.danhSachTheLoai, this.danhSachNhaXuatBan);
         this.danhSachKhachHang = new DanhSachKhachHang();
         this.danhSachNhanVien = new DanhSachNhanVien();
         this.danhSachHoaDon = new DanhSachHoaDon();
@@ -93,22 +94,33 @@ public class CuaHangSach {
 
             switch (chon) {
                 case 1:
-                    quanLySach();
+                    if (danhSachSach != null) {
+                        danhSachSach.lienKet(danhSachTacGia, danhSachTheLoai, danhSachNhaXuatBan);
+                        danhSachSach.menu();
+                    }
                     break;
                 case 2:
                     quanLyTheLoai();
                     break;
                 case 3:
-                    quanLyTacGia();
+                    if (danhSachTacGia != null) {
+                        danhSachTacGia.menu();
+                    }
                     break;
                 case 4:
-                    quanLyNhaXuatBan();
+                    if (danhSachNhaXuatBan != null) {
+                        danhSachNhaXuatBan.menu();
+                    }
                     break;
                 case 5:
-                    quanLyKhachHang();
+                    if (danhSachKhachHang != null) {
+                        danhSachKhachHang.menu();
+                    }
                     break;
                 case 6:
-                    quanLyNhanVien();
+                    if (danhSachNhanVien != null) {
+                        danhSachNhanVien.menu();
+                    }
                     break;
                 case 7:
                     quanLyHoaDon();
@@ -169,20 +181,6 @@ public class CuaHangSach {
         return null;
     }
 
-    private QuanLy timQuanLyTheoMa(String maQL) {
-        if (danhSachNhanVien == null || maQL == null || maQL.isEmpty()) {
-            return null;
-        }
-        QuanLy[] ds = danhSachNhanVien.getDsQuanLy();
-        int n = danhSachNhanVien.getSoLuongQL();
-        for (int i = 0; i < n && i < ds.length; i++) {
-            if (ds[i] != null && ds[i].getMaQL() != null && ds[i].getMaQL().equalsIgnoreCase(maQL)) {
-                return ds[i];
-            }
-        }
-        return null;
-    }
-
     private void lapHoaDon() {
         if (danhSachSach == null || danhSachSach.getSoLuong() == 0) {
             System.out.println("Kho sach hien dang trong, khong the lap hoa don!");
@@ -228,7 +226,7 @@ public class CuaHangSach {
             System.out.println("\n-> Nhap chi tiet thu " + (i + 1) + ":");
             String maCT = Main.docChuoi("  Ma chi tiet (vd: CTHD01): ");
             String maSach = Main.docChuoi("  Ma sach: ");
-            Sach sach = danhSachSach.timKiem(maSach);
+            Sach sach = danhSachSach.timTheoMa(maSach);
             if (sach == null) {
                 System.out.println("  Khong tim thay sach co ma: " + maSach);
                 continue;
@@ -327,172 +325,10 @@ public class CuaHangSach {
         } while (chon != 0);
     }
 
-    private void quanLySach() {
-        if (danhSachSach == null) return;
-        int chon;
-        do {
-            System.out.println("\n--- DanhSachSach: QUAN LY SACH ---");
-            System.out.println("1. Them sach moi");
-            System.out.println("2. Xem danh sach sach");
-            System.out.println("3. Sua sach theo ma");
-            System.out.println("4. Xoa sach theo ma");
-            System.out.println("5. Tim kiem sach theo ma");
-            System.out.println("6. Thong ke kho sach");
-            System.out.println("0. Quay lai");
-            chon = Main.docSoNguyen("Chon: ");
-            switch (chon) {
-                case 1:
-                    themSachMoi();
-                    break;
-                case 2:
-                    danhSachSach.xuat();
-                    break;
-                case 3: {
-                    String ma = Main.docChuoi("Nhap ma sach can sua: ");
-                    if (danhSachSach.suaTheoMa(ma)) {
-                        System.out.println("Sua thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay sach co ma: " + ma);
-                    }
-                    break;
-                }
-                case 4: {
-                    String ma = Main.docChuoi("Nhap ma sach can xoa: ");
-                    if (danhSachSach.xoaTheoMa(ma)) {
-                        System.out.println("Xoa thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay sach co ma: " + ma);
-                    }
-                    break;
-                }
-                case 5: {
-                    String ma = Main.docChuoi("Nhap ma sach can tim: ");
-                    Sach s = danhSachSach.timKiem(ma);
-                    if (s != null) {
-                        s.hienThi();
-                    } else {
-                        System.out.println("Khong tim thay sach co ma: " + ma);
-                    }
-                    break;
-                }
-                case 6:
-                    danhSachSach.thongKe();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Lua chon khong hop le!");
-            }
-        } while (chon != 0);
-    }
-
-    private void themSachMoi() {
-        String ma = Main.docChuoi("Ma sach: ");
-        if (danhSachSach.timKiem(ma) != null) {
-            System.out.println("Ma sach da ton tai!");
-            return;
-        }
-        String ten = Main.docChuoi("Ten sach: ");
-        int soTG = Main.docSoNguyen("So tac gia: ");
-        TacGia[] dsTG = new TacGia[soTG];
-        int demTG = 0;
-        for (int i = 0; i < soTG; i++) {
-            String maTG = Main.docChuoi("Ma tac gia thu " + (i + 1) + ": ");
-            TacGia tg = danhSachTacGia.timKiem(maTG);
-            if (tg == null) {
-                String tenTG = Main.docChuoi("Ten tac gia moi: ");
-                tg = new TacGia(maTG, tenTG);
-                danhSachTacGia.them(tg);
-            }
-            dsTG[demTG++] = tg;
-        }
-        int namXB = Main.docSoNguyen("Nam xuat ban: ");
-
-        String maTL = Main.docChuoi("Ma the loai: ");
-        TheLoai tl = danhSachTheLoai.timKiem(maTL);
-        if (tl == null) {
-            String tenTL = Main.docChuoi("Ten the loai moi: ");
-            tl = new TheLoai(maTL, tenTL);
-            danhSachTheLoai.them(tl);
-        }
-
-        String maNXB = Main.docChuoi("Ma nha xuat ban: ");
-        NhaXuatBan nxb = danhSachNhaXuatBan.timKiem(maNXB);
-        if (nxb == null) {
-            String tenNXB = Main.docChuoi("Ten nha xuat ban moi: ");
-            String diaChiNXB = Main.docChuoi("Dia chi nha xuat ban: ");
-            nxb = new NhaXuatBan(maNXB, tenNXB, diaChiNXB);
-            danhSachNhaXuatBan.them(nxb);
-        }
-
-        double giaBan = Main.docSoThuc("Gia ban: ");
-        int soLuongTon = Main.docSoNguyen("So luong ton ban dau: ");
-
-        Sach s = new Sach(ma, ten, dsTG, namXB, tl, nxb, giaBan, soLuongTon);
-        if (danhSachSach.them(s)) {
-            System.out.println("Them sach thanh cong!");
-        } else {
-            System.out.println("Them sach that bai!");
-        }
-    }
-
     private void quanLyTheLoai() {
-        if (danhSachTheLoai == null) return;
-        int chon;
-        do {
-            System.out.println("\n--- DanhSachTheLoai: QUAN LY THE LOAI ---");
-            System.out.println("1. Them the loai");
-            System.out.println("2. Xem danh sach the loai");
-            System.out.println("3. Sua the loai theo ma");
-            System.out.println("4. Xoa the loai theo ma");
-            System.out.println("5. Tim kiem the loai theo ma");
-            System.out.println("6. Thong ke the loai");
-            System.out.println("0. Quay lai");
-            chon = Main.docSoNguyen("Chon: ");
-            switch (chon) {
-                case 1:
-                    danhSachTheLoai.nhap();
-                    break;
-                case 2:
-                    danhSachTheLoai.xuat();
-                    break;
-                case 3: {
-                    String ma = Main.docChuoi("Nhap ma the loai can sua: ");
-                    if (danhSachTheLoai.suaTheoMa(ma)) {
-                        System.out.println("Sua thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay the loai co ma: " + ma);
-                    }
-                    break;
-                }
-                case 4: {
-                    String ma = Main.docChuoi("Nhap ma the loai can xoa: ");
-                    if (xoaTheLoai(ma)) {
-                        System.out.println("Xoa thanh cong!");
-                    } else {
-                        System.out.println("Xoa the loai that bai!");
-                    }
-                    break;
-                }
-                case 5: {
-                    String ma = Main.docChuoi("Nhap ma the loai can tim: ");
-                    TheLoai tl = danhSachTheLoai.timKiem(ma);
-                    if (tl != null) {
-                        tl.hienThi();
-                    } else {
-                        System.out.println("Khong tim thay the loai co ma: " + ma);
-                    }
-                    break;
-                }
-                case 6:
-                    danhSachTheLoai.thongKe();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Lua chon khong hop le!");
-            }
-        } while (chon != 0);
+        if (danhSachTheLoai != null) {
+            danhSachTheLoai.menu();
+        }
     }
 
     private boolean xoaTheLoai(String ma) {
@@ -510,263 +346,6 @@ public class CuaHangSach {
             }
         }
         return danhSachTheLoai.xoaTheoMa(ma);
-    }
-
-    private void quanLyTacGia() {
-        if (danhSachTacGia == null) return;
-        int chon;
-        do {
-            System.out.println("\n--- DanhSachTacGia: QUAN LY TAC GIA ---");
-            System.out.println("1. Them tac gia");
-            System.out.println("2. Xem danh sach tac gia");
-            System.out.println("3. Sua tac gia theo ma");
-            System.out.println("4. Xoa tac gia theo ma");
-            System.out.println("5. Tim kiem tac gia theo ma");
-            System.out.println("6. Thong ke tac gia");
-            System.out.println("0. Quay lai");
-            chon = Main.docSoNguyen("Chon: ");
-            switch (chon) {
-                case 1:
-                    danhSachTacGia.nhap();
-                    break;
-                case 2:
-                    danhSachTacGia.xuat();
-                    break;
-                case 3: {
-                    String ma = Main.docChuoi("Nhap ma tac gia can sua: ");
-                    if (danhSachTacGia.suaTheoMa(ma)) {
-                        System.out.println("Sua thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay tac gia co ma: " + ma);
-                    }
-                    break;
-                }
-                case 4: {
-                    String ma = Main.docChuoi("Nhap ma tac gia can xoa: ");
-                    if (danhSachTacGia.xoaTheoMa(ma)) {
-                        System.out.println("Xoa thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay tac gia co ma: " + ma);
-                    }
-                    break;
-                }
-                case 5: {
-                    String ma = Main.docChuoi("Nhap ma tac gia can tim: ");
-                    TacGia tg = danhSachTacGia.timKiem(ma);
-                    if (tg != null) {
-                        tg.hienThi();
-                    } else {
-                        System.out.println("Khong tim thay tac gia co ma: " + ma);
-                    }
-                    break;
-                }
-                case 6:
-                    danhSachTacGia.thongKe();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Lua chon khong hop le!");
-            }
-        } while (chon != 0);
-    }
-
-    private void quanLyNhaXuatBan() {
-        if (danhSachNhaXuatBan == null) return;
-        int chon;
-        do {
-            System.out.println("\n--- DanhSachNhaXuatBan: QUAN LY NHA XUAT BAN ---");
-            System.out.println("1. Them nha xuat ban");
-            System.out.println("2. Xem danh sach nha xuat ban");
-            System.out.println("3. Sua nha xuat ban theo ma");
-            System.out.println("4. Xoa nha xuat ban theo ma");
-            System.out.println("5. Tim kiem nha xuat ban theo ma");
-            System.out.println("6. Thong ke nha xuat ban");
-            System.out.println("0. Quay lai");
-            chon = Main.docSoNguyen("Chon: ");
-            switch (chon) {
-                case 1:
-                    danhSachNhaXuatBan.nhap();
-                    break;
-                case 2:
-                    danhSachNhaXuatBan.xuat();
-                    break;
-                case 3: {
-                    String ma = Main.docChuoi("Nhap ma NXB can sua: ");
-                    if (danhSachNhaXuatBan.suaTheoMa(ma)) {
-                        System.out.println("Sua thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay NXB co ma: " + ma);
-                    }
-                    break;
-                }
-                case 4: {
-                    String ma = Main.docChuoi("Nhap ma NXB can xoa: ");
-                    if (danhSachNhaXuatBan.xoaTheoMa(ma)) {
-                        System.out.println("Xoa thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay NXB co ma: " + ma);
-                    }
-                    break;
-                }
-                case 5: {
-                    String ma = Main.docChuoi("Nhap ma NXB can tim: ");
-                    NhaXuatBan nxb = danhSachNhaXuatBan.timKiem(ma);
-                    if (nxb != null) {
-                        nxb.hienThi();
-                    } else {
-                        System.out.println("Khong tim thay NXB co ma: " + ma);
-                    }
-                    break;
-                }
-                case 6:
-                    danhSachNhaXuatBan.thongKe();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Lua chon khong hop le!");
-            }
-        } while (chon != 0);
-    }
-
-    private void quanLyKhachHang() {
-        if (danhSachKhachHang == null) return;
-        int chon;
-        do {
-            System.out.println("\n--- DanhSachKhachHang: QUAN LY KHACH HANG ---");
-            System.out.println("1. Them khach hang");
-            System.out.println("2. Xem danh sach khach hang");
-            System.out.println("3. Sua khach hang theo ma");
-            System.out.println("4. Xoa khach hang theo ma");
-            System.out.println("5. Tim kiem khach hang theo ma");
-            System.out.println("6. Thong ke khach hang");
-            System.out.println("0. Quay lai");
-            chon = Main.docSoNguyen("Chon: ");
-            switch (chon) {
-                case 1:
-                    danhSachKhachHang.nhapKhachHang();
-                    break;
-                case 2:
-                    danhSachKhachHang.xuat();
-                    break;
-                case 3: {
-                    String ma = Main.docChuoi("Nhap ma khach hang can sua: ");
-                    danhSachKhachHang.suaTheoMa(ma);
-                    break;
-                }
-                case 4: {
-                    String ma = Main.docChuoi("Nhap ma khach hang can xoa: ");
-                    if (danhSachKhachHang.xoaTheoMa(ma)) {
-                        System.out.println("Xoa thanh cong!");
-                    }
-                    break;
-                }
-                case 5: {
-                    String ma = Main.docChuoi("Nhap ma khach hang can tim: ");
-                    KhachHang kh = timKhachHangTheoMa(ma);
-                    if (kh != null) {
-                        kh.hienThiThongTin();
-                    } else {
-                        System.out.println("Khong tim thay khach hang co ma: " + ma);
-                    }
-                    break;
-                }
-                case 6:
-                    danhSachKhachHang.thongKe();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Lua chon khong hop le!");
-            }
-        } while (chon != 0);
-    }
-
-    private void quanLyNhanVien() {
-        if (danhSachNhanVien == null) return;
-        int chon;
-        do {
-            System.out.println("\n--- DanhSachNhanVien: QUAN LY NHAN SU ---");
-            System.out.println("1. Them nhan vien");
-            System.out.println("2. Sua nhan vien theo ma");
-            System.out.println("3. Xoa nhan vien theo ma");
-            System.out.println("4. Tim nhan vien theo ma");
-            System.out.println("5. Them quan ly");
-            System.out.println("6. Sua quan ly theo ma");
-            System.out.println("7. Xoa quan ly theo ma");
-            System.out.println("8. Tim quan ly theo ma");
-            System.out.println("9. Xem danh sach nhan vien & quan ly");
-            System.out.println("10. Thong ke nhan su");
-            System.out.println("0. Quay lai");
-            chon = Main.docSoNguyen("Chon: ");
-            switch (chon) {
-                case 1:
-                    danhSachNhanVien.nhapNhanVien();
-                    break;
-                case 2: {
-                    String ma = Main.docChuoi("Nhap ma nhan vien can sua: ");
-                    danhSachNhanVien.suaNhanVien(ma);
-                    break;
-                }
-                case 3: {
-                    String ma = Main.docChuoi("Nhap ma nhan vien can xoa: ");
-                    if (danhSachNhanVien.xoaNhanVien(ma)) {
-                        System.out.println("Xoa nhan vien thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay nhan vien co ma: " + ma);
-                    }
-                    break;
-                }
-                case 4: {
-                    String ma = Main.docChuoi("Nhap ma nhan vien can tim: ");
-                    NhanVien nv = timNhanVienTheoMa(ma);
-                    if (nv != null) {
-                        nv.hienThiThongTin();
-                    } else {
-                        System.out.println("Khong tim thay nhan vien co ma: " + ma);
-                    }
-                    break;
-                }
-                case 5:
-                    danhSachNhanVien.nhapQuanLy();
-                    break;
-                case 6: {
-                    String ma = Main.docChuoi("Nhap ma quan ly can sua: ");
-                    danhSachNhanVien.suaQuanLy(ma);
-                    break;
-                }
-                case 7: {
-                    String ma = Main.docChuoi("Nhap ma quan ly can xoa: ");
-                    if (danhSachNhanVien.xoaQuanLy(ma)) {
-                        System.out.println("Xoa quan ly thanh cong!");
-                    } else {
-                        System.out.println("Khong tim thay quan ly co ma: " + ma);
-                    }
-                    break;
-                }
-                case 8: {
-                    String ma = Main.docChuoi("Nhap ma quan ly can tim: ");
-                    QuanLy ql = timQuanLyTheoMa(ma);
-                    if (ql != null) {
-                        ql.hienThiThongTin();
-                    } else {
-                        System.out.println("Khong tim thay quan ly co ma: " + ma);
-                    }
-                    break;
-                }
-                case 9:
-                    danhSachNhanVien.xuat();
-                    break;
-                case 10:
-                    danhSachNhanVien.thongKeNhanSu();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Lua chon khong hop le!");
-            }
-        } while (chon != 0);
     }
 
     private void quanLyThongKe() {

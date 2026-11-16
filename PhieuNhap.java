@@ -1,4 +1,5 @@
 package cuahangsach;
+
 import java.time.LocalDate;
 
 public class PhieuNhap {
@@ -26,6 +27,22 @@ public class PhieuNhap {
         this.dsChiTiet = new ChiTietPhieuNhap[MAX_CHI_TIET];
         this.soLuongChiTiet = 0;
         this.tongTien = 0.0;
+    }
+
+    public PhieuNhap(PhieuNhap other) {
+        this();
+        if (other != null) {
+            this.maPhieuNhap = other.maPhieuNhap;
+            this.ngayNhap = other.ngayNhap;
+            this.nhaXuatBan = other.nhaXuatBan;
+            this.soLuongChiTiet = other.soLuongChiTiet;
+            for (int i = 0; i < other.soLuongChiTiet; i++) {
+                this.dsChiTiet[i] = (other.dsChiTiet[i] != null)
+                        ? new ChiTietPhieuNhap(other.dsChiTiet[i])
+                        : null;
+            }
+            this.tongTien = other.tongTien;
+        }
     }
 
     public boolean themChiTiet(ChiTietPhieuNhap ct) {
