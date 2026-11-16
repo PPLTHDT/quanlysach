@@ -129,14 +129,14 @@ public class DocGhiFile {
     }
 
     private String ghiNguoi(Nguoi n) {
-        return String.join(SEP, s(n.getCCCD()), s(n.getHoTen()), s(n.getSdt()),
+        return String.join(SEP, s(n.getCCCD()), s(n.getHoTen()), s(n.getSDT()),
                 s(n.getEmail()), s(n.getDiaChi()));
     }
 
     private void napNguoi(Nguoi n, String[] f) {
         n.setCCCD(f[0]);
         n.setHoTen(f[1]);
-        n.setSdt(f[2]);
+        n.setSDT(f[2]);
         n.setEmail(f[3]);
         n.setDiaChi(f[4]);
     }
