@@ -1,4 +1,5 @@
- public class DanhSachHoaDon {
+package cuahangsach;
+public class DanhSachHoaDon {
     public static final int MAX = 100;
 
     private HoaDon[] dsHoaDon;
