@@ -1,4 +1,4 @@
-﻿package CuaHangSach;
+﻿package cuahangsach;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

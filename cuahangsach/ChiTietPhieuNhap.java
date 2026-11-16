@@ -1,4 +1,4 @@
-﻿package CuaHangSach;
+﻿package cuahangsach;
 
 public class ChiTietPhieuNhap extends ChiTietPhieu {
     public ChiTietPhieuNhap() {

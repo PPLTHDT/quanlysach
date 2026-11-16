@@ -1,4 +1,4 @@
-﻿package CuaHangSach;
+﻿package cuahangsach;
 
 public interface ITinhTien {
     double tinhThanhTien();

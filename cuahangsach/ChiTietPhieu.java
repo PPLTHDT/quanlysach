@@ -1,4 +1,4 @@
-﻿package CuaHangSach;
+﻿package cuahangsach;
 
 public abstract class ChiTietPhieu implements ITinhTien {
     private static int soLuongDaTao = 0;

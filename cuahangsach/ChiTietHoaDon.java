@@ -1,4 +1,4 @@
-﻿package CuaHangSach;
+﻿package cuahangsach;
 
 public class ChiTietHoaDon extends ChiTietPhieu {
     public static final int NGUONG_CHIET_KHAU_1 = 10;
