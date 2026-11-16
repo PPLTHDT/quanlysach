@@ -1,4 +1,4 @@
-package quanlysach;
+package cuahangsach;
 public class DanhSachNhaXuatBan{
     public static final int MAX = 100;
     private NhaXuatBan[] dsNhaXuatBan;
@@ -9,7 +9,7 @@ public class DanhSachNhaXuatBan{
     }
 
 
-
+    // Doc 1 so tu ban phim, sai thi loi
     private int nhapSoNguyen(String tb){
         while (true){
             try{
@@ -24,10 +24,10 @@ public class DanhSachNhaXuatBan{
         System.out.print(tb);
         return Main.sc.nextLine();
     }
+    // Kiem tra chua tu
     private boolean chua(String goc, String tu){
         return goc != null && goc.toLowerCase().contains(tu.trim().toLowerCase());
     }
-
 
     public NhaXuatBan timTheoMa(String ma){
         for (int i = 0; i < soLuong; i++){
@@ -38,6 +38,11 @@ public class DanhSachNhaXuatBan{
         return null;
     }
     
+
+    // Ham nay de lop khac goi
+    public NhaXuatBan timKiem(String ma){
+        return timTheoMa(ma);
+    }
 
     public void timKiem(){
         System.out.println("--- TIM KIEM NHA XUAT BAN ---");
@@ -82,6 +87,7 @@ public class DanhSachNhaXuatBan{
 
    
 
+    // Them 1 nha xuat ban
     public boolean them(NhaXuatBan n){
         if (n == null || soLuong >= MAX){
             return false;
@@ -93,6 +99,8 @@ public class DanhSachNhaXuatBan{
         soLuong++;
         return true;
     }
+
+    // Sua nha xuat ban theo ma
     public boolean suaTheoMa(String ma){
         NhaXuatBan n = timTheoMa(ma);
         if (n == null){
@@ -102,6 +110,8 @@ public class DanhSachNhaXuatBan{
         n.setDiaChi(nhapChuoi("Dia chi moi: "));
         return true;
     }
+
+    // Xoa nha xuat ban theo ma
     public boolean xoaTheoMa(String ma){
         for (int i = 0; i < soLuong; i++){
             if (dsNhaXuatBan[i].getMaNXB().equals(ma)){
@@ -116,8 +126,7 @@ public class DanhSachNhaXuatBan{
         return false;
     }
 
-   
-
+    //Nhap thong tin 1 nha xuat
     private void nhapMot(){
         String ma = nhapChuoi("Ma nha xuat ban: ");
         String ten = nhapChuoi("Ten nha xuat ban: ");
@@ -127,6 +136,7 @@ public class DanhSachNhaXuatBan{
         }
     }
    
+    // Nhap danh sach nha xuat ban
     public void nhap() {
         int n = nhapSoNguyen("Nhap so luong nha xuat ban: ");
         for (int i = 0; i < n; i++){
@@ -135,10 +145,12 @@ public class DanhSachNhaXuatBan{
         }
     }
    
+    // Them 1 nha xuat ban
     public void themMot(){
         nhapMot();
     }
    
+    // Them k nha xuat ban
     public void themNhieu(){
         int k = nhapSoNguyen("Nhap so nha xuat ban can them (k): ");
         for (int i = 0; i < k; i++){
@@ -146,6 +158,7 @@ public class DanhSachNhaXuatBan{
             nhapMot();
         }
     }
+    // Xuat toan bo danh sach nha xuat ban ra man hinh
     public void xuat(){
         if (soLuong == 0){
             System.out.println("Khong co danh sach nha xuat ban");
@@ -158,6 +171,7 @@ public class DanhSachNhaXuatBan{
     }
 
    
+    //Tong so nha xuat ban va so luong theo dia chi
     public void thongKe(){
         System.out.println("So nha xuat ban: " + soLuong);
         String[] key = new String[soLuong];
@@ -190,6 +204,7 @@ public class DanhSachNhaXuatBan{
     }
 
 
+    // Menu
     public void menu(){
         int chon;
         do {
@@ -229,6 +244,7 @@ public class DanhSachNhaXuatBan{
     }
 
  
+    // Nap lai danh sach nha xuat ban tu mang doc tu file
     public void napDuLieu(NhaXuatBan[] ds){
         dsNhaXuatBan = new NhaXuatBan[MAX];
         soLuong = 0;
@@ -240,6 +256,7 @@ public class DanhSachNhaXuatBan{
             soLuong++;
         }
     }
+    // Cho doc du lieu ban sao
     public NhaXuatBan[] getDs(){
         NhaXuatBan[] kq = new NhaXuatBan[soLuong];
         for (int i = 0; i < soLuong; i++) {

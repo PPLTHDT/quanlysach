@@ -1,4 +1,4 @@
-package quanlysach;
+package cuahangsach;
 public class DanhSachTheLoai {
     public static final int MAX = 100;
     private TheLoai[] dsTheLoai;
@@ -8,8 +8,7 @@ public class DanhSachTheLoai {
         soLuong = 0;
     }
 
-    
-    private int nhapSoNguyen(String tb){
+        private int nhapSoNguyen(String tb){
         while (true) {
             try {
                 System.out.print(tb);
@@ -20,6 +19,7 @@ public class DanhSachTheLoai {
         }
     }
     
+  
     private String nhapChuoi(String tb){
         System.out.print(tb);
         return Main.sc.nextLine();
@@ -27,7 +27,6 @@ public class DanhSachTheLoai {
     private boolean chua(String goc, String tu){
         return goc != null && goc.toLowerCase().contains(tu.trim().toLowerCase());
     }
-
 
     public TheLoai timTheoMa(String ma){
         for (int i = 0; i < soLuong; i++) {
@@ -38,6 +37,11 @@ public class DanhSachTheLoai {
         return null;
     }
     
+    public TheLoai timKiem(String ma){
+        return timTheoMa(ma);
+    }
+
+
     public void timKiem(){
         System.out.println("--- TIM KIEM THE LOAI ---");
         System.out.println("1. Theo ma (chinh xac)");
@@ -81,6 +85,7 @@ public class DanhSachTheLoai {
         soLuong++;
         return true;
     }
+
     public boolean suaTheoMa(String ma) {
         TheLoai n = timTheoMa(ma);
         if (n == null) {
@@ -89,6 +94,7 @@ public class DanhSachTheLoai {
         n.setTenTheLoai(nhapChuoi("Ten the loai moi: "));
         return true;
     }
+
     public boolean xoaTheoMa(String ma) {
         for (int i = 0; i < soLuong; i++) {
             if (dsTheLoai[i].getMaTheLoai().equals(ma)) {
@@ -102,7 +108,6 @@ public class DanhSachTheLoai {
         }
         return false;
     }
-
 
     private void nhapMot(){
         String ma = nhapChuoi("Ma the loai: ");
@@ -119,7 +124,6 @@ public class DanhSachTheLoai {
             nhapMot();
         }
     }
-
 
     public void themMot(){
         nhapMot();
@@ -142,7 +146,6 @@ public class DanhSachTheLoai {
             }
         }
     }
-
 
     public void thongKe() {
         System.out.println("Tong so the loai: " + soLuong);
@@ -174,6 +177,7 @@ public class DanhSachTheLoai {
     }
 
 
+    // Menu
     public void menu(){
         int chon;
         do {
@@ -212,7 +216,6 @@ public class DanhSachTheLoai {
         } while (chon != 0);
     }
 
-
     public void napDuLieu(TheLoai[] ds) {
         dsTheLoai = new TheLoai[MAX];
         soLuong = 0;
@@ -224,6 +227,7 @@ public class DanhSachTheLoai {
             soLuong++;
         }
     }
+
     public TheLoai[] getDs() {
         TheLoai[] kq = new TheLoai[soLuong];
         for (int i = 0; i < soLuong; i++) {

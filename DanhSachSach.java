@@ -1,11 +1,8 @@
-package quanlysach;
+package cuahangsach;
 public class DanhSachSach{
     public static final int MAX = 100;
     private Sach[] dsSach;
     private int soLuong;
-
-    
-
     private DanhSachTacGia dsTG;
     private DanhSachTheLoai dsTL;
     private DanhSachNhaXuatBan dsNXB;
@@ -24,7 +21,6 @@ public class DanhSachSach{
         this.dsNXB = dsNXB;
     }
 
-    
     private int nhapSoNguyen(String tb){
         while(true){
             try{
@@ -49,6 +45,7 @@ public class DanhSachSach{
         System.out.print(tb);
         return Main.sc.nextLine();
     }
+
     private boolean chua(String goc, String tu){
         return goc != null && goc.toLowerCase().contains(tu.trim().toLowerCase());
     }
@@ -72,6 +69,9 @@ public class DanhSachSach{
         return false;
     }
     
+    public Sach timKiem(String ma){
+        return timTheoMa(ma);
+    }
 
     public void timKiem(){
         System.out.println("--- TIM KIEM SACH ---");
@@ -128,7 +128,6 @@ public class DanhSachSach{
         System.out.println("Tim thay " + dem + " ket qua.");
     }
 
-   
     public boolean them(Sach s){
         if(s == null || soLuong >= MAX){
             return false;
@@ -151,6 +150,7 @@ public class DanhSachSach{
         s.setSoLuongTon(nhapSoNguyen("So luong ton moi: "));
         return true;
     }
+   
     public boolean xoaTheoMa(String ma){
         for(int i = 0; i < soLuong; i++){
             if(dsSach[i].getMaSach().equals(ma)){
@@ -166,7 +166,6 @@ public class DanhSachSach{
     }
 
     
-
     private TheLoai layTheLoai(String ma, String ten){
         if(dsTL != null){
             TheLoai t = dsTL.timTheoMa(ma);
@@ -286,6 +285,7 @@ public class DanhSachSach{
         return k + 1;
     }
 
+
     private void thongKeTheoNhom(int loai){
         int toiDa = soLuong * 5 + 1;
         String[] khoa = new String[toiDa];
@@ -345,6 +345,7 @@ public class DanhSachSach{
     }
 
 
+    //Menu
     public void menu(){
         int chon;
         do {
@@ -382,7 +383,6 @@ public class DanhSachSach{
             }
         } while(chon != 0);
     }
-
 
     public void napDuLieu(Sach[] ds){
         dsSach = new Sach[MAX];
