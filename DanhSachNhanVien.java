@@ -503,7 +503,7 @@ public class DanhSachNhanVien{
             xuatQuanLy(dsQuanLy[i]);
         }
     }
-    public void menuDanhSachNhanVien()
+    public void menu()
     {
         DanhSachNhanVien qlns=new DanhSachNhanVien();
         Scanner sc=new Scanner(System.in);

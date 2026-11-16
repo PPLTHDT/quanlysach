@@ -185,7 +185,7 @@ public class DanhSachKhachHang {
         {
             if(dsKhachHang[i].getMaKH().contains(maKH))
             {
-                System.out.println(dsKhachHang[i].hienThiThongTin());
+                dsKhachHang[i].hienThiThongTin();
             }
         }
     }
@@ -196,7 +196,7 @@ public class DanhSachKhachHang {
         {
             if(dsKhachHang[i].getHoTen().contains(hoTen))
             {
-                System.out.println(dsKhachHang[i].hienThiThongTin());
+                dsKhachHang[i].hienThiThongTin();
             }
         }
     }
@@ -206,7 +206,7 @@ public class DanhSachKhachHang {
         {
             if(dsKhachHang[i].getSDT().contains(sdt))
             {
-                System.out.println(dsKhachHang[i].hienThiThongTin());
+                dsKhachHang[i].hienThiThongTin();
             }
         }
     }
@@ -268,7 +268,7 @@ public class DanhSachKhachHang {
 
 
 
-    public void menuDanhSachKhachHang()
+    public void menu()
     {
         DanhSachKhachHang dskh=new DanhSachKhachHang();
         Scanner sc=new Scanner(System.in);
