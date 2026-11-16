@@ -1,3 +1,4 @@
+package cuahangsach;
 public class ThanhToanTienMat implements ThanhToan {
     private double tienNhan;
 
