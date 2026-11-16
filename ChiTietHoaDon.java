@@ -1,4 +1,4 @@
-package cuahangsach
+package cuahangsach;
 public class ChiTietHoaDon {
     private String maCT;
     private Sach sach;
