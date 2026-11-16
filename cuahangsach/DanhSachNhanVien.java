@@ -1,5 +1,4 @@
 package cuahangsach;
-import java.util.Scanner;
 
 public class DanhSachNhanVien{
     private NhanVien[] dsNhanVien = new NhanVien[MAX_NV];
@@ -44,11 +43,9 @@ public class DanhSachNhanVien{
     }
     public boolean suaNhanVien(String maNV)
     {
-        
         for (int i=0;i<soluongNV;i++) {
             if(dsNhanVien[i].getMaNV().contains(maNV))
             {
-                Scanner sc=new Scanner(System.in);
                 System.out.println("1.Sua CCCD.");
                 System.out.println("2.Sua ho ten.");
                 System.out.println("3.Sua sdt.");
@@ -58,18 +55,17 @@ public class DanhSachNhanVien{
                 System.out.println("7.Sua chuc vu.");
                 System.out.println("8.Sua luong co ban.");
                 System.out.println("9.Sua so gio lam.");
-                System.out.println("Lua chon cua ban:");
-                int k=sc.nextInt();
+                int k = Main.docSoNguyen("Lua chon cua ban: ");
                 switch (k) {
                     case 1:dsNhanVien[i].setCCCD();break;
-                    case 2:dsNhanVien[i].setHoTen();;break;
-                    case 3:dsNhanVien[i].setSDT();;break;
-                    case 4:dsNhanVien[i].setEmail();;break;
-                    case 5:dsNhanVien[i].setDiaChi();;break;
-                    case 6:dsNhanVien[i].setMaNV();;break;
-                    case 7:dsNhanVien[i].setChucVu();;break;
-                    case 8:dsNhanVien[i].setLuongCoBan();;break;
-                    case 9:dsNhanVien[i].setSoGioLam();;break;
+                    case 2:dsNhanVien[i].setHoTen();break;
+                    case 3:dsNhanVien[i].setSDT();break;
+                    case 4:dsNhanVien[i].setEmail();break;
+                    case 5:dsNhanVien[i].setDiaChi();break;
+                    case 6:dsNhanVien[i].setMaNV();break;
+                    case 7:dsNhanVien[i].setChucVu();break;
+                    case 8:dsNhanVien[i].setLuongCoBan();break;
+                    case 9:dsNhanVien[i].setSoGioLam();break;
                 
                     default:
                         break;
@@ -137,18 +133,13 @@ public class DanhSachNhanVien{
             System.out.println("2.Tim kiem theo ten NV.");
             System.out.println("3.Tim kiem theo sdt NV.");
             System.out.println("0.OUT.");
-            System.out.println("Lua chon cua ban:");
-            Scanner sc=new Scanner(System.in);
-            k=sc.nextInt();
-            sc.nextLine();
+            k = Main.docSoNguyen("Lua chon cua ban: ");
 
             NhanVien nv;
             switch (k) {
                 case 1:
                     {
-                        
-                        System.out.println("Nhap vao ma NV:");
-                        String ma=sc.nextLine();
+                        String ma = Main.docChuoi("Nhap vao ma NV: ");
                         nv=timKiemMaNV(ma);
                         if (nv != null) {
                             nv.hienThiThongTin();
@@ -159,8 +150,7 @@ public class DanhSachNhanVien{
                     }
                 case 2:
                     {
-                        System.out.println("Nhap vao ho ten NV:");
-                        String ten=sc.nextLine();
+                        String ten = Main.docChuoi("Nhap vao ho ten NV: ");
                         nv=timKiemHoTenNV(ten);
                         if (nv != null) {
                             nv.hienThiThongTin();
@@ -171,8 +161,7 @@ public class DanhSachNhanVien{
                     }
                 case 3:
                     {
-                        System.out.println("Nhap vao SDT NV:");
-                        String s=sc.nextLine();
+                        String s = Main.docChuoi("Nhap vao SDT NV: ");
                         nv=timKiemSdtNV(s);
                         if (nv != null) {
                             nv.hienThiThongTin();
@@ -184,8 +173,6 @@ public class DanhSachNhanVien{
                 case 0:return;
             }
         }while(k!=0);
-        
-        
     }
     public double tongLuongNV()
     {
@@ -251,7 +238,6 @@ public class DanhSachNhanVien{
         for (int i=0;i<soluongQL;i++) {
             if(dsQuanLy[i].getMaQL().contains(maQL))
             {
-                Scanner sc=new Scanner(System.in);
                 System.out.println("1.Sua CCCD.");
                 System.out.println("2.Sua ho ten.");
                 System.out.println("3.Sua sdt.");
@@ -259,16 +245,15 @@ public class DanhSachNhanVien{
                 System.out.println("5.Sua dia chi.");
                 System.out.println("6.Sua ma quan ly.");
                 System.out.println("7.Sua phu cap.");
-                System.out.println("Lua chon cua ban:");
-                int k=sc.nextInt();
+                int k = Main.docSoNguyen("Lua chon cua ban: ");
                 switch (k) {
-                    case 2:dsQuanLy[i].setHoTen();;break;
-                    case 3:dsQuanLy[i].setSDT();;break;
+                    case 2:dsQuanLy[i].setHoTen();break;
+                    case 3:dsQuanLy[i].setSDT();break;
                     case 1:dsQuanLy[i].setCCCD();break;
-                    case 4:dsQuanLy[i].setEmail();;break;
-                    case 5:dsQuanLy[i].setDiaChi();;break;
-                    case 6:dsQuanLy[i].setMaQL();;;break;
-                    case 7:dsQuanLy[i].setPhuCap();;;break;
+                    case 4:dsQuanLy[i].setEmail();break;
+                    case 5:dsQuanLy[i].setDiaChi();break;
+                    case 6:dsQuanLy[i].setMaQL();break;
+                    case 7:dsQuanLy[i].setPhuCap();break;
                 
                     default:
                         break;
@@ -315,39 +300,30 @@ public class DanhSachNhanVien{
             System.out.println("2.Tim kiem theo ten QL.");
             System.out.println("3.Tim kiem theo sdt QL.");
             System.out.println("0.OUT.");
-            System.out.println("Lua chon cua ban:");
-            Scanner sc=new Scanner(System.in);
-            k=sc.nextInt();
-            sc.nextLine();
+            k = Main.docSoNguyen("Lua chon cua ban: ");
 
             switch (k) {
                 case 1:
                     {
-                        System.out.println("Nhap vao ma QL:");
-                        String ma=sc.nextLine();
+                        String ma = Main.docChuoi("Nhap vao ma QL: ");
                         System.out.println(timKiemMaQL(ma));
                         break;
                     }
                 case 2:
                     {
-                        System.out.println("Nhap vao ho ten QL:");
-                        String ten=sc.nextLine();
+                        String ten = Main.docChuoi("Nhap vao ho ten QL: ");
                         System.out.println(timKiemHoTenQL(ten));
                         break;
                     }
                 case 3:
                     {
-                        System.out.println("Nhap vao SDT QL:");
-                        String s=sc.nextLine();
+                        String s = Main.docChuoi("Nhap vao SDT QL: ");
                         System.out.println(timKiemSdtQL(s)); 
                         break;
                     }
                 case 0:return;
             }
         }while(k!=0);
-
-
-
     }
     public double tongLuongQL()
     {
@@ -362,10 +338,10 @@ public class DanhSachNhanVien{
     {
         System.out.println("*Thong tin chung cua nhan vien : ");
         System.out.println("-So luong nhan vien : "+soluongNV);
-        System.out.println("-Tong luong : "+tongLuongNV());
+        System.out.println("-Tong luong : "+Main.dinhDangTien(tongLuongNV()));
         System.out.println("*Thong tin chung cua quan ly : ");
         System.out.println("-So luong quan ly : "+soluongQL);
-        System.out.println("-Tong luong : "+tongLuongQL());
+        System.out.println("-Tong luong : "+Main.dinhDangTien(tongLuongQL()));
         
 
         System.out.println("Phong ban ke toan.");
@@ -434,8 +410,6 @@ public class DanhSachNhanVien{
         System.out.println("So luong quan ly :"+qlk);
         System.out.println("So luong nhan vien :"+nvk);
         System.out.println("-----------------------------------------");
-
-
     }
     public void napDuLieu(NhanVien[] dsnv,QuanLy[] dsql)
     {
@@ -506,7 +480,6 @@ public class DanhSachNhanVien{
     public void menu()
     {
         DanhSachNhanVien qlns=new DanhSachNhanVien();
-        Scanner sc=new Scanner(System.in);
         int chon;
         do{
             System.out.println("1.Them nhan vien.");
@@ -523,24 +496,19 @@ public class DanhSachNhanVien{
             System.out.println("12.Xuat nhan vien.");
             System.out.println("13.Xuat quan ly.");
             System.out.println("0.OUT.");
-            System.out.println("Lua chon cua ban :");
-            chon=sc.nextInt();
-            sc.nextLine();
+            chon = Main.docSoNguyen("Lua chon cua ban: ");
             switch (chon) {
                 case 1:qlns.nhapNhanVien();break;
                 case 2:
-                    System.out.println("Nhap vao so luong nhan vien :");
-                    int n=sc.nextInt();
+                    int n = Main.docSoNguyen("Nhap vao so luong nhan vien: ");
                     qlns.themNNV(n);
                     break;
                 case 3:
-                    System.out.println("Nhap vao ma nhan vien:");
-                    String a=sc.nextLine();
+                    String a = Main.docChuoi("Nhap vao ma nhan vien: ");
                     qlns.suaNhanVien(a);
                     break;
                 case 4:
-                    System.out.println("Nhap vao ma nhan vien:");
-                    a=sc.nextLine();
+                    a = Main.docChuoi("Nhap vao ma nhan vien: ");
                     qlns.xoaNhanVien(a);
                     break;
                 case 5:
@@ -548,19 +516,15 @@ public class DanhSachNhanVien{
                     break;
                 case 6:qlns.nhapQuanLy();break; 
                 case 7:
-                    System.out.println("Nhap vao so luong quan ly :");
-                    int p=sc.nextInt();
+                    int p = Main.docSoNguyen("Nhap vao so luong quan ly: ");
                     qlns.themNQL(p);
                     break;
-                    
                 case 8:
-                    System.out.println("Nhap vao ma quan ly:");
-                    a=sc.nextLine();
+                    a = Main.docChuoi("Nhap vao ma quan ly: ");
                     qlns.suaQuanLy(a);
                     break;
                 case 9:
-                    System.out.println("Nhap vao ma quan ly:");
-                    a=sc.nextLine();
+                    a = Main.docChuoi("Nhap vao ma quan ly: ");
                     qlns.xoaQuanLy(a);
                     break;
                 case 10:
@@ -579,6 +543,4 @@ public class DanhSachNhanVien{
         }
         while(chon!=0);
     }
-
-    public NhanVien timKiem(String ma) { return timKiemMaNV(ma); }
 }
