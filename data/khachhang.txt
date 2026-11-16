@@ -1,0 +1,2 @@
+001201000001|Nguyen Van An|0901234567|an@example.com|Quan 1, TP.HCM|KH01|120
+001201000002|Tran Thi Binh|0912345678|binh@example.com|Quan 3, TP.HCM|KH02|30

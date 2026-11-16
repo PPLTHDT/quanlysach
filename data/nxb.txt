@@ -1,0 +1,3 @@
+NXB01|NXB Tre|TP. Ho Chi Minh
+NXB02|NXB Kim Dong|Ha Noi
+NXB03|NXB Lao Dong|Ha Noi
