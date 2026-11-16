@@ -1,4 +1,4 @@
-package cuahangsach
+package cuahangsach;
 import java.time.LocalDate;
 
 public class KhuyenMai {
