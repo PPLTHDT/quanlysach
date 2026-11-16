@@ -3,19 +3,20 @@ public class DanhSachSach{
     public static final int MAX = 100;
     private Sach[] dsSach;
     private int soLuong;
-    private DanhSachTacGia dsTG;
-    private DanhSachTheLoai dsTL;
-    private DanhSachNhaXuatBan dsNXB;
-
+    private final DanhSachTacGia dsTG;
+    private final DanhSachTheLoai dsTL;
+    private final DanhSachNhaXuatBan dsNXB;
+    
     public DanhSachSach(){
+    dsSach = new Sach[MAX];
+    soLuong = 0;
+    dsTG = null;
+    dsTL = null;
+    dsNXB = null;
+    } 
+    public DanhSachSach(DanhSachTacGia dsTG, DanhSachTheLoai dsTL, DanhSachNhaXuatBan dsNXB){
         dsSach = new Sach[MAX];
         soLuong = 0;
-    }
-    public DanhSachSach(DanhSachTacGia dsTG, DanhSachTheLoai dsTL, DanhSachNhaXuatBan dsNXB){
-        this();
-        lienKet(dsTG, dsTL, dsNXB);
-    }
-    public void lienKet(DanhSachTacGia dsTG, DanhSachTheLoai dsTL, DanhSachNhaXuatBan dsNXB){
         this.dsTG = dsTG;
         this.dsTL = dsTL;
         this.dsNXB = dsNXB;
@@ -210,7 +211,12 @@ public class DanhSachSach{
             return;
         }
         String ten = nhapChuoi("Ten sach: ");
-        int sotg = nhapSoNguyen("So tac gia: ");
+        //Chan so am
+        int sotg;
+        do {
+        sotg = nhapSoNguyen("So tac gia: ");
+        } while(sotg < 0);
+
         TacGia[] dsTacGia = new TacGia[sotg];
         for(int j = 0; j < sotg; j++){
             String maTG = nhapChuoi("Ma tac gia " + (j + 1) + ": ");
@@ -287,7 +293,11 @@ public class DanhSachSach{
 
 
     private void thongKeTheoNhom(int loai){
-        int toiDa = soLuong * 5 + 1;
+      int toiDa = soLuong;
+      for(int i = 0; i < soLuong; i++){
+        toiDa += dsSach[i].getDsTacGia().length;
+    }
+
         String[] khoa = new String[toiDa];
         int[] soDauSach = new int[toiDa];
         int[] tongTon = new int[toiDa];
