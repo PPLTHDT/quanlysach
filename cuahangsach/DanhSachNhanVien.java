@@ -479,7 +479,7 @@ public class DanhSachNhanVien{
     }
     public void menu()
     {
-        DanhSachNhanVien qlns=new DanhSachNhanVien();
+        DanhSachNhanVien qlns=this;
         int chon;
         do{
             System.out.println("1.Them nhan vien.");
@@ -543,4 +543,5 @@ public class DanhSachNhanVien{
         }
         while(chon!=0);
     }
+        public NhanVien timKiem(String ma) { return timKiemMaNV(ma); }
 }
