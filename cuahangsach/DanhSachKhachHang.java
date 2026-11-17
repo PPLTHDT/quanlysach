@@ -287,5 +287,6 @@ public class DanhSachKhachHang {
         }
         while(chon!=0);
     }
+        public KhachHang timKiem(String ma) { return timKiemMa(ma); }
 
 }

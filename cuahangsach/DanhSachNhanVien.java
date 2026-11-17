@@ -543,4 +543,5 @@ public class DanhSachNhanVien{
         }
         while(chon!=0);
     }
+        public NhanVien timKiem(String ma) { return timKiemMaNV(ma); }
 }
