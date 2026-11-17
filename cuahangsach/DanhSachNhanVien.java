@@ -348,7 +348,7 @@ public class DanhSachNhanVien{
         System.out.println("Quan ly :");
         int qlkt=0,nvkt=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan().contains("ke toan"))
+            if(dsQuanLy[i].getPhongBan() != null && dsQuanLy[i].getPhongBan().contains("ke toan"))
             {
                 System.out.println(dsQuanLy[i].getHoTen());
                 qlkt++;
@@ -356,7 +356,7 @@ public class DanhSachNhanVien{
         }
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu().contains("ke toan"))
+            if(dsNhanVien[i].getChucVu() != null && dsNhanVien[i].getChucVu().contains("ke toan"))
             {
                 System.out.println(dsNhanVien[i].getHoTen());
                 nvkt++;
@@ -369,7 +369,7 @@ public class DanhSachNhanVien{
         System.out.println("Quan ly :");
         int qlbv=0,nvbv=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan().contains("bao ve"))
+            if(dsQuanLy[i].getPhongBan() != null && dsQuanLy[i].getPhongBan().contains("bao ve"))
             {
                 System.out.println(dsQuanLy[i].getHoTen());
                 qlbv++;
@@ -377,7 +377,7 @@ public class DanhSachNhanVien{
         }
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu().contains("bao ve"))
+            if(dsNhanVien[i].getChucVu() != null && dsNhanVien[i].getChucVu().contains("bao ve"))
             {
                 System.out.println(dsNhanVien[i].getHoTen());
                 nvbv++;
@@ -390,7 +390,7 @@ public class DanhSachNhanVien{
         System.out.println("Quan ly :");
         int qlk=0,nvk=0;
         for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan().contains("kho"))
+            if(dsQuanLy[i].getPhongBan() != null && dsQuanLy[i].getPhongBan().contains("kho"))
             {
                 System.out.println(dsQuanLy[i].getHoTen());
                 qlk++;
@@ -400,7 +400,7 @@ public class DanhSachNhanVien{
 
         System.out.println("Nhan vien : ");
         for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu().contains("kho"))
+            if(dsNhanVien[i].getChucVu() != null && dsNhanVien[i].getChucVu().contains("kho"))
             {
                 System.out.println(dsNhanVien[i].getHoTen());
                 nvk++;

@@ -53,7 +53,9 @@ public class DanhSachKhachHang {
     public boolean suaTheoMa(String maKH)
     {
         for (int i=0;i<soLuong;i++) {
-            if(dsKhachHang[i].getMaKH().equals(maKH))
+            if(dsKhachHang[i] != null &&
+            dsKhachHang[i].getMaKH() != null &&
+            dsKhachHang[i].getMaKH().contains(maKH))
             {
                 System.out.println("1.Sua can cuoc cong dan.");
                 System.out.println("2.Sua ho ten.");
@@ -86,7 +88,9 @@ public class DanhSachKhachHang {
     {
         for(int i=0;i<soLuong;i++)
         {
-            if(dsKhachHang[i].getMaKH().equals(maKH))
+            if(dsKhachHang[i] != null &&
+            dsKhachHang[i].getMaKH() != null &&
+            dsKhachHang[i].getMaKH().contains(maKH))
             {
                 for(int j=i;j<soLuong-1;j++)
                 {
@@ -105,7 +109,9 @@ public class DanhSachKhachHang {
     {
         for(int i=0;i<soLuong;i++)
         {
-            if(dsKhachHang[i].getMaKH().contains(maKH))
+            if(dsKhachHang[i] != null &&
+            dsKhachHang[i].getMaKH() != null &&
+            dsKhachHang[i].getMaKH().contains(maKH))
             {
                 return dsKhachHang[i];
             }
@@ -117,7 +123,9 @@ public class DanhSachKhachHang {
     {
         for(int i=0;i<soLuong;i++)
         {
-            if(dsKhachHang[i].getHoTen().contains(hoten))
+            if(dsKhachHang[i] != null &&
+            dsKhachHang[i].getHoTen() != null &&
+            dsKhachHang[i].getHoTen().contains(hoten))
             {
                 return dsKhachHang[i];
             }
@@ -129,7 +137,9 @@ public class DanhSachKhachHang {
     {
         for(int i=0;i<soLuong;i++)
         {
-            if(dsKhachHang[i].getSDT().contains(sdt))
+            if(dsKhachHang[i] != null &&
+            dsKhachHang[i].getSDT() != null &&
+            dsKhachHang[i].getSDT().contains(sdt))
                 return dsKhachHang[i];
         }
         System.out.println("Khong tim thay khach hang nay.");

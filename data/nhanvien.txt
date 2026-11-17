@@ -1,2 +1,3 @@
 002202000001|Le Van Cuong|0987654321|cuong@example.com|Thu Duc, TP.HCM|NV01|Ban hang|20000.0|160
 002202000002|Pham Thi Dao|0976543210|dao@example.com|Binh Thanh, TP.HCM|NV02|Thu kho|18000.0|120
+002202000003|Nguyen Tuan Kiet|0934543210|dde@example.com|Go Vap, TP.HCM|NV03|Ke Toan|14500.0|170
