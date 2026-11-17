@@ -44,7 +44,9 @@ public class DanhSachNhanVien{
     public boolean suaNhanVien(String maNV)
     {
         for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getMaNV().contains(maNV))
+            if(dsNhanVien[i] != null &&
+            dsNhanVien[i].getMaNV() != null &&
+            dsNhanVien[i].getMaNV().contains(maNV))
             {
                 System.out.println("1.Sua CCCD.");
                 System.out.println("2.Sua ho ten.");
@@ -82,7 +84,9 @@ public class DanhSachNhanVien{
     {
         for(int i=0;i<soluongNV;i++)
         {
-            if(dsNhanVien[i].getMaNV().contains(maNV))
+            if(dsNhanVien[i] != null &&
+            dsNhanVien[i].getMaNV() != null &&
+            dsNhanVien[i].getMaNV().contains(maNV))
             {
                 for(int j=i;j<soluongNV-1;j++)
                 {
@@ -100,7 +104,9 @@ public class DanhSachNhanVien{
         for(int i=0;i<soluongNV;i++)
 
             {
-                if(dsNhanVien[i].getMaNV().contains(maNV))
+                if(dsNhanVien[i] != null &&
+                dsNhanVien[i].getMaNV() != null &&
+                dsNhanVien[i].getMaNV().contains(maNV))
                     return dsNhanVien[i];
             }
         return null;
@@ -110,7 +116,9 @@ public class DanhSachNhanVien{
         for(int i=0;i<soluongNV;i++)
 
             {
-                if(dsNhanVien[i].getHoTen().contains(hoTen))
+                if(dsNhanVien[i] != null &&
+                dsNhanVien[i].getHoTen() != null &&
+                dsNhanVien[i].getHoTen().contains(hoTen))
                     return dsNhanVien[i];
             }
         return null;
@@ -120,7 +128,9 @@ public class DanhSachNhanVien{
         for(int i=0;i<soluongNV;i++)
 
             {
-                if(dsNhanVien[i].getSDT().contains(SDT))
+                if(dsNhanVien[i] != null &&
+                dsNhanVien[i].getSDT() != null &&
+                dsNhanVien[i].getSDT().contains(SDT))
                     return dsNhanVien[i];
             }
         return null;
@@ -194,6 +204,7 @@ public class DanhSachNhanVien{
         ql.setDiaChi();
         ql.setMaQL();
         ql.setPhuCap();
+        ql.setPhongBan();
         themQuanLy(ql);
     }
     public void xuatQuanLy(QuanLy ql)
@@ -220,7 +231,9 @@ public class DanhSachNhanVien{
     {
         for(int i=0;i<soluongQL;i++)
         {
-            if(dsQuanLy[i].getMaQL().contains(maQL))
+            if(dsQuanLy[i] != null &&
+            dsQuanLy[i].getMaQL() != null &&
+            dsQuanLy[i].getMaQL().contains(maQL))
             {
                 for(int j=i;j<soluongQL-1;j++)
                 {
@@ -236,7 +249,9 @@ public class DanhSachNhanVien{
     public boolean suaQuanLy(String maQL)
     {
         for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getMaQL().contains(maQL))
+            if(dsQuanLy[i] != null &&
+            dsQuanLy[i].getMaQL() != null &&
+            dsQuanLy[i].getMaQL().contains(maQL))
             {
                 System.out.println("1.Sua CCCD.");
                 System.out.println("2.Sua ho ten.");
@@ -268,7 +283,9 @@ public class DanhSachNhanVien{
     {
         for(int i=0;i<soluongQL;i++)
         {
-            if(dsQuanLy[i].getMaQL().contains(maQL))
+            if(dsQuanLy[i] != null &&
+            dsQuanLy[i].getMaQL() != null &&
+            dsQuanLy[i].getMaQL().contains(maQL))
                 return dsQuanLy[i];
         }
         return null;
@@ -277,7 +294,9 @@ public class DanhSachNhanVien{
     {
         for(int i=0;i<soluongQL;i++)
         {
-            if(dsQuanLy[i].getHoTen().contains(hoTen))
+            if(dsQuanLy[i] != null &&
+            dsQuanLy[i].getHoTen() != null &&
+            dsQuanLy[i].getHoTen().contains(hoTen))
                 return dsQuanLy[i];
         }
         return null;
@@ -286,7 +305,9 @@ public class DanhSachNhanVien{
     {
         for(int i=0;i<soluongQL;i++)
         {
-            if(dsQuanLy[i].getSDT().contains(SDT))
+            if(dsQuanLy[i] != null &&
+            dsQuanLy[i].getSDT() != null &&
+            dsQuanLy[i].getSDT().contains(SDT))
                 return dsQuanLy[i];
         }
         return null;

@@ -1,2 +1,16 @@
 001201000001|Nguyen Van An|0901234567|an@example.com|Quan 1, TP.HCM|KH01|120
 001201000002|Tran Thi Binh|0912345678|binh@example.com|Quan 3, TP.HCM|KH02|30
+001201000003|Le Minh Cuong|0987654321|cuongkh@example.com|Thu Duc, TP.HCM|KH03|80
+001201000004|Pham Thi Lan|0976543210|lan@example.com|Binh Thanh, TP.HCM|KH04|150
+001201000005|Nguyen Hoang Nam|0934543210|namkh@example.com|Go Vap, TP.HCM|KH05|45
+001201000006|Tran Quoc Bao|0961234567|bao@example.com|Tan Binh, TP.HCM|KH06|200
+001201000007|Vo Thi Mai|0952345678|mai@example.com|Phu Nhuan, TP.HCM|KH07|65
+001201000008|Bui Thanh Tung|0943456789|tung@example.com|Quan 7, TP.HCM|KH08|110
+001201000009|Do Thi Hong|0924567890|hong@example.com|Quan 10, TP.HCM|KH09|25
+001201000010|Hoang Gia Huy|0915678901|huy@example.com|Tan Phu, TP.HCM|KH10|175
+001201000011|Phan Ngoc Tram|0906789012|tram@example.com|Quan 5, TP.HCM|KH11|95
+001201000012|Dang Minh Duc|0987890123|duc@example.com|Quan 6, TP.HCM|KH12|40
+001201000013|Nguyen Thi Hoa|0978901234|hoa@example.com|Thu Duc, TP.HCM|KH13|130
+001201000014|Le Quoc Viet|0969012345|viet@example.com|Quan 8, TP.HCM|KH14|55
+001201000015|Pham Minh Anh|0930123456|anh@example.com|Binh Tan, TP.HCM|KH15|220
+001201000016|Nguyen Tuan Kiet |0393912512|nguyenkiet1455@nkiet1455gmail.t1455gmailcom|Go Vap |KH16|300
