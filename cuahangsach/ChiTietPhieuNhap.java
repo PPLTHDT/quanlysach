@@ -1,128 +1,79 @@
 package cuahangsach;
 
-public class ChiTietPhieuNhap {
-    private static int demMa = 0;
-
-    private String maCT;
-    private Sach sach;
-    private int soLuongNhap;
-    private double donGiaNhap;
-
+public class ChiTietPhieuNhap extends ChiTietPhieu {
     public ChiTietPhieuNhap() {
-        this.maCT = taoMaCT();
-        this.sach = null;
-        this.soLuongNhap = 0;
-        this.donGiaNhap = 0.0;
+        super();
     }
 
     public ChiTietPhieuNhap(Sach sach, int soLuongNhap, double donGiaNhap) {
-        this(taoMaCT(), sach, soLuongNhap, donGiaNhap);
+        this(taoMaCT("CTPN"), sach, soLuongNhap, donGiaNhap);
     }
 
     public ChiTietPhieuNhap(String maCT, Sach sach, int soLuongNhap, double donGiaNhap) {
-        if (maCT == null || maCT.trim().isEmpty()) {
-            this.maCT = taoMaCT();
-        } else {
-            this.maCT = maCT.trim();
-            capNhatDemMa(this.maCT);
-        }
+        super(maCT, soLuongNhap, donGiaNhap);
         this.sach = sach;
-        setSoLuongNhap(soLuongNhap);
-        setDonGiaNhap(donGiaNhap);
     }
-
-    public ChiTietPhieuNhap(ChiTietPhieuNhap other) {
+        public ChiTietPhieuNhap(ChiTietPhieuNhap other) {
+        super();
         if (other != null) {
             this.maCT = other.maCT;
             this.sach = other.sach;
-            this.soLuongNhap = other.soLuongNhap;
-            this.donGiaNhap = other.donGiaNhap;
-        } else {
-            this.maCT = taoMaCT();
-            this.sach = null;
-            this.soLuongNhap = 0;
-            this.donGiaNhap = 0.0;
+            this.soLuong = other.soLuong;
+            this.donGia = other.donGia;
         }
     }
 
-    private static String taoMaCT() {
-        demMa++;
-        return String.format("CTPN%03d", demMa);
+    public int getSoLuongNhap() {
+        return soLuong;
     }
 
-    private static void capNhatDemMa(String ma) {
-        try {
-            String so = ma.replaceAll("\\D", "");
-            if (!so.isEmpty()) {
-                int stt = Integer.parseInt(so);
-                if (stt > demMa) {
-                    demMa = stt;
-                }
-            }
-        } catch (NumberFormatException ignored) {
+    public void setSoLuongNhap(int soLuongNhap) {
+        if (soLuongNhap <= 0) {
+            throw new IllegalArgumentException("So luong nhap phai lon hon 0");
         }
+        this.soLuong = soLuongNhap;
     }
 
+    public double getDonGiaNhap() {
+        return donGia;
+    }
+
+    public void setDonGiaNhap(double donGiaNhap) {
+        if (donGiaNhap <= 0) {
+            throw new IllegalArgumentException("Don gia nhap phai lon hon 0");
+        }
+        this.donGia = donGiaNhap;
+    }
+
+    @Override
     public double tinhThanhTien() {
-        return donGiaNhap * soLuongNhap;
+        return donGia * soLuong;
     }
 
     public void capNhatSoLuong() {
-        if (sach != null && soLuongNhap > 0) {
-            sach.tangSoLuong(soLuongNhap);
+        if (sach != null && soLuong > 0) {
+            sach.tangSoLuong(soLuong);
         }
     }
 
+    @Override
     public void hienThiThongTin() {
-        System.out.println("Ma CT: " + maCT
-                + " | Sach: " + (sach != null ? sach.getTenSach() : "(Khong co)")
-                + " | SL nhap: " + soLuongNhap
-                + " | Don gia nhap: " + Main.dinhDangTien(donGiaNhap)
-                + " | Thanh tien: " + Main.dinhDangTien(tinhThanhTien()));
+        System.out.println("Ma CT : " + maCT
+                + "| Ten sach : " + (sach != null ? sach.getTenSach() : "(khong co)")
+                + "| So luong nhap : " + soLuong
+                + "| Don gia nhap : " + String.format("%,.0f", donGia)
+                + "| Thanh tien : " + String.format("%,.0f", tinhThanhTien()));
     }
 
     public void xuat() {
         hienThiThongTin();
     }
 
+    @Override
     public String dongFile() {
-        return String.join("|", "CT",
-                maCT == null ? "" : maCT,
+        return String.join("|", "CT", maCT,
                 sach == null ? "" : sach.getMaSach(),
-                String.valueOf(soLuongNhap),
-                String.valueOf(donGiaNhap));
-    }
-
-    // Getter & Setter
-    public String getMaCT() {
-        return maCT;
-    }
-
-    public void setMaCT(String maCT) {
-        this.maCT = maCT;
-    }
-
-    public Sach getSach() {
-        return sach;
-    }
-
-    public void setSach(Sach sach) {
-        this.sach = sach;
-    }
-
-    public int getSoLuongNhap() {
-        return soLuongNhap;
-    }
-
-    public void setSoLuongNhap(int soLuongNhap) {
-        this.soLuongNhap = (soLuongNhap >= 0) ? soLuongNhap : 0;
-    }
-
-    public double getDonGiaNhap() {
-        return donGiaNhap;
-    }
-
-    public void setDonGiaNhap(double donGiaNhap) {
-        this.donGiaNhap = (donGiaNhap >= 0) ? donGiaNhap : 0.0;
+                String.valueOf(soLuong),
+                String.valueOf(donGia));
     }
 }

@@ -1,4 +1,5 @@
 package cuahangsach;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -428,9 +429,9 @@ public class DocGhiFile {
             for (HoaDon h : ds) {
                 if (h == null) continue;
                 n++;
-                ChiTietHoaDon[] dsCT = h.getDsChiTiet();
+                ChiTietPhieu[] dsCT = h.getDsChiTiet();
                 if (dsCT != null) {
-                    for (ChiTietHoaDon ct : dsCT) {
+                    for (ChiTietPhieu ct : dsCT) {
                         if (ct != null) n++;
                     }
                 }
@@ -462,9 +463,9 @@ public class DocGhiFile {
                         String.valueOf(h.getTienGiam()), String.valueOf(h.getTongTien()),
                         loai, p1, p2, p3);
 
-                ChiTietHoaDon[] dsCT = h.getDsChiTiet();
+                ChiTietPhieu[] dsCT = h.getDsChiTiet();
                 if (dsCT != null) {
-                    for (ChiTietHoaDon ct : dsCT) {
+                    for (ChiTietPhieu ct : dsCT) {
                         if (ct == null) continue;
                         dong[k++] = ct.dongFile();
                     }

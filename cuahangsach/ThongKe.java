@@ -1,4 +1,5 @@
 package cuahangsach;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -92,7 +93,7 @@ public class ThongKe {
             if(ds[i]==null){
                 continue;
             }
-            for(ChiTietHoaDon ct : ds[i].getDsChiTiet()){
+            for(ChiTietPhieu ct : ds[i].getDsChiTiet()){
                 if(ct.getSach()!=null && ct.getSach().getMaSach().equals(maSach)){
                     tong += ct.getSoLuong();
                 }
@@ -259,7 +260,7 @@ public void thongKeChiTietKhachHang(HoaDon[] dsHD, int nHD, KhachHang[] dsKH, in
                 && dsHD[i].getKhachHang().getMaKH().equals(maKH)) {
             soHD++;
             tongChi += dsHD[i].getTongTien();
-            for (ChiTietHoaDon ct : dsHD[i].getDsChiTiet()) {
+            for (ChiTietPhieu ct : dsHD[i].getDsChiTiet()) {
                 soSach += ct.getSoLuong();
             }
             if (ganNhat == null || dsHD[i].getNgayLap().isAfter(ganNhat)) {

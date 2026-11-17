@@ -1,9 +1,11 @@
 package cuahangsach;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
-public class HoaDon {
-    public static final int MAX_CT = 50;
-
+public class HoaDon{
+    private static final int SoChiTietBanDau = 10;
     private String maHD;
     private LocalDate ngayLap;
     private double tongTien;
@@ -11,216 +13,140 @@ public class HoaDon {
     private KhachHang khachHang;
     private NhanVien nhanVien;
     private KhuyenMai khuyenMai;
-    private ChiTietHoaDon[] dsChiTiet;
-    private int soLuongChiTiet;
+    private ChiTietPhieu[] dsChiTiet;
+    private int soluongChiTiet;
     private ThanhToan thanhToan;
 
-    public HoaDon() {
-        this.maHD = "";
-        this.ngayLap = LocalDate.now();
-        this.tongTien = 0;
-        this.tienGiam = 0;
-        this.khachHang = null;
-        this.nhanVien = null;
-        this.khuyenMai = null;
-        this.dsChiTiet = new ChiTietHoaDon[MAX_CT];
-        this.soLuongChiTiet = 0;
-        this.thanhToan = null;
+    public HoaDon(){
+        this.ngayLap= LocalDate.now();
+        this.dsChiTiet= new ChiTietPhieu[SoChiTietBanDau];
     }
-
-    public HoaDon(String maHD, LocalDate ngayLap, KhachHang khachHang, NhanVien nhanVien) {
+    public HoaDon(String maHD , LocalDate ngayLap , KhachHang khachHang, NhanVien nhanVien){
         this.maHD = maHD;
-        this.ngayLap = ngayLap;
-        this.khachHang = khachHang;
-        this.nhanVien = nhanVien;
-        this.tongTien = 0;
-        this.tienGiam = 0;
-        this.khuyenMai = null;
-        this.dsChiTiet = new ChiTietHoaDon[MAX_CT];
-        this.soLuongChiTiet = 0;
-        this.thanhToan = null;
+        this.ngayLap = ngayLap != null ? ngayLap : LocalDate.now();
+        this.khachHang= khachHang;
+        this.nhanVien= nhanVien;
+        this.thanhToan= null;
+        this.dsChiTiet = new ChiTietPhieu[SoChiTietBanDau];
+        this.soluongChiTiet =0;
+        this.tongTien=0;
+        this.tienGiam=0;
     }
-
-    // Them mot dong chi tiet. Tra ve false neu hoa don day hoac khong du ton kho
-    public boolean themChiTiet(ChiTietHoaDon ct) {
-        if (ct == null || ct.getSach() == null || soLuongChiTiet >= MAX_CT) {
-            return false;
-        }
-        // Tinh tong so luong cua cung mot cuon sach da co trong hoa don
-        int daCo = 0;
-        for (int i = 0; i < soLuongChiTiet; i++) {
-            if (dsChiTiet[i].getSach() == ct.getSach()) {
-                daCo = daCo + dsChiTiet[i].getSoLuong();
-            }
-        }
-        if (ct.getSoLuong() <= 0 || daCo + ct.getSoLuong() > ct.getSach().getSoLuongTon()) {
-            return false;
-        }
-        dsChiTiet[soLuongChiTiet] = ct;
-        soLuongChiTiet++;
-        return true;
-    }
-
-    public double tinhTongTien() {
-        double tong = 0;
-        for (int i = 0; i < soLuongChiTiet; i++) {
-            tong = tong + dsChiTiet[i].tinhThanhTien();
-        }
-        this.tongTien = tong;
-        return tong;
-    }
-
-    // So tien khach phai tra sau khi giam
-    public double tinhTienPhaiTra() {
-        return tinhTongTien() - tienGiam;
-    }
-
-    public void apDungKhuyenMai(KhuyenMai km) {
-        if (km != null && km.conHieuLuc()) {
-            this.khuyenMai = km;
-            this.tienGiam = km.tinhTienGiam(tinhTongTien());
-        } else {
-            this.khuyenMai = null;
-            this.tienGiam = 0;
-            System.out.println("Khuyen mai khong hop le hoac da het han!");
-        }
-    }
-
-    // Thanh toan hoa don. Thanh cong thi tru kho va cong diem tich luy
-    public boolean thucHienThanhToan(double tienKhachDua) {
-        double canTra = tinhTienPhaiTra();
-        if (soLuongChiTiet == 0) {
-            return false;
-        }
-        // Neu chua chon phuong thuc hoac dang la tien mat thi tao lai voi so tien khach dua
-        if (thanhToan == null || thanhToan instanceof ThanhToanTienMat) {
-            thanhToan = new ThanhToanTienMat(tienKhachDua);
-        }
-        boolean thanhCong = thanhToan.thanhToan(canTra);
-        if (thanhCong) {
-            for (int i = 0; i < soLuongChiTiet; i++) {
-                dsChiTiet[i].getSach().giamSoLuong(dsChiTiet[i].getSoLuong());
-            }
-            if (khachHang != null) {
-                khachHang.tangDiemTichLuy((int) (canTra / 10000));
-            }
-        }
-        return thanhCong;
-    }
-
-    public void inHoaDon() {
-        double canTra = tinhTienPhaiTra();
-        System.out.println("============ HOA DON ============");
-        System.out.println("Ma HD: " + maHD + " | Ngay lap: " + Main.dinhDangNgay(ngayLap));
-        if (nhanVien != null) {
-            System.out.println("Nhan vien: " + nhanVien.getHoTen());
-        }
-        if (khachHang != null) {
-            System.out.println("Khach hang: " + khachHang.getHoTen());
-        } else {
-            System.out.println("Khach hang: Khach le");
-        }
-        System.out.println("---------------------------------");
-        for (int i = 0; i < soLuongChiTiet; i++) {
-            ChiTietHoaDon ct = dsChiTiet[i];
-            System.out.println((i + 1) + ". " + ct.getSach().getTenSach() + " | SL: " + ct.getSoLuong()
-                    + " | Don gia: " + Main.dinhDangTien(ct.getDonGia())
-                    + " | Thanh tien: " + Main.dinhDangTien(ct.tinhThanhTien()));
-        }
-        System.out.println("---------------------------------");
-        System.out.println("Tong tien: " + Main.dinhDangTien(tongTien));
-        if (khuyenMai != null) {
-            System.out.println("Khuyen mai (" + khuyenMai.getTenKM() + "): -" + Main.dinhDangTien(tienGiam));
-        }
-        System.out.println("PHAI TRA: " + Main.dinhDangTien(canTra));
-        if (thanhToan != null) {
-            System.out.println("Phuong thuc: " + thanhToan.getPhuongThuc());
-            if (thanhToan instanceof ThanhToanTienMat) {
-                ThanhToanTienMat tm = (ThanhToanTienMat) thanhToan;
-                System.out.println("Tien khach dua: " + Main.dinhDangTien(tm.getTienNhan())
-                        + " | Tien thua: " + Main.dinhDangTien(tm.tinhTienThua(canTra)));
-            }
-        }
-        System.out.println("=================================");
-    }
-
-    public String getMaHD() {
+    public String getMaHD(){
         return maHD;
     }
-
-    public void setMaHD(String maHD) {
-        this.maHD = maHD;
+    public void setMaHD(String maHD){
+        this.maHD=maHD;
     }
-
-    public LocalDate getNgayLap() {
+    public LocalDate getNgayLap(){
         return ngayLap;
     }
-
-    public void setNgayLap(LocalDate ngayLap) {
-        this.ngayLap = ngayLap;
+    public void setNgayLap(LocalDate ngayLap){
+        this.ngayLap=ngayLap;
     }
-
-    public double getTongTien() {
+    public double getTongTien(){
         return tongTien;
     }
-
-    public void setTongTien(double tongTien) {
-        this.tongTien = tongTien;
+    public void setTongTien(double tongTien){
+        this.tongTien= tongTien;
     }
-
-    public double getTienGiam() {
-        return tienGiam;
-    }
-
-    public void setTienGiam(double tienGiam) {
-        this.tienGiam = tienGiam;
-    }
-
-    public KhachHang getKhachHang() {
+    public KhachHang getKhachHang(){
         return khachHang;
     }
-
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
+    public void setKhachHang(KhachHang khachHang){
+        this.khachHang= khachHang;
     }
-
-    public NhanVien getNhanVien() {
-        return nhanVien;
-    }
-
-    public void setNhanVien(NhanVien nhanVien) {
-        this.nhanVien = nhanVien;
-    }
-
-    public KhuyenMai getKhuyenMai() {
+    public KhuyenMai getKhuyenMai(){
         return khuyenMai;
     }
-
-    public void setKhuyenMai(KhuyenMai khuyenMai) {
-        this.khuyenMai = khuyenMai;
+    public NhanVien getNhanVien(){
+        return nhanVien;
     }
-
-    public ChiTietHoaDon[] getDsChiTiet() {
-        return dsChiTiet;
+    public void setNhanVien(NhanVien nhanVien){
+        this.nhanVien=nhanVien;
     }
-
-    public void setDsChiTiet(ChiTietHoaDon[] dsChiTiet) {
-        this.dsChiTiet = dsChiTiet;
+    public ChiTietPhieu[] getDsChiTiet(){
+        return Arrays.copyOf(dsChiTiet,soluongChiTiet);
     }
-
-    public int getSoLuongChiTiet() {
-        return soLuongChiTiet;
+    public int getSoLuongChiTiet(){
+        return soluongChiTiet;
     }
-
-    public void setSoLuongChiTiet(int soLuongChiTiet) {
-        this.soLuongChiTiet = soLuongChiTiet;
-    }
-
-    public ThanhToan getThanhToan() {
+    public ThanhToan getThanhToan(){
         return thanhToan;
     }
-
-    public void setThanhToan(ThanhToan thanhToan) {
-        this.thanhToan = thanhToan;
+    public void setThanhToan(ThanhToan thanhToan){
+        this.thanhToan=thanhToan;
     }
+    public double getTienGiam(){
+        return tienGiam;
+    }
+    public void setTienGiam(double tienGiam){
+        this.tienGiam= tienGiam;
+    }
+    public void apDungKhuyenMai(KhuyenMai km){
+        if(km != null && km.conHieuLuc()){
+            this.khuyenMai =km;
+        }else{
+            this.khuyenMai=null;
+            if(km!=null){
+                System.out.println(" het hieu luc");
+            }
+        }
+        tinhTongTien();
+    }
+    public boolean themChiTiet(ChiTietHoaDon ct){
+        if(ct== null){
+            return false;
+        }
+        for(int i=0;i<soluongChiTiet;i++){
+            ChiTietHoaDon cu = (ChiTietHoaDon) dsChiTiet[i];
+            if(cu.getSach() != null && ct.getSach() != null && cu.getSach().getMaSach().equals(ct.getSach().getMaSach())){
+                cu.setSoLuong(cu.getSoLuong()+ ct.getSoLuong());
+                tinhTongTien();
+                return true;
+            }
+        }
+        if(soluongChiTiet == dsChiTiet.length){
+            dsChiTiet = Arrays.copyOf(dsChiTiet,dsChiTiet.length * 2);
+        }
+        dsChiTiet[soluongChiTiet++]= ct;
+        tinhTongTien();
+        return true;
+    }
+    public double tinhTongTien(){
+        double tong =0;
+        for(int i=0;i<soluongChiTiet;i++){
+            tong += dsChiTiet[i].tinhThanhTien();
+        }
+        tienGiam =0;
+        if(khuyenMai != null && khuyenMai.conHieuLuc()){
+            tienGiam = khuyenMai.tinhTienGiam(tong);
+        }
+        tongTien = tong - tienGiam;
+        return tongTien;
+    }
+    public double tinhTienPhaiTra(){
+        return tinhTongTien();
+    }
+    public boolean thucHienThanhToan(double tienKhachDua){
+        if(thanhToan ==null || soluongChiTiet ==0){
+            return false;
+        }
+        tinhTongTien();
+        if(tienKhachDua < tongTien){
+            return false;
+        }
+        return thanhToan.thanhToan(tongTien);
+    }
+    public void hienThiThongTin(){
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    System.out.println("Ma HD : "+maHD+"| Ngay lap : "+ngayLap.format(fmt)+"| Khach hang : "+(khachHang != null ? khachHang.getHoTen() : "Khach le")+"| Nhan vien : "+(nhanVien != null ? nhanVien.getHoTen() : "")+"| Tien giam : "+String.format("%,.0f", tienGiam)+"| Tong tien : "+String.format("%,.0f", tongTien)+"| Thanh toan : "+(thanhToan != null ? thanhToan.getPhuongThuc() : ""));
+    for (int i = 0; i < soluongChiTiet; i++) {
+        System.out.print("    ");
+        dsChiTiet[i].hienThiThongTin();
+    }
+}
+public void inHoaDon(){
+    hienThiThongTin();
+}
 }
