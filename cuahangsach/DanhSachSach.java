@@ -3,28 +3,25 @@ public class DanhSachSach{
     public static final int MAX = 100;
     private Sach[] dsSach;
     private int soLuong;
-
+    private final DanhSachTacGia dsTG;
+    private final DanhSachTheLoai dsTL;
+    private final DanhSachNhaXuatBan dsNXB;
     
-
-    private DanhSachTacGia dsTG;
-    private DanhSachTheLoai dsTL;
-    private DanhSachNhaXuatBan dsNXB;
-
     public DanhSachSach(){
+    dsSach = new Sach[MAX];
+    soLuong = 0;
+    dsTG = null;
+    dsTL = null;
+    dsNXB = null;
+    } 
+    public DanhSachSach(DanhSachTacGia dsTG, DanhSachTheLoai dsTL, DanhSachNhaXuatBan dsNXB){
         dsSach = new Sach[MAX];
         soLuong = 0;
-    }
-    public DanhSachSach(DanhSachTacGia dsTG, DanhSachTheLoai dsTL, DanhSachNhaXuatBan dsNXB){
-        this();
-        lienKet(dsTG, dsTL, dsNXB);
-    }
-    public void lienKet(DanhSachTacGia dsTG, DanhSachTheLoai dsTL, DanhSachNhaXuatBan dsNXB){
         this.dsTG = dsTG;
         this.dsTL = dsTL;
         this.dsNXB = dsNXB;
     }
 
-    
     private int nhapSoNguyen(String tb){
         while(true){
             try{
@@ -49,6 +46,7 @@ public class DanhSachSach{
         System.out.print(tb);
         return Main.sc.nextLine();
     }
+
     private boolean chua(String goc, String tu){
         return goc != null && goc.toLowerCase().contains(tu.trim().toLowerCase());
     }
@@ -72,6 +70,9 @@ public class DanhSachSach{
         return false;
     }
     
+    public Sach timKiem(String ma){
+        return timTheoMa(ma);
+    }
 
     public void timKiem(){
         System.out.println("--- TIM KIEM SACH ---");
@@ -128,7 +129,6 @@ public class DanhSachSach{
         System.out.println("Tim thay " + dem + " ket qua.");
     }
 
-   
     public boolean them(Sach s){
         if(s == null || soLuong >= MAX){
             return false;
@@ -151,6 +151,7 @@ public class DanhSachSach{
         s.setSoLuongTon(nhapSoNguyen("So luong ton moi: "));
         return true;
     }
+   
     public boolean xoaTheoMa(String ma){
         for(int i = 0; i < soLuong; i++){
             if(dsSach[i].getMaSach().equals(ma)){
@@ -166,7 +167,6 @@ public class DanhSachSach{
     }
 
     
-
     private TheLoai layTheLoai(String ma, String ten){
         if(dsTL != null){
             TheLoai t = dsTL.timTheoMa(ma);
@@ -211,7 +211,12 @@ public class DanhSachSach{
             return;
         }
         String ten = nhapChuoi("Ten sach: ");
-        int sotg = nhapSoNguyen("So tac gia: ");
+        //Chan so am
+        int sotg;
+        do {
+        sotg = nhapSoNguyen("So tac gia: ");
+        } while(sotg < 0);
+
         TacGia[] dsTacGia = new TacGia[sotg];
         for(int j = 0; j < sotg; j++){
             String maTG = nhapChuoi("Ma tac gia " + (j + 1) + ": ");
@@ -286,8 +291,13 @@ public class DanhSachSach{
         return k + 1;
     }
 
+
     private void thongKeTheoNhom(int loai){
-        int toiDa = soLuong * 5 + 1;
+      int toiDa = soLuong;
+      for(int i = 0; i < soLuong; i++){
+        toiDa += dsSach[i].getDsTacGia().length;
+    }
+
         String[] khoa = new String[toiDa];
         int[] soDauSach = new int[toiDa];
         int[] tongTon = new int[toiDa];
@@ -345,6 +355,7 @@ public class DanhSachSach{
     }
 
 
+    //Menu
     public void menu(){
         int chon;
         do {
@@ -383,7 +394,6 @@ public class DanhSachSach{
         } while(chon != 0);
     }
 
-
     public void napDuLieu(Sach[] ds){
         dsSach = new Sach[MAX];
         soLuong = 0;
@@ -405,6 +415,4 @@ public class DanhSachSach{
     public int getSoLuong(){
         return soLuong;
     }
-
-    public Sach timKiem(String ma) { return timTheoMa(ma); }
 }
