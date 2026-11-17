@@ -479,7 +479,7 @@ public class DanhSachNhanVien{
     }
     public void menu()
     {
-        DanhSachNhanVien qlns=new DanhSachNhanVien();
+        DanhSachNhanVien qlns=this;
         int chon;
         do{
             System.out.println("1.Them nhan vien.");

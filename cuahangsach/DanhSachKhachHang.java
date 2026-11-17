@@ -169,62 +169,12 @@ public class DanhSachKhachHang {
             }
         }while(k!=0);
     }
-    public void thongKeTheoMa(String maKH)
-    {
-        for(int i=0;i<soLuong;i++)
-        {
-            if(dsKhachHang[i].getMaKH().contains(maKH))
-            {
-                dsKhachHang[i].hienThiThongTin();
-            }
-        }
-    }
-    
-    public void thongKeTheoTen(String hoTen)
-    {
-        for(int i=0;i<soLuong;i++)
-        {
-            if(dsKhachHang[i].getHoTen().contains(hoTen))
-            {
-                dsKhachHang[i].hienThiThongTin();
-            }
-        }
-    }
-    public void thongKeTheoSDT(String sdt)
-    {
-        for(int i=0;i<soLuong;i++)
-        {
-            if(dsKhachHang[i].getSDT().contains(sdt))
-            {
-                dsKhachHang[i].hienThiThongTin();
-            }
-        }
-    }
     public void thongKe()
     {
-        int p;
-        do{
-            System.out.println("1.Thong ke KH theo ma.");
-            System.out.println("2.Thong ke KH theo ten.");
-            System.out.println("3.Thong ke KH theo sdt. ");
-            System.out.println("0.OUT. ");
-            p = Main.docSoNguyen("Lua chon cua ban: ");
-            switch (p) {
-                case 1:
-                    String ma = Main.docChuoi("Nhap vao ma KH: ");
-                    thongKeTheoMa(ma);
-                    break;
-                case 2:
-                    String ten = Main.docChuoi("Nhap vao ten KH: ");
-                    thongKeTheoTen(ten);
-                    break;
-                case 3:
-                    String sdt = Main.docChuoi("Nhap vao sdt KH: ");
-                    thongKeTheoSDT(sdt);
-                    break;
-                case 0:return;
-            }
-        }while(p!=0);
+        for(int i=0;i<soLuong;i++)
+        {
+            dsKhachHang[i].hienThiThongTin();
+        }
     }
     public void napDuLieu(KhachHang[] dsKH)
     {
@@ -252,7 +202,7 @@ public class DanhSachKhachHang {
 
     public void menu()
     {
-        DanhSachKhachHang dskh=new DanhSachKhachHang();
+        DanhSachKhachHang dskh=this;
         int chon;
         do{
             System.out.println("1.Them khach hang.");
