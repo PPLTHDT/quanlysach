@@ -134,6 +134,10 @@ public class DanhSachPhieuNhap {
         PhieuNhap pn = new PhieuNhap(maPN, ngayNhap, nxb);
 
         int n = Main.docSoNguyen("Nhap so loai sach muon nhap: ");
+        if (n <= 0) {
+            System.out.println("So loai sach nhap phai lon hon 0! Huy lap phieu nhap.");
+            return;
+        }
         for (int i = 0; i < n; i++) {
             System.out.println("\n-> Nhap chi tiet thu " + (i + 1) + ":");
             String maCT = Main.docChuoi("  Ma chi tiet (Enter de tu sinh): ");
@@ -145,16 +149,24 @@ public class DanhSachPhieuNhap {
             }
             System.out.println("  -> Sach: " + sach.getTenSach() + " | Ton hien tai: " + sach.getSoLuongTon());
             int sl = Main.docSoNguyen("  So luong nhap: ");
+            if (sl <= 0) {
+                System.out.println("  Loi: So luong nhap phai lon hon 0, bo qua dong nay!");
+                continue;
+            }
             double donGia = Main.docSoThuc("  Don gia nhap (VND): ");
-            if (sl <= 0 || donGia < 0) {
-                System.out.println("  So luong hoac donGia khong hop le, bo qua dong nay!");
+            if (donGia <= 0) {
+                System.out.println("  Loi: Don gia nhap phai lon hon 0, bo qua dong nay!");
                 continue;
             }
 
-            ChiTietPhieuNhap ct = maCT.isEmpty()
-                    ? new ChiTietPhieuNhap(sach, sl, donGia)
-                    : new ChiTietPhieuNhap(maCT, sach, sl, donGia);
-            pn.themChiTiet(ct);
+            try {
+                ChiTietPhieuNhap ct = maCT.isEmpty()
+                        ? new ChiTietPhieuNhap(sach, sl, donGia)
+                        : new ChiTietPhieuNhap(maCT, sach, sl, donGia);
+                pn.themChiTiet(ct);
+            } catch (IllegalArgumentException e) {
+                System.out.println("  Loi: " + e.getMessage());
+            }
         }
 
         if (pn.getSoLuongChiTiet() == 0) {

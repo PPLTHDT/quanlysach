@@ -94,10 +94,10 @@ public class CuaHangSach {
 
             switch (chon) {
                 case 1:
-            if (danhSachSach != null) {
-                danhSachSach.menu();
-            }
-            break;
+                    if (danhSachSach != null) {
+                        danhSachSach.menu();
+                    }
+                    break;
                 case 2:
                     quanLyTheLoai();
                     break;
@@ -221,6 +221,10 @@ public class CuaHangSach {
         HoaDon hd = new HoaDon(maHD, ngayLap, kh, nv);
 
         int soMatHang = Main.docSoNguyen("Nhap so loai sach khach mua: ");
+        if (soMatHang <= 0) {
+            System.out.println("So loai sach mua phai lon hon 0! Huy lap hoa don.");
+            return;
+        }
         for (int i = 0; i < soMatHang; i++) {
             System.out.println("\n-> Nhap chi tiet thu " + (i + 1) + ":");
             String maCT = Main.docChuoi("  Ma chi tiet (vd: CTHD01): ");
@@ -233,14 +237,27 @@ public class CuaHangSach {
             System.out.println("  -> Sach: " + sach.getTenSach()
                     + " | Gia ban: " + Main.dinhDangTien(sach.getGiaBan())
                     + " | Ton kho: " + sach.getSoLuongTon());
+            if (sach.getSoLuongTon() <= 0) {
+                System.out.println("  Loi: Sach nay da het hang trong kho!");
+                continue;
+            }
             int soLuongMua = Main.docSoNguyen("  So luong mua: ");
+            if (soLuongMua <= 0) {
+                System.out.println("  Loi: So luong mua phai lon hon 0!");
+                continue;
+            }
+            if (soLuongMua > sach.getSoLuongTon()) {
+                System.out.println("  Loi: So luong mua (" + soLuongMua
+                        + ") vuot qua so luong ton kho (" + sach.getSoLuongTon() + ")!");
+                continue;
+            }
             if (maCT.isEmpty()) {
                 maCT = String.format("CTHD%02d", i + 1);
             }
             try {
                 ChiTietHoaDon ct = new ChiTietHoaDon(maCT, sach, soLuongMua);
                 if (!hd.themChiTiet(ct)) {
-                    System.out.println("  Khong the them chi tiet (so luong khong hop le hoac vuot qua ton kho)!");
+                    System.out.println("  Loi: Khong the them chi tiet (so luong mua vuot qua ton kho)!");
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("  Loi: " + e.getMessage());
@@ -284,11 +301,19 @@ public class CuaHangSach {
         }
 
         if (!thanhCong) {
+            for (ChiTietPhieu ct : hd.getDsChiTiet()) {
+                if (ct != null && ct.getSach() != null) {
+                    ct.getSach().tangSoLuong(ct.getSoLuong());
+                }
+            }
             System.out.println("Thanh toan that bai (so tien khach dua khong du hoac thong tin khong hop le)!");
             return;
         }
 
         if (danhSachHoaDon.them(hd)) {
+            if (kh != null) {
+                kh.tangDiemTichLuy((int) (canTra / 10000));
+            }
             System.out.println("Lap hoa don thanh cong!");
             hd.inHoaDon();
         } else {
