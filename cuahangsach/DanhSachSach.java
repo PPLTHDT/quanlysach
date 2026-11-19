@@ -277,56 +277,106 @@ public class DanhSachSach{
     }
 
 
-    private int congDon(String[] khoa, int[] soDauSach, int[] tongTon, int k, String key, int ton){
-        for(int j = 0; j < k; j++){
-            if(khoa[j].equalsIgnoreCase(key)){
-                soDauSach[j]++;
-                tongTon[j] += ton;
-                return k;
+   private void thongKeTheoNhom(int loai){
+    int toiDa = soLuong;
+    for(int i = 0; i < soLuong; i++){
+        TacGia[] tg = dsSach[i].getDsTacGia();
+        if(tg != null){
+            toiDa += tg.length;
+        }
+    }
+
+    String[] khoa = new String[toiDa];
+    int[] soDauSach = new int[toiDa];
+    int[] tongTon = new int[toiDa];
+    int k = 0;
+
+    for(int i = 0; i < soLuong; i++){
+        Sach s = dsSach[i];
+        int ton = s.getSoLuongTon();
+
+        String[] cacKey;
+        int soKey;
+        if(loai == 1){
+            cacKey = new String[1];
+            cacKey[0] = "(khong co)";
+            if(s.getTheLoai() != null){
+                cacKey[0] = s.getTheLoai().getTenTheLoai();
+            }
+            soKey = 1;
+
+        } else if(loai == 2){
+            cacKey = new String[1];
+            cacKey[0] = "(khong co)";
+            if(s.getNhaXuatBan() != null){
+                cacKey[0] = s.getNhaXuatBan().getTenNXB();
+            }
+            soKey = 1;
+
+        } else if(loai == 3){
+            cacKey = new String[1];
+            cacKey[0] = String.valueOf(s.getNamXuatBan());
+            soKey = 1;
+
+        } else {
+            TacGia[] tg = s.getDsTacGia();
+            if(tg == null || tg.length == 0){
+                cacKey = new String[1];
+                cacKey[0] = "(khong co)";
+                soKey = 1;
+            } else {
+                cacKey = new String[tg.length];
+                for(int j = 0; j < tg.length; j++){
+                    cacKey[j] = "(khong co)";
+                    if(tg[j] != null && tg[j].getTenTacGia() != null){
+                        cacKey[j] = tg[j].getTenTacGia();
+                    }
+                }
+                soKey = tg.length;
             }
         }
-        khoa[k] = key;
-        soDauSach[k] = 1;
-        tongTon[k] = ton;
-        return k + 1;
-    }
 
+        for(int c = 0; c < soKey; c++){
+            String key = cacKey[c];
 
-    private void thongKeTheoNhom(int loai){
-      int toiDa = soLuong;
-      for(int i = 0; i < soLuong; i++){
-        toiDa += dsSach[i].getDsTacGia().length;
-    }
-
-        String[] khoa = new String[toiDa];
-        int[] soDauSach = new int[toiDa];
-        int[] tongTon = new int[toiDa];
-        int k = 0;
-        for(int i = 0; i < soLuong; i++){
-            Sach s = dsSach[i];
-            if(loai == 1){
-                String key = (s.getTheLoai() == null) ? "(khong co)" : s.getTheLoai().getTenTheLoai();
-                k = congDon(khoa, soDauSach, tongTon, k, key, s.getSoLuongTon());
-            } else if(loai == 2){
-                String key = (s.getNhaXuatBan() == null) ? "(khong co)" : s.getNhaXuatBan().getTenNXB();
-                k = congDon(khoa, soDauSach, tongTon, k, key, s.getSoLuongTon());
-            } else if(loai == 3){
-                k = congDon(khoa, soDauSach, tongTon, k, String.valueOf(s.getNamXuatBan()), s.getSoLuongTon());
-            } else {
-                TacGia[] tg = s.getDsTacGia();
-                for(int j = 0; j < tg.length; j++){
-                    k = congDon(khoa, soDauSach, tongTon, k, tg[j].getTenTacGia(), s.getSoLuongTon());
+            boolean datRoi = false;
+            for(int p = 0; p < c; p++){
+                if(cacKey[p].equalsIgnoreCase(key)){
+                    datRoi = true;
                 }
             }
-        }
-        if(k == 0){
-            System.out.println("Khong co du lieu.");
-            return;
-        }
-        for(int j = 0; j < k; j++){
-            System.out.println("  " + khoa[j] + ": " + soDauSach[j] + " dau sach, ton " + tongTon[j]);
+            if(datRoi){
+                continue;
+            }
+
+            int vt = -1;
+            for(int j = 0; j < k; j++){
+                if(khoa[j].equalsIgnoreCase(key)){
+                    vt = j;
+                    break;
+                }
+            }
+            if(vt == -1){
+                vt = k;
+                khoa[k] = key;
+                soDauSach[k] = 0;
+                tongTon[k] = 0;
+                k++;
+            }
+
+            soDauSach[vt]++;
+            tongTon[vt] += ton;
         }
     }
+
+    if(k == 0){
+        System.out.println("Khong co du lieu.");
+        return;
+    }
+    for(int j = 0; j < k; j++){
+        System.out.println("  " + khoa[j] + ": " + soDauSach[j] + " dau sach, ton " + tongTon[j]);
+    }
+}
 
     public void thongKe(){
         System.out.println("--- THONG KE SACH ---");

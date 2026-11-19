@@ -171,37 +171,10 @@ public class DanhSachNhaXuatBan{
     }
 
    
-    //Tong so nha xuat ban va so luong theo dia chi
+    //Tong so nha xuat ban
     public void thongKe(){
-        System.out.println("So nha xuat ban: " + soLuong);
-        String[] key = new String[soLuong];
-        int[] dem = new int[soLuong];
-        int k = 0;
-        for (int i = 0; i < soLuong; i++){
-            String dc = dsNhaXuatBan[i].getDiaChi();
-            if (dc == null || dc.trim().isEmpty()){
-                dc = "(chua co dia chi)";
-            }
-            int vt = -1;
-            for (int j = 0; j < k; j++){
-                if (key[j].equalsIgnoreCase(dc)){
-                    vt = j;
-                    break;
-                }
-            }
-            if (vt == -1){
-                key[k] = dc;
-                dem[k] = 1;
-                k++;
-            } else {
-                dem[vt]++;
-            }
-        }
-        System.out.println("Theo dia chi:");
-        for (int j = 0; j < k; j++){
-            System.out.println("  " + key[j] + ": " + dem[j]);
-        }
-    }
+    System.out.println("So nha xuat ban: " + soLuong);
+}
 
 
     // Menu
