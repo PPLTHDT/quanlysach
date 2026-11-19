@@ -1,0 +1,161 @@
+package cuahangsach;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
+public class HoaDon{
+    private static final int SoChiTietBanDau = 10;
+    private String maHD;
+    private LocalDate ngayLap;
+    private double tongTien;
+    private double tienGiam;
+    private KhachHang khachHang;
+    private NhanVien nhanVien;
+    private KhuyenMai khuyenMai;
+    private ChiTietPhieu[] dsChiTiet;
+    private int soluongChiTiet;
+    private ThanhToan thanhToan;
+
+    public HoaDon(){
+        this.ngayLap= LocalDate.now();
+        this.dsChiTiet= new ChiTietPhieu[SoChiTietBanDau];
+    }
+    public HoaDon(String maHD , LocalDate ngayLap , KhachHang khachHang, NhanVien nhanVien){
+        this.maHD = maHD;
+        this.ngayLap = ngayLap != null ? ngayLap : LocalDate.now();
+        this.khachHang= khachHang;
+        this.nhanVien= nhanVien;
+        this.thanhToan= null;
+        this.dsChiTiet = new ChiTietPhieu[SoChiTietBanDau];
+        this.soluongChiTiet =0;
+        this.tongTien=0;
+        this.tienGiam=0;
+    }
+    public String getMaHD(){
+        return maHD;
+    }
+    public void setMaHD(String maHD){
+        this.maHD=maHD;
+    }
+    public LocalDate getNgayLap(){
+        return ngayLap;
+    }
+    public void setNgayLap(LocalDate ngayLap){
+        this.ngayLap=ngayLap;
+    }
+    public double getTongTien(){
+        return tongTien;
+    }
+    public void setTongTien(double tongTien){
+        this.tongTien= tongTien;
+    }
+    public KhachHang getKhachHang(){
+        return khachHang;
+    }
+    public void setKhachHang(KhachHang khachHang){
+        this.khachHang= khachHang;
+    }
+    public KhuyenMai getKhuyenMai(){
+        return khuyenMai;
+    }
+    public NhanVien getNhanVien(){
+        return nhanVien;
+    }
+    public void setNhanVien(NhanVien nhanVien){
+        this.nhanVien=nhanVien;
+    }
+    public ChiTietPhieu[] getDsChiTiet(){
+        return Arrays.copyOf(dsChiTiet,soluongChiTiet);
+    }
+    public int getSoLuongChiTiet(){
+        return soluongChiTiet;
+    }
+    public ThanhToan getThanhToan(){
+        return thanhToan;
+    }
+    public void setThanhToan(ThanhToan thanhToan){
+        this.thanhToan=thanhToan;
+    }
+    public double getTienGiam(){
+        return tienGiam;
+    }
+    public void setTienGiam(double tienGiam){
+        this.tienGiam= tienGiam;
+    }
+    public void apDungKhuyenMai(KhuyenMai km){
+        if(km != null && km.conHieuLuc()){
+            this.khuyenMai =km;
+        }else{
+            this.khuyenMai=null;
+            if(km!=null){
+                System.out.println(" het hieu luc");
+            }
+        }
+        tinhTongTien();
+    }
+    public boolean themChiTiet(ChiTietHoaDon ct){
+        if(ct== null){
+            return false;
+        }
+        Sach sach = ct.getSach();
+        if(sach == null){
+            return false;
+        }
+        if(ct.getSoLuong() > sach.getSoLuongTon()){
+            return false;
+        }
+        for(int i=0;i<soluongChiTiet;i++){
+            ChiTietHoaDon cu = (ChiTietHoaDon) dsChiTiet[i];
+            if(cu.getSach() != null && cu.getSach().getMaSach().equals(sach.getMaSach())){
+                cu.setSoLuong(cu.getSoLuong()+ ct.getSoLuong());
+                sach.giamSoLuong(ct.getSoLuong());
+                tinhTongTien();
+                return true;
+            }
+        }
+        if(soluongChiTiet == dsChiTiet.length){
+            dsChiTiet = Arrays.copyOf(dsChiTiet,dsChiTiet.length * 2);
+        }
+        dsChiTiet[soluongChiTiet++]= ct;
+        sach.giamSoLuong(ct.getSoLuong());
+        tinhTongTien();
+        return true;
+    }
+    public double tinhTongTien(){
+        double tong =0;
+        for(int i=0;i<soluongChiTiet;i++){
+            tong += dsChiTiet[i].tinhThanhTien();
+        }
+        tienGiam =0;
+        if(khuyenMai != null && khuyenMai.conHieuLuc()){
+            tienGiam = khuyenMai.tinhTienGiam(tong);
+        }
+        tongTien = tong - tienGiam;
+        return tongTien;
+    }
+    public double tinhTienPhaiTra(){
+        return tinhTongTien();
+    }
+    public boolean thucHienThanhToan(double tienKhachDua){
+        if(thanhToan ==null || soluongChiTiet ==0){
+            return false;
+        }
+        tinhTongTien();
+        if(tienKhachDua < tongTien){
+            return false;
+        }
+        return thanhToan.thanhToan(tongTien);
+    }
+    public void hienThiThongTin(){
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    System.out.println("Ma HD : "+maHD+"| Ngay lap : "+ngayLap.format(fmt)+"| Khach hang : "+(khachHang != null ? khachHang.getHoTen() : "Khach le")+"| Nhan vien : "+(nhanVien != null ? nhanVien.getHoTen() : "")+"| Tien giam : "+String.format("%,.0f", tienGiam)+"| Tong tien : "+String.format("%,.0f", tongTien)+"| Thanh toan : "+(thanhToan != null ? thanhToan.getPhuongThuc() : ""));
+    for (int i = 0; i < soluongChiTiet; i++) {
+        System.out.print("    ");
+        dsChiTiet[i].hienThiThongTin();
+    }
+}
+public void inHoaDon(){
+    hienThiThongTin();
+}
+}
