@@ -145,35 +145,9 @@ public class DanhSachTacGia{
             }
         }
     }
-
-        public void thongKe(){
-        System.out.println("Tong so tac gia: " + soLuong);
-        String[] key = new String[soLuong];
-        int[] dem = new int[soLuong];
-        int k = 0;
-        for (int i = 0; i < soLuong; i++) {
-            String ten = dsTacGia[i].getTenTacGia();
-            String kh = (ten == null || ten.isEmpty()) ? "?" : ten.substring(0, 1).toUpperCase();
-            int vt = -1;
-            for (int j = 0; j < k; j++) {
-                if (key[j].equals(kh)) {
-                    vt = j;
-                    break;
-                }
-            }
-            if (vt == -1) {
-                key[k] = kh;
-                dem[k] = 1;
-                k++;
-            } else {
-                dem[vt]++;
-            }
-        }
-        System.out.println("Theo chu cai dau cua ten:");
-        for (int j = 0; j < k; j++) {
-            System.out.println("  " + key[j] + ": " + dem[j]);
-        }
-    }
+    public void thongKe(){
+    System.out.println("Tong so tac gia: " + soLuong);
+}
 
     //Menu
     public void menu(){
