@@ -1,3 +1,4 @@
+
 package cuahangsach;
 public class DanhSachTacGia{
     public static final int MAX = 100;
@@ -7,8 +8,6 @@ public class DanhSachTacGia{
         dsTacGia = new TacGia[MAX];
         soLuong = 0;
     }
-
-
 
     private int nhapSoNguyen(String tb){
         while (true) {
@@ -29,7 +28,6 @@ public class DanhSachTacGia{
     }
 
   
-
     public TacGia timTheoMa(String ma){
         for (int i = 0; i < soLuong; i++) {
             if (dsTacGia[i].getMaTacGia().equals(ma)) {
@@ -38,7 +36,9 @@ public class DanhSachTacGia{
         }
         return null;
     }
-    
+    public TacGia timKiem(String ma){
+        return timTheoMa(ma);
+    }
 
     public void timKiem(){
         System.out.println("--- TIM KIEM TAC GIA ---");
@@ -83,6 +83,7 @@ public class DanhSachTacGia{
         soLuong++;
         return true;
     }
+
     public boolean suaTheoMa(String ma){
         TacGia n = timTheoMa(ma);
         if (n == null) {
@@ -91,6 +92,7 @@ public class DanhSachTacGia{
         n.setTenTacGia(nhapChuoi("Ten tac gia moi: "));
         return true;
     }
+    
     public boolean xoaTheoMa(String ma){
         for (int i = 0; i < soLuong; i++) {
             if (dsTacGia[i].getMaTacGia().equals(ma)) {
@@ -144,9 +146,7 @@ public class DanhSachTacGia{
         }
     }
 
-    
-
-    public void thongKe(){
+        public void thongKe(){
         System.out.println("Tong so tac gia: " + soLuong);
         String[] key = new String[soLuong];
         int[] dem = new int[soLuong];
@@ -175,7 +175,7 @@ public class DanhSachTacGia{
         }
     }
 
-
+    //Menu
     public void menu(){
         int chon;
         do {
@@ -214,7 +214,6 @@ public class DanhSachTacGia{
         } while (chon != 0);
     }
 
-   
     public void napDuLieu(TacGia[] ds){
         dsTacGia = new TacGia[MAX];
         soLuong = 0;
@@ -236,6 +235,4 @@ public class DanhSachTacGia{
     public int getSoLuong(){
         return soLuong;
     }
-
-    public TacGia timKiem(String ma) { return timTheoMa(ma); }
 }
