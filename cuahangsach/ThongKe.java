@@ -8,7 +8,7 @@ public class ThongKe {
         double tong =0;
         for(int i=0;i<n;i++){
             if(ds[i]!=null){
-                tong +=ds[i].getTongTien();
+                tong +=ds[i].tinhTongTien();
             }
         }
         return tong;
@@ -17,7 +17,7 @@ public class ThongKe {
         double tong =0;
         for(int i=0;i<n;i++){
             if(ds[i] != null && ds[i].getNgayLap().equals(ngay)){
-                tong += ds[i].getTongTien();
+                tong += ds[i].tinhTongTien();
             }
         }
         return tong;
@@ -30,7 +30,7 @@ public class ThongKe {
             }
             LocalDate d = ds[i].getNgayLap();
             if(d.getMonthValue() == thang && d.getYear() == nam){
-                tong += ds[i].getTongTien();
+                tong += ds[i].tinhTongTien();
             }
         }
         return tong;
@@ -39,7 +39,7 @@ public class ThongKe {
         double tong = 0;
         for(int i=0;i<n;i++){
             if(ds[i]!= null && ds[i].getNgayLap().getYear() == nam){
-                tong += ds[i].getTongTien();
+                tong += ds[i].tinhTongTien();
             }
         }
         return tong;
@@ -48,7 +48,7 @@ public class ThongKe {
         double tong =0;
         for(int i=0;i<n;i++){
             if(ds[i] != null && ds[i].getNhanVien()!= null && ds[i].getNhanVien().getMaNV().equals(maNV)){
-                tong += ds[i].getTongTien();
+                tong += ds[i].tinhTongTien();
             }
         }
         return tong;
@@ -57,7 +57,7 @@ public class ThongKe {
         double tong =0;
         for(int i=0;i<n;i++){
             if(ds[i] != null &&ds[i].getKhachHang()!= null && ds[i].getKhachHang().getMaKH().equals(maKH)){
-                tong += ds[i].getTongTien();
+                tong += ds[i].tinhTongTien();
             }
         }
         return tong;
@@ -81,7 +81,7 @@ public class ThongKe {
     public HoaDon hoaDonCoGiaTriCaoNhat(HoaDon[] ds, int n){
         HoaDon max = null;
         for(int i=0;i<n;i++){
-            if(ds[i]!= null && (max ==null || ds[i].getTongTien()> max.getTongTien())){
+            if(ds[i]!= null && (max ==null || ds[i].tinhTongTien()> max.tinhTongTien())){
                 max= ds[i];
             }
         }
@@ -168,7 +168,7 @@ public void thongKeTongQuan(HoaDon[] dsHD, int nHD, Sach[] dsSach, int nSach) {
     System.out.println("So sach : "+nSach+"| Tong ton kho : "+tongSoLuongTon(dsSach, nSach)+"| Gia tri ton kho : "+tien(giaTriTonKho(dsSach, nSach)));
     HoaDon max = hoaDonCoGiaTriCaoNhat(dsHD, nHD);
     if (max != null) {
-        System.out.println("Hoa don cao nhat | Ma HD : "+max.getMaHD()+"| Tong tien : "+tien(max.getTongTien()));
+        System.out.println("Hoa don cao nhat | Ma HD : "+max.getMaHD()+"| Tong tien : "+tien(max.tinhTongTien()));
     }
     inSachBanChay(dsHD, nHD, dsSach, nSach, 5);
     inSachSapHet(dsSach, nSach, 5);
@@ -259,7 +259,7 @@ public void thongKeChiTietKhachHang(HoaDon[] dsHD, int nHD, KhachHang[] dsKH, in
         if (dsHD[i] != null && dsHD[i].getKhachHang() != null
                 && dsHD[i].getKhachHang().getMaKH().equals(maKH)) {
             soHD++;
-            tongChi += dsHD[i].getTongTien();
+            tongChi += dsHD[i].tinhTongTien();
             for (ChiTietPhieu ct : dsHD[i].getDsChiTiet()) {
                 soSach += ct.getSoLuong();
             }

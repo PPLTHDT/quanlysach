@@ -98,10 +98,18 @@ public class HoaDon{
         if(ct== null){
             return false;
         }
+        Sach sach = ct.getSach();
+        if(sach == null){
+            return false;
+        }
+        if(ct.getSoLuong() > sach.getSoLuongTon()){
+            return false;
+        }
         for(int i=0;i<soluongChiTiet;i++){
             ChiTietHoaDon cu = (ChiTietHoaDon) dsChiTiet[i];
-            if(cu.getSach() != null && ct.getSach() != null && cu.getSach().getMaSach().equals(ct.getSach().getMaSach())){
+            if(cu.getSach() != null && cu.getSach().getMaSach().equals(sach.getMaSach())){
                 cu.setSoLuong(cu.getSoLuong()+ ct.getSoLuong());
+                sach.giamSoLuong(ct.getSoLuong());
                 tinhTongTien();
                 return true;
             }
@@ -110,6 +118,7 @@ public class HoaDon{
             dsChiTiet = Arrays.copyOf(dsChiTiet,dsChiTiet.length * 2);
         }
         dsChiTiet[soluongChiTiet++]= ct;
+        sach.giamSoLuong(ct.getSoLuong());
         tinhTongTien();
         return true;
     }

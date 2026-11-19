@@ -515,8 +515,7 @@ public class DocGhiFile {
                     }
                 }
 
-                h.setTongTien(Double.parseDouble(f[7]));
-                h.setTienGiam(Double.parseDouble(f[6]));
+
 
                 if (f[8].equals("TM")) {
                     h.setThanhToan(new ThanhToanTienMat(Double.parseDouble(f[9])));

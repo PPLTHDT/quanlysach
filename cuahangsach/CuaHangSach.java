@@ -237,9 +237,13 @@ public class CuaHangSach {
             if (maCT.isEmpty()) {
                 maCT = String.format("CTHD%02d", i + 1);
             }
-            ChiTietHoaDon ct = new ChiTietHoaDon(maCT, sach, soLuongMua);
-            if (!hd.themChiTiet(ct)) {
-                System.out.println("  Khong the them chi tiet (so luong khong hop le hoac vuot qua ton kho)!");
+            try {
+                ChiTietHoaDon ct = new ChiTietHoaDon(maCT, sach, soLuongMua);
+                if (!hd.themChiTiet(ct)) {
+                    System.out.println("  Khong the them chi tiet (so luong khong hop le hoac vuot qua ton kho)!");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("  Loi: " + e.getMessage());
             }
         }
 

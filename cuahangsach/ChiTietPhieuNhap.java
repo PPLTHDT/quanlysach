@@ -12,11 +12,13 @@ public class ChiTietPhieuNhap extends ChiTietPhieu {
     public ChiTietPhieuNhap(String maCT, Sach sach, int soLuongNhap, double donGiaNhap) {
         super(maCT, soLuongNhap, donGiaNhap);
         this.sach = sach;
+        setSoLuongNhap(soLuongNhap);
     }
         public ChiTietPhieuNhap(ChiTietPhieuNhap other) {
         super();
         if (other != null) {
             this.maCT = other.maCT;
+            capNhatMaCaoNhat(other.maCT);
             this.sach = other.sach;
             this.soLuong = other.soLuong;
             this.donGia = other.donGia;
