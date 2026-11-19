@@ -94,11 +94,10 @@ public class CuaHangSach {
 
             switch (chon) {
                 case 1:
-                    if (danhSachSach != null) {
-                        danhSachSach.lienKet(danhSachTacGia, danhSachTheLoai, danhSachNhaXuatBan);
-                        danhSachSach.menu();
-                    }
-                    break;
+            if (danhSachSach != null) {
+                danhSachSach.menu();
+            }
+            break;
                 case 2:
                     quanLyTheLoai();
                     break;
