@@ -1,4 +1,9 @@
 package cuahangsach;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
+
 public class DanhSachKhuyenMai {
     public static final int MAX = 100;
 
@@ -12,8 +17,13 @@ public class DanhSachKhuyenMai {
 
     // Tim vi tri cua phan tu theo ma, khong thay tra ve -1
     private int timViTri(String ma) {
+        if (ma == null || ma.trim().isEmpty()) {
+            return -1;
+        }
+        String maCanTim = ma.trim();
         for (int i = 0; i < soLuong; i++) {
-            if (dsKhuyenMai[i].getMaKM().equals(ma)) {
+            if (dsKhuyenMai[i] != null && dsKhuyenMai[i].getMaKM() != null
+                    && dsKhuyenMai[i].getMaKM().trim().equalsIgnoreCase(maCanTim)) {
                 return i;
             }
         }
@@ -24,6 +34,18 @@ public class DanhSachKhuyenMai {
         if (x == null || soLuong >= MAX) {
             return false;
         }
+        if (x.getMaKM() == null || x.getMaKM().trim().isEmpty()) {
+            return false;
+        }
+        if (!Double.isFinite(x.getPhanTramGiam())
+                || x.getPhanTramGiam() < 0 || x.getPhanTramGiam() > 100) {
+            return false;
+        }
+        if (x.getNgayBatDau() == null || x.getNgayKetThuc() == null
+                || x.getNgayKetThuc().isBefore(x.getNgayBatDau())) {
+            return false;
+        }
+        x.setMaKM(x.getMaKM().trim());
         if (timViTri(x.getMaKM()) != -1) {
             return false; // trung ma
         }
@@ -47,12 +69,10 @@ public class DanhSachKhuyenMai {
         }
 
         for(int i = vt; i < soLuong - 1; i++) {
-            if(dsKhuyenMai[i].getMaKM().equalsIgnoreCase(ma)) {
-                dsKhuyenMai[i] = dsKhuyenMai[i+1];
-            }
+            dsKhuyenMai[i] = dsKhuyenMai[i + 1];
         }
 
-        dsKhuyenMai[vt - 1] = null;
+        dsKhuyenMai[soLuong - 1] = null;
         soLuong--;
         return true;
     }
@@ -72,10 +92,16 @@ public class DanhSachKhuyenMai {
                 break;
             }
             case 2: {
-                String ten = Main.docChuoi("Nhap ten khuyen mai can xoa: ").toLowerCase();
+                String ten = Main.docChuoi("Nhap ten khuyen mai can xoa: ").trim();
+                if (ten.isEmpty()) {
+                    System.out.println("Ten khong duoc de trong!");
+                    break;
+                }
+                ten = ten.toLowerCase(Locale.ROOT);
                 int dem = 0;
                 for (int i = 0; i < soLuong; i++) {
-                    if (dsKhuyenMai[i].getTenKM().toLowerCase().contains(ten)) {
+                    String tenKM = dsKhuyenMai[i].getTenKM();
+                    if (tenKM != null && tenKM.toLowerCase(Locale.ROOT).contains(ten)) {
                         xoaTheoMa(dsKhuyenMai[i].getMaKM());
                         i--; // Lui chi so de tranh bo sot phan tu sau khi dich mang
                         dem++;
@@ -151,9 +177,15 @@ public class DanhSachKhuyenMai {
                 break;
             }
             case 2: {
-                String ten = Main.docChuoi("Nhap ten khuyen mai can tim: ").toLowerCase();
+                String ten = Main.docChuoi("Nhap ten khuyen mai can tim: ").trim();
+                if (ten.isEmpty()) {
+                    System.out.println("Ten khong duoc de trong!");
+                    break;
+                }
+                ten = ten.toLowerCase(Locale.ROOT);
                 for (int i = 0; i < soLuong; i++) {
-                    if (dsKhuyenMai[i].getTenKM().toLowerCase().contains(ten)) {
+                    String tenKM = dsKhuyenMai[i].getTenKM();
+                    if (tenKM != null && tenKM.toLowerCase(Locale.ROOT).contains(ten)) {
                         dsKhuyenMai[i].hienThi();
                         thay = true;
                     }
@@ -171,13 +203,20 @@ public class DanhSachKhuyenMai {
                     }
                 }
                 if (!thay) {
-                    System.out.println("Khong co khuyen mai nào dang trong thoi gian hieu luc!");
+                    System.out.println("Khong co khuyen mai nao dang trong thoi gian hieu luc!");
                 }
                 break;
             }
             case 4: {
-                double min = Main.docSoThuc("Muc giam toi thieu (%): ");
-                double max = Main.docSoThuc("Muc giam toi da (%): ");
+                double min;
+                double max;
+                do {
+                    min = Main.docSoThuc("Muc giam toi thieu (%): ");
+                    max = Main.docSoThuc("Muc giam toi da (%): ");
+                    if (min > max) {
+                        System.out.println("Muc toi thieu khong duoc lon hon muc toi da!");
+                    }
+                } while (min > max);
                 for (int i = 0; i < soLuong; i++) {
                     double pt = dsKhuyenMai[i].getPhanTramGiam();
                     if (pt >= min && pt <= max) {
@@ -221,9 +260,17 @@ public class DanhSachKhuyenMai {
             return false;
         }
         x.setTenKM(Main.docChuoiGiuCu("Ten khuyen mai moi", x.getTenKM()));
-        x.setPhanTramGiam(Main.docSoThuc("Phan tram giam moi: "));
-        x.setNgayBatDau(Main.docNgay("Ngay bat dau moi"));
-        x.setNgayKetThuc(Main.docNgay("Ngay ket thuc moi"));
+        x.setPhanTramGiam(docPhanTramGiuCu("Phan tram giam moi", x.getPhanTramGiam()));
+        LocalDate bd = docNgayGiuCu("Ngay bat dau moi", x.getNgayBatDau());
+        LocalDate kt;
+        do {
+            kt = docNgayGiuCu("Ngay ket thuc moi", x.getNgayKetThuc());
+            if (kt.isBefore(bd)) {
+                System.out.println("Ngay ket thuc phai tu ngay bat dau tro di!");
+            }
+        } while (kt.isBefore(bd));
+        x.setNgayBatDau(bd);
+        x.setNgayKetThuc(kt);
         return true;
     }
 
@@ -243,10 +290,53 @@ public class DanhSachKhuyenMai {
     private KhuyenMai nhapMot() {
         String ma = Main.docChuoi("Ma khuyen mai: ");
         String ten = Main.docChuoi("Ten khuyen mai: ");
-        double phanTram = Main.docSoThuc("Phan tram giam (0-100): ");
-        java.time.LocalDate bd = Main.docNgay("Ngay bat dau");
-        java.time.LocalDate kt = Main.docNgay("Ngay ket thuc");
+        double phanTram;
+        do {
+            phanTram = Main.docSoThuc("Phan tram giam (0-100): ");
+            if (Double.isNaN(phanTram) || Double.isInfinite(phanTram) || phanTram < 0 || phanTram > 100) {
+                System.out.println("Phan tram giam phai nam trong khoang 0-100!");
+            }
+        } while (Double.isNaN(phanTram) || Double.isInfinite(phanTram) || phanTram < 0 || phanTram > 100);
+        LocalDate bd = Main.docNgay("Ngay bat dau");
+        LocalDate kt;
+        do {
+            kt = Main.docNgay("Ngay ket thuc");
+            if (kt.isBefore(bd)) {
+                System.out.println("Ngay ket thuc phai tu ngay bat dau tro di!");
+            }
+        } while (kt.isBefore(bd));
         return new KhuyenMai(ma, ten, phanTram, bd, kt);
+    }
+
+    private double docPhanTramGiuCu(String prompt, double giaTriCu) {
+        while (true) {
+            String nhap = Main.docChuoiGiuCu(prompt, String.valueOf(giaTriCu));
+            try {
+                double giaTri = Double.parseDouble(nhap);
+                if (!Double.isNaN(giaTri) && !Double.isInfinite(giaTri) && giaTri >= 0 && giaTri <= 100) {
+                    return giaTri;
+                }
+            } catch (NumberFormatException e) {
+                // Nhap lai khi gia tri khong hop le.
+            }
+            System.out.println("Phan tram giam phai nam trong khoang 0-100!");
+        }
+    }
+
+    private LocalDate docNgayGiuCu(String prompt, LocalDate giaTriCu) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String giaTriCuText = giaTriCu == null ? "" : giaTriCu.format(formatter);
+        while (true) {
+            String nhap = Main.docChuoiGiuCu(prompt, giaTriCuText);
+            if (giaTriCuText.isEmpty() && nhap.isEmpty()) {
+                return LocalDate.now();
+            }
+            try {
+                return LocalDate.parse(nhap, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Dinh dang ngay khong hop le! Vui long nhap dd/MM/yyyy.");
+            }
+        }
     }
 
     public void xuat() {
@@ -272,10 +362,20 @@ public class DanhSachKhuyenMai {
     }
 
     public void napDuLieu(KhuyenMai[] ds) {
+        for (int i = 0; i < MAX; i++) {
+            dsKhuyenMai[i] = null;
+        }
         soLuong = 0;
-        for (int i = 0; i < ds.length && i < MAX; i++) {
-            dsKhuyenMai[i] = ds[i];
-            soLuong++;
+        if (ds == null) {
+            return;
+        }
+        for (KhuyenMai khuyenMai : ds) {
+            if (khuyenMai == null) {
+                continue;
+            }
+            if (!them(khuyenMai)) {
+                System.out.println("Bo qua khuyen mai khong hop le hoac trung ma.");
+            }
         }
     }
 
@@ -335,6 +435,10 @@ public class DanhSachKhuyenMai {
                 default:
                     System.out.println("Lua chon khong hop le!");
             }
+        } while (chon != 0);
+    }
+}
+
         } while (chon != 0);
     }
 }
