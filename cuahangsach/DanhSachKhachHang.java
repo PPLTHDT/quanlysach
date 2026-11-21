@@ -160,19 +160,28 @@ public class DanhSachKhachHang {
                 case 1:
                     {
                         String ma = Main.docChuoi("Nhap vao ma KH: ");
-                        System.out.println(timKiemMa(ma));
+                        KhachHang kh = timKiemMa(ma);
+                        if (kh != null) {
+                        kh.hienThiThongTin();
+                        }
                         break;
                     }
                 case 2:
                     {
                         String ten = Main.docChuoi("Nhap vao ho ten KH: ");
-                        System.out.println(timKiemTen(ten));
+                        KhachHang kh=timKiemTen(ten);
+                        if (kh != null) {
+                        kh.hienThiThongTin();
+                        }
                         break;
                     }
                 case 3:
                     {
                         String s = Main.docChuoi("Nhap vao SDT KH: ");
-                        System.out.println(timKiemSDT(s)); 
+                        KhachHang kh=timKiemSDT(s);
+                        if (kh != null) {
+                        kh.hienThiThongTin();
+                        }
                         break;
                     }
                 case 0:return;

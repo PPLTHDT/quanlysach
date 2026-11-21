@@ -23,6 +23,7 @@ public class DanhSachNhanVien{
     }
     public void xuatNhanVien(NhanVien nv)
     {
+        if(nv!=null)
         nv.hienThiThongTin();
     }
     public void themNNV(int n)
@@ -94,6 +95,7 @@ public class DanhSachNhanVien{
                 }
                 dsNhanVien[soluongNV-1]=null;
                 soluongNV--;
+                
                 return true;
             }
         }
@@ -314,38 +316,66 @@ public class DanhSachNhanVien{
     }
     
     public void timKiemQuanly()
-    {
-        int k;
-        do{
-            System.out.println("1.Tim kiem theo ma QL.");
-            System.out.println("2.Tim kiem theo ten QL.");
-            System.out.println("3.Tim kiem theo sdt QL.");
-            System.out.println("0.OUT.");
-            k = Main.docSoNguyen("Lua chon cua ban: ");
+{
+    int k;
+    do{
+        System.out.println("1.Tim kiem theo ma QL.");
+        System.out.println("2.Tim kiem theo ten QL.");
+        System.out.println("3.Tim kiem theo sdt QL.");
+        System.out.println("0.OUT.");
+        k = Main.docSoNguyen("Lua chon cua ban: ");
 
-            switch (k) {
-                case 1:
-                    {
-                        String ma = Main.docChuoi("Nhap vao ma QL: ");
-                        System.out.println(timKiemMaQL(ma));
-                        break;
-                    }
-                case 2:
-                    {
-                        String ten = Main.docChuoi("Nhap vao ho ten QL: ");
-                        System.out.println(timKiemHoTenQL(ten));
-                        break;
-                    }
-                case 3:
-                    {
-                        String s = Main.docChuoi("Nhap vao SDT QL: ");
-                        System.out.println(timKiemSdtQL(s)); 
-                        break;
-                    }
-                case 0:return;
+        QuanLy ql;
+
+        switch (k) {
+            case 1:
+            {
+                String ma = Main.docChuoi("Nhap vao ma QL: ");
+                ql = timKiemMaQL(ma);
+
+                if (ql != null) {
+                    ql.hienThiThongTin();
+                } else {
+                    System.out.println("Khong tim thay quan ly!");
+                }
+
+                break;
             }
-        }while(k!=0);
-    }
+
+            case 2:
+            {
+                String ten = Main.docChuoi("Nhap vao ho ten QL: ");
+                ql = timKiemHoTenQL(ten);
+
+                if (ql != null) {
+                    ql.hienThiThongTin();
+                } else {
+                    System.out.println("Khong tim thay quan ly!");
+                }
+
+                break;
+            }
+
+            case 3:
+            {
+                String s = Main.docChuoi("Nhap vao SDT QL: ");
+                ql = timKiemSdtQL(s);
+
+                if (ql != null) {
+                    ql.hienThiThongTin();
+                } else {
+                    System.out.println("Khong tim thay quan ly!");
+                }
+
+                break;
+            }
+
+            case 0:
+                return;
+        }
+
+    }while(k!=0);
+}
     public double tongLuongQL()
     {
         double tongluong=0;
