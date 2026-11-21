@@ -438,8 +438,3 @@ public class DanhSachKhuyenMai {
         } while (chon != 0);
     }
 }
-
-        } while (chon != 0);
-    }
-}
-

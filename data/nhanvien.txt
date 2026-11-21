@@ -13,3 +13,4 @@
 002202000013|Tran Quoc Viet|0911234574|viet@example.com|Quan 7, TP.HCM|NV13|Bao ve|20000.0
 002202000014|Pham Minh Duc|0901234575|duc@example.com|Quan 6, TP.HCM|NV14|Thu kho|18000.0
 002202000015|Le Ngoc Tram|0981234576|tram@example.com|Quan 5, TP.HCM|NV15|Ke toan|14500.0
+1234567|nguyen hehe|039393912|uer|uerrw|vn23|ke toan|1.4E8

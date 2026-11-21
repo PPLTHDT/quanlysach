@@ -27,6 +27,7 @@ public class DocGhiFile {
     private static final String FILE_KHUYEN_MAI = "khuyenmai.txt";
     private static final String FILE_HOA_DON = "hoadon.txt";
     private static final String FILE_PHIEU_NHAP = "phieunhap.txt";
+    private static final String FILE_TAI_KHOAN = "taikhoan.txt";
 
     private String duongDan;
 
@@ -293,6 +294,36 @@ public class DocGhiFile {
                 kq[n++] = x;
             } catch (RuntimeException e) {
                 canhBao(FILE_KHACH_HANG, d, e);
+            }
+        }
+        return Arrays.copyOf(kq, n);
+    }
+
+    // Dinh dang: username|matkhau|VAITRO|maNV/maQL
+    public void ghiFileTaiKhoan(TaiKhoan[] ds, int soLuong) {
+        String[] dong = new String[soLuong];
+        int k = 0;
+        if (ds != null) {
+            for (int i = 0; i < soLuong && i < ds.length; i++) {
+                TaiKhoan x = ds[i];
+                if (x == null) continue;
+                dong[k++] = String.join(SEP, s(x.getUsername()), s(x.getMatKhau()),
+                x.getVaiTro().name(), s(x.getMaNguoiDung()));
+            }
+        }
+        ghiDong(FILE_TAI_KHOAN, Arrays.copyOf(dong, k));
+    }
+
+    public TaiKhoan[] docFileTaiKhoan() {
+        String[] cacDong = docDong(FILE_TAI_KHOAN);
+        TaiKhoan[] kq = new TaiKhoan[cacDong.length];
+        int n = 0;
+        for (String d : cacDong) {
+            try {
+                String[] f = tach(d, 4);
+                kq[n++] = new TaiKhoan(f[0], f[1], VaiTro.valueOf(f[2]), f[3]);
+            } catch (RuntimeException e) {
+                canhBao(FILE_TAI_KHOAN, d, e);
             }
         }
         return Arrays.copyOf(kq, n);

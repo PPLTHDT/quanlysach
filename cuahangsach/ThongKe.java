@@ -2,7 +2,6 @@ package cuahangsach;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Scanner;
 public class ThongKe {
     public double tongDoanhThu(HoaDon[] ds, int n){
         double tong =0;
