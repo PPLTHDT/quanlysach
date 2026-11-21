@@ -1,5 +1,4 @@
 package cuahangsach;
-import java.util.Scanner;
 
 public class QuanLy extends Nguoi {
     private String maQL;
@@ -23,24 +22,17 @@ public class QuanLy extends Nguoi {
     }
     public void setMaQL()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Nhap vao ma QL : ");
-        maQL=sc.nextLine();
+        maQL=Main.docChuoi("Nhap vao ma QL : ");
     }
     public void setPhuCap()
     {
-        Scanner sc=new Scanner(System.in);
         do{
-            System.out.println("Nhap vao phu cap : ");
-            phuCap=sc.nextDouble();
-            sc.nextLine();
+            phuCap=Main.docSoThuc("Nhap vao phu cap : ");
         }while(phuCap<0);
     }
     public void setPhongBan()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Nhap vao phong ban(ke toan,bao ve,kho) :");
-        phongBan=sc.nextLine();
+        phongBan=Main.docChuoi("Nhap vao phong ban(ke toan,bao ve,kho) :");
     }
     public void setMaQL(String maQL)
     {

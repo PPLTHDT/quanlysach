@@ -1,5 +1,4 @@
 package cuahangsach;
-import java.util.Scanner;
 public abstract class Nguoi {
     protected String CCCD;
     protected String hoTen;
@@ -28,33 +27,23 @@ public abstract class Nguoi {
     // ===== Setter nhap tu ban phim (UML: setCCCD() / setHoTen() / ...) =====
     public void setCCCD()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao CCCD :");
-        this.CCCD=sc.nextLine();
+        this.CCCD=Main.docChuoi("Nhap vao CCCD :");
     }
     public void setHoTen()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao ho ten :");
-        this.hoTen=sc.nextLine();
+        this.hoTen=Main.docChuoi("Nhap vao ho ten :");
     }
     public void setSDT()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao SDT :");
-        this.sdt=sc.nextLine();
+        this.sdt=Main.docChuoi("Nhap vao SDT :");
     }
     public void setEmail()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao email :");
-        this.email=sc.nextLine();
+        this.email=Main.docChuoi("Nhap vao email :");
     }
     public void setDiaChi()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao dia chi :");
-        this.diaChi=sc.nextLine();
+        this.diaChi=Main.docChuoi("Nhap vao dia chi :");
     }
 
     // ===== Setter co tham so (DocGhiFile dung de doc du lieu tu file) =====

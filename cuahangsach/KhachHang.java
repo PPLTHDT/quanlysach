@@ -1,5 +1,4 @@
 package cuahangsach;
-import java.util.Scanner;
 
 public class KhachHang extends  Nguoi {
     private String maKH;
@@ -27,16 +26,11 @@ public class KhachHang extends  Nguoi {
     }
     public void setMaKH()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao ma khach hang :");
-        this.maKH=sc.nextLine();
+        this.maKH=Main.docChuoi("Nhap vao ma khach hang :");
     }
     public void setDiemTichLuy()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.printf("Nhap vao diem tich luy :");
-        this.diemTichLuy=sc.nextInt();
-        sc.nextLine();
+        this.diemTichLuy=Main.docSoNguyen("Nhap vao diem tich luy :");
     }
     public void setMaKH(String maKH)
     {

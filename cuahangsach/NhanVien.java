@@ -1,5 +1,4 @@
 package cuahangsach;
-import java.util.Scanner;
 
 public class NhanVien extends Nguoi {
     private String maNV;
@@ -25,35 +24,24 @@ public class NhanVien extends Nguoi {
     }
     public void setMaNV()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Nhap vao maNV : ");
-        this.maNV=sc.nextLine();
+        this.maNV=Main.docChuoi("Nhap vao maNV : ");
     }
     public void setChucVu()
     {
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Nhap vao chuc vu(ke toan,bao ve,kho) : ");
-        this.chucVu=sc.nextLine();
+        this.chucVu=Main.docChuoi("Nhap vao chuc vu(ke toan,bao ve,kho) : ");
     }
     public void setLuongCoBan()
     {
-        Scanner sc=new Scanner(System.in);
         do{
-            System.out.println("Nhap vao luong co ban : ");
-            this.luongCoBanNV=sc.nextDouble();
-            sc.nextLine();
-
+            this.luongCoBanNV=Main.docSoThuc("Nhap vao luong co ban : ");
         }
         while(luongCoBanNV<0);
         
     }
     public void setSoGioLam()
     {
-        Scanner sc=new Scanner(System.in);
         do{
-            System.out.println("Nhap vao so gio lam : ");
-            this.soGioLam=sc.nextInt();
-            sc.nextLine();
+            this.soGioLam=Main.docSoNguyen("Nhap vao so gio lam : ");
         }
         while(soGioLam<0);
     }
