@@ -9,8 +9,10 @@
 001201000009|Do Thi Hong|0924567890|hong@example.com|Quan 10, TP.HCM|KH09|25
 001201000010|Hoang Gia Huy|0915678901|huy@example.com|Tan Phu, TP.HCM|KH10|175
 001201000011|Phan Ngoc Tram|0906789012|tram@example.com|Quan 5, TP.HCM|KH11|95
-001201000012|Dang Minh Duc|0987890123|duc@example.com|Quan 6, TP.HCM|KH12|40
+001201000012|Dang Minh Duc|0987890123|duc@example.com|Quan 6, TP.HCM|KH12|213412314
 001201000013|Nguyen Thi Hoa|0978901234|hoa@example.com|Thu Duc, TP.HCM|KH13|130
 001201000014|Le Quoc Viet|0969012345|viet@example.com|Quan 8, TP.HCM|KH14|55
-001201000015|Pham Minh Anh|0930123456|anh@example.com|Binh Tan, TP.HCM|KH15|220
 001201000016|Nguyen Tuan Kiet |0393912512|nguyenkiet1455@nkiet1455gmail.t1455gmailcom|Go Vap |KH16|300
+12|hitki|123123|@mail|hcm|KH12|321
+123|dued|`12353|?|dued|c�|234
+4325|ferfe|345|ferf|ferf|345|345

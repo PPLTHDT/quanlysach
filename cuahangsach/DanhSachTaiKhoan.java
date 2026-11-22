@@ -35,7 +35,8 @@ public class DanhSachTaiKhoan {
     public TaiKhoan timTheoUsername(String username) {
         if (username == null) return null;
         for (int i = 0; i < soLuong; i++) {
-            if (ds[i].getUsername().equalsIgnoreCase(username.trim())) {
+            if (ds[i] != null && ds[i].getUsername() != null
+                    && ds[i].getUsername().equalsIgnoreCase(username.trim())) {
                 return ds[i];
             }
         }
@@ -45,7 +46,8 @@ public class DanhSachTaiKhoan {
     public TaiKhoan timTheoMaNguoiDung(String ma) {
         if (ma == null) return null;
         for (int i = 0; i < soLuong; i++) {
-            if (ds[i].getMaNguoiDung() != null && ds[i].getMaNguoiDung().equalsIgnoreCase(ma.trim())) {
+            if (ds[i] != null && ds[i].getMaNguoiDung() != null
+                    && ds[i].getMaNguoiDung().equalsIgnoreCase(ma.trim())) {
                 return ds[i];
             }
         }
@@ -54,7 +56,7 @@ public class DanhSachTaiKhoan {
 
     public boolean coTaiKhoanVaiTro(VaiTro vt) {
         for (int i = 0; i < soLuong; i++) {
-            if (ds[i].getVaiTro() == vt) return true;
+            if (ds[i] != null && ds[i].getVaiTro() == vt) return true;
         }
         return false;
     }
@@ -71,8 +73,10 @@ public class DanhSachTaiKhoan {
     }
 
     public boolean xoa(String username) {
+        if (username == null) return false;
         for (int i = 0; i < soLuong; i++) {
-            if (ds[i].getUsername().equalsIgnoreCase(username.trim())) {
+            if (ds[i] != null && ds[i].getUsername() != null
+                    && ds[i].getUsername().equalsIgnoreCase(username.trim())) {
                 for (int j = i; j < soLuong - 1; j++) {
                     ds[j] = ds[j + 1];
                 }
@@ -99,8 +103,12 @@ public class DanhSachTaiKhoan {
             return;
         }
         for (int i = 0; i < soLuong; i++) {
-            System.out.println((i + 1) + ". " + ds[i].getUsername() + " | " + ds[i].getVaiTro().getTen()
-                    + " | Ma: " + ds[i].getMaNguoiDung());
+            TaiKhoan taiKhoan = ds[i];
+            if (taiKhoan == null) continue;
+            String tenVaiTro = taiKhoan.getVaiTro() == null
+                    ? "(khong co vai tro)" : taiKhoan.getVaiTro().getTen();
+            System.out.println((i + 1) + ". " + taiKhoan.getUsername() + " | " + tenVaiTro
+                    + " | Ma: " + taiKhoan.getMaNguoiDung());
         }
     }
 }

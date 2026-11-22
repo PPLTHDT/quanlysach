@@ -39,7 +39,9 @@ public class DanhSachKhachHang {
     }
     public void xuatKhachHang(KhachHang kh)
     {
-        kh.hienThiThongTin();
+        if (kh != null) {
+            kh.hienThiThongTin();
+        }
     }
 
     public void xuat()
@@ -52,10 +54,13 @@ public class DanhSachKhachHang {
 
     public boolean suaTheoMa(String maKH)
     {
+        if (maKH == null) {
+            return false;
+        }
         for (int i=0;i<soLuong;i++) {
             if(dsKhachHang[i] != null &&
             dsKhachHang[i].getMaKH() != null &&
-            dsKhachHang[i].getMaKH().contains(maKH))
+            dsKhachHang[i].getMaKH().trim().equalsIgnoreCase(maKH.trim()))
             {
                 System.out.println("1.Sua can cuoc cong dan.");
                 System.out.println("2.Sua ho ten.");
@@ -86,11 +91,14 @@ public class DanhSachKhachHang {
     }
     public boolean xoaTheoMa(String maKH)
     {
+        if (maKH == null) {
+            return false;
+        }
         for(int i=0;i<soLuong;i++)
         {
             if(dsKhachHang[i] != null &&
             dsKhachHang[i].getMaKH() != null &&
-            dsKhachHang[i].getMaKH().contains(maKH))
+            dsKhachHang[i].getMaKH().trim().equalsIgnoreCase(maKH.trim()))
             {
                 for(int j=i;j<soLuong-1;j++)
                 {
@@ -107,11 +115,15 @@ public class DanhSachKhachHang {
     }
     public KhachHang timKiemMa(String maKH)
     {
+        if (maKH == null) {
+            System.out.println("Khong tim thay ma kh nay.");
+            return null;
+        }
         for(int i=0;i<soLuong;i++)
         {
             if(dsKhachHang[i] != null &&
             dsKhachHang[i].getMaKH() != null &&
-            dsKhachHang[i].getMaKH().contains(maKH))
+            dsKhachHang[i].getMaKH().trim().equalsIgnoreCase(maKH.trim()))
             {
                 return dsKhachHang[i];
             }
@@ -121,6 +133,9 @@ public class DanhSachKhachHang {
     }
     public KhachHang timKiemTen(String hoten)
     {
+        if (hoten == null) {
+            return null;
+        }
         for(int i=0;i<soLuong;i++)
         {
             if(dsKhachHang[i] != null &&
@@ -139,7 +154,7 @@ public class DanhSachKhachHang {
         {
             if(dsKhachHang[i] != null &&
             dsKhachHang[i].getSDT() != null &&
-            dsKhachHang[i].getSDT().contains(sdt))
+            dsKhachHang[i].getSDT().equals(sdt))
                 return dsKhachHang[i];
         }
         System.out.println("Khong tim thay khach hang nay.");
@@ -192,7 +207,7 @@ public class DanhSachKhachHang {
     {
         for(int i=0;i<soLuong;i++)
         {
-            dsKhachHang[i].hienThiThongTin();
+            xuatKhachHang(dsKhachHang[i]);
         }
     }
     public void napDuLieu(KhachHang[] dsKH)

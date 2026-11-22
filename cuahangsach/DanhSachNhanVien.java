@@ -47,7 +47,7 @@ public class DanhSachNhanVien{
         for (int i=0;i<soluongNV;i++) {
             if(dsNhanVien[i] != null &&
             dsNhanVien[i].getMaNV() != null &&
-            dsNhanVien[i].getMaNV().contains(maNV))
+            dsNhanVien[i].getMaNV().equals(maNV))
             {
                 System.out.println("1.Sua CCCD.");
                 System.out.println("2.Sua ho ten.");
@@ -87,7 +87,7 @@ public class DanhSachNhanVien{
         {
             if(dsNhanVien[i] != null &&
             dsNhanVien[i].getMaNV() != null &&
-            dsNhanVien[i].getMaNV().contains(maNV))
+            dsNhanVien[i].getMaNV().equals(maNV))
             {
                 for(int j=i;j<soluongNV-1;j++)
                 {
@@ -108,13 +108,16 @@ public class DanhSachNhanVien{
             {
                 if(dsNhanVien[i] != null &&
                 dsNhanVien[i].getMaNV() != null &&
-                dsNhanVien[i].getMaNV().contains(maNV))
+                dsNhanVien[i].getMaNV().equals(maNV))
                     return dsNhanVien[i];
             }
         return null;
     }
     public NhanVien timKiemHoTenNV(String hoTen)
     {
+        if (hoTen == null) {
+            return null;
+        }
         for(int i=0;i<soluongNV;i++)
 
             {
@@ -132,7 +135,7 @@ public class DanhSachNhanVien{
             {
                 if(dsNhanVien[i] != null &&
                 dsNhanVien[i].getSDT() != null &&
-                dsNhanVien[i].getSDT().contains(SDT))
+                dsNhanVien[i].getSDT().equals(SDT))
                     return dsNhanVien[i];
             }
         return null;
@@ -191,7 +194,9 @@ public class DanhSachNhanVien{
         double tongluong=0;
         for(int i=0;i<soluongNV;i++)
         {
-            tongluong+=dsNhanVien[i].tinhLuong();
+            if (dsNhanVien[i] != null) {
+                tongluong+=dsNhanVien[i].tinhLuong();
+            }
         }
         return tongluong;
     }
@@ -211,7 +216,9 @@ public class DanhSachNhanVien{
     }
     public void xuatQuanLy(QuanLy ql)
     {
-        ql.hienThiThongTin();
+        if (ql != null) {
+            ql.hienThiThongTin();
+        }
     }
     public boolean themQuanLy(QuanLy ql)
     {
@@ -235,7 +242,7 @@ public class DanhSachNhanVien{
         {
             if(dsQuanLy[i] != null &&
             dsQuanLy[i].getMaQL() != null &&
-            dsQuanLy[i].getMaQL().contains(maQL))
+            dsQuanLy[i].getMaQL().equals(maQL))
             {
                 for(int j=i;j<soluongQL-1;j++)
                 {
@@ -253,7 +260,7 @@ public class DanhSachNhanVien{
         for (int i=0;i<soluongQL;i++) {
             if(dsQuanLy[i] != null &&
             dsQuanLy[i].getMaQL() != null &&
-            dsQuanLy[i].getMaQL().contains(maQL))
+            dsQuanLy[i].getMaQL().equals(maQL))
             {
                 System.out.println("1.Sua CCCD.");
                 System.out.println("2.Sua ho ten.");
@@ -287,13 +294,16 @@ public class DanhSachNhanVien{
         {
             if(dsQuanLy[i] != null &&
             dsQuanLy[i].getMaQL() != null &&
-            dsQuanLy[i].getMaQL().contains(maQL))
+            dsQuanLy[i].getMaQL().equals(maQL))
                 return dsQuanLy[i];
         }
         return null;
     }
     public QuanLy timKiemHoTenQL(String hoTen)
     {
+        if (hoTen == null) {
+            return null;
+        }
         for(int i=0;i<soluongQL;i++)
         {
             if(dsQuanLy[i] != null &&
@@ -309,7 +319,7 @@ public class DanhSachNhanVien{
         {
             if(dsQuanLy[i] != null &&
             dsQuanLy[i].getSDT() != null &&
-            dsQuanLy[i].getSDT().contains(SDT))
+            dsQuanLy[i].getSDT().equals(SDT))
                 return dsQuanLy[i];
         }
         return null;
@@ -381,86 +391,47 @@ public class DanhSachNhanVien{
         double tongluong=0;
         for(int i=0;i<soluongQL;i++)
         {
-            tongluong+=dsQuanLy[i].tinhLuong();
+            if (dsQuanLy[i] != null) {
+                tongluong+=dsQuanLy[i].tinhLuong();
+            }
         }
         return tongluong;
     }
     public void thongKeNhanSu()
     {
-        System.out.println("*Thong tin chung cua nhan vien : ");
-        System.out.println("-So luong nhan vien : "+soluongNV);
-        System.out.println("-Tong luong : "+Main.dinhDangTien(tongLuongNV()));
-        System.out.println("*Thong tin chung cua quan ly : ");
-        System.out.println("-So luong quan ly : "+soluongQL);
-        System.out.println("-Tong luong : "+Main.dinhDangTien(tongLuongQL()));
-        
-
-        System.out.println("Phong ban ke toan.");
-        System.out.println("Quan ly :");
-        int qlkt=0,nvkt=0;
-        for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan() != null && dsQuanLy[i].getPhongBan().contains("ke toan"))
-            {
-                System.out.println(dsQuanLy[i].getHoTen());
-                qlkt++;
+        int soQL = 0;
+        for (int i = 0; i < soluongQL; i++) {
+            if (dsQuanLy[i] != null) {
+                soQL++;
             }
         }
-        System.out.println("Nhan vien : ");
-        for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu() != null && dsNhanVien[i].getChucVu().contains("ke toan"))
-            {
-                System.out.println(dsNhanVien[i].getHoTen());
-                nvkt++;
-            }  
-        }
-        System.out.println("So luong quan ly :"+qlkt);
-        System.out.println("So luong nhan vien :"+nvkt);
-        System.out.println("-----------------------------------------");
-        System.out.println("Phong ban bao ve.");
-        System.out.println("Quan ly :");
-        int qlbv=0,nvbv=0;
-        for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan() != null && dsQuanLy[i].getPhongBan().contains("bao ve"))
-            {
-                System.out.println(dsQuanLy[i].getHoTen());
-                qlbv++;
-            }   
-        }
-        System.out.println("Nhan vien : ");
-        for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu() != null && dsNhanVien[i].getChucVu().contains("bao ve"))
-            {
-                System.out.println(dsNhanVien[i].getHoTen());
-                nvbv++;
+        System.out.println("*Thong ke quan ly:");
+        System.out.println("-So luong quan ly: " + soQL);
+        System.out.println("-Tong luong: " + Main.dinhDangTien(tongLuongQL()));
+        if (soQL == 0) {
+            System.out.println("(Chua co quan ly)");
+        } else {
+            for (int i = 0; i < soluongQL; i++) {
+                xuatQuanLy(dsQuanLy[i]);
             }
-        }
-        System.out.println("So luong quan ly :"+qlbv);
-        System.out.println("So luong nhan vien :"+nvbv);
-        System.out.println("-----------------------------------------");
-        System.out.println("Phong ban kho.");
-        System.out.println("Quan ly :");
-        int qlk=0,nvk=0;
-        for (int i=0;i<soluongQL;i++) {
-            if(dsQuanLy[i].getPhongBan() != null && dsQuanLy[i].getPhongBan().contains("kho"))
-            {
-                System.out.println(dsQuanLy[i].getHoTen());
-                qlk++;
-            }
-            
         }
 
-        System.out.println("Nhan vien : ");
-        for (int i=0;i<soluongNV;i++) {
-            if(dsNhanVien[i].getChucVu() != null && dsNhanVien[i].getChucVu().contains("kho"))
-            {
-                System.out.println(dsNhanVien[i].getHoTen());
-                nvk++;
+        int soNV = 0;
+        for (int i = 0; i < soluongNV; i++) {
+            if (dsNhanVien[i] != null) {
+                soNV++;
             }
-            
         }
-        System.out.println("So luong quan ly :"+qlk);
-        System.out.println("So luong nhan vien :"+nvk);
-        System.out.println("-----------------------------------------");
+        System.out.println("*Thong ke nhan vien:");
+        System.out.println("-So luong nhan vien: " + soNV);
+        System.out.println("-Tong luong: " + Main.dinhDangTien(tongLuongNV()));
+        if (soNV == 0) {
+            System.out.println("(Chua co nhan vien)");
+        } else {
+            for (int i = 0; i < soluongNV; i++) {
+                xuatNhanVien(dsNhanVien[i]);
+            }
+        }
     }
     public void napDuLieu(NhanVien[] dsnv,QuanLy[] dsql)
     {
