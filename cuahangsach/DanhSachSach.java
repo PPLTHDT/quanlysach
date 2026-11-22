@@ -146,9 +146,24 @@ public class DanhSachSach{
             return false;
         }
         s.setTenSach(nhapChuoi("Ten moi cua sach: "));
-        s.setNamXuatBan(nhapSoNguyen("Nam xuat ban moi: "));
-        s.setGiaBan(nhapSoThapPhan("Gia ban moi: "));
-        s.setSoLuongTon(nhapSoNguyen("So luong ton moi: "));
+        
+        int nam;
+        do {
+            nam = nhapSoNguyen("Nam xuat ban moi: ");
+        } while(nam <= 0);
+        s.setNamXuatBan(nam);
+
+        double gia;
+        do {
+            gia = nhapSoThapPhan("Gia ban moi: ");
+        } while(gia < 0);
+        s.setGiaBan(gia);
+
+        int ton;
+        do {
+            ton = nhapSoNguyen("So luong ton moi: ");
+        } while(ton < 0);
+        s.setSoLuongTon(ton);
         return true;
     }
    
@@ -227,7 +242,10 @@ public class DanhSachSach{
             }
             dsTacGia[j] = tg;
         }
-        int nam = nhapSoNguyen("Nam xuat ban: ");
+        int nam;
+        do {
+            nam = nhapSoNguyen("Nam xuat ban: ");
+        } while(nam <= 0);
         String matl = nhapChuoi("Ma the loai: ");
         TheLoai tl = (dsTL == null) ? null : dsTL.timTheoMa(matl);
         if(tl == null){
@@ -240,8 +258,15 @@ public class DanhSachSach{
             String diachi = nhapChuoi("Dia chi nha xuat ban: ");
             nxb = layNhaXuatBan(manxb, tennxb, diachi);
         }
-        double gia = nhapSoThapPhan("Gia ban: ");
-        int ton = nhapSoNguyen("So luong ton: ");
+        double gia;
+        do {
+            gia = nhapSoThapPhan("Gia ban: ");
+        } while(gia < 0);
+
+        int ton;
+        do {
+            ton = nhapSoNguyen("So luong ton: ");
+        } while(ton < 0);
         if(!them(new Sach(ma, ten, dsTacGia, nam, tl, nxb, gia, ton))){
             System.out.println("Them bi loi.");
         }
