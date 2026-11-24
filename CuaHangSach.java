@@ -291,62 +291,7 @@ public class CuaHangSach {
         }
     }
 
-    public HoaDon[] lapNhieuHoaDon() {
-        int soLan = Main.docSoNguyen("Nhap so luong hoa don can lap: ");
-        if (soLan <= 0) {
-            System.out.println("So luong phai lon hon 0!");
-            return new HoaDon[0];
-        }
-
-        int soChoTrong = DanhSachHoaDon.MAX - danhSachHoaDon.getSoLuong();
-        if (soChoTrong <= 0) {
-            System.out.println("Danh sach hoa don da day!");
-            return new HoaDon[0];
-        }
-
-        int soLanThucHien = Math.min(soLan, soChoTrong);
-        if (soLanThucHien < soLan) {
-            System.out.println("Chi con cho trong " + soLanThucHien + " hoa don.");
-        }
-
-        dsHoaDonDangCho = new HoaDon[soLanThucHien];
-        soHoaDonDangCho = 0;
-        try {
-            for (int i = 0; i < soLanThucHien; i++) {
-                System.out.println("\n--- Hoa don thu " + (i + 1) + "/" + soLanThucHien + " ---");
-                lapHoaDon();
-            }
-            return Arrays.copyOf(dsHoaDonDangCho, soHoaDonDangCho);
-        } finally {
-            dsHoaDonDangCho = null;
-            soHoaDonDangCho = 0;
-        }
-    }
-
-    public void ketThucLapNhieuHoaDon(HoaDon[] dsMoi) {
-        if (dsMoi == null) {
-            return;
-        }
-        for (HoaDon hd : dsMoi) {
-            if (hd == null) {
-                continue;
-            }
-            if (danhSachHoaDon.timKiem(hd.getMaHD()) == hd) {
-                KhachHang kh = hd.getKhachHang();
-                if (kh != null) {
-                    kh.tangDiemTichLuy((int) (hd.getTongTien() / 10000));
-                }
-                System.out.println("Lap hoa don thanh cong!");
-                hd.inHoaDon();
-            } else {
-                for (ChiTietPhieu ct : hd.getDsChiTiet()) {
-                    if (ct != null && ct.getSach() != null) {
-                        ct.getSach().tangSoLuong(ct.getSoLuong());
-                    }
-                }
-            }
-        }
-    }
+    
 
     private void lapPhieuNhap() {
         if (danhSachPhieuNhap != null) {
