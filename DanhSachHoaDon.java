@@ -265,6 +265,7 @@ package cuahangsach;
             System.out.println("5. Thong ke");
             System.out.println("6. Them nhieu hoa don");
             System.out.println("0. Quay lai");
+            System.out.println("(Lap hoa don moi tai muc Ban hang.)");
             chon = Main.docSoNguyen("Chon: ");
             switch (chon) {
                 case 1:
@@ -292,9 +293,35 @@ package cuahangsach;
                     if (cuaHangSach == null) {
                         System.out.println("Khong the lap hoa don tu menu nay.");
                     } else {
-                        HoaDon[] dsMoi = cuaHangSach.lapNhieuHoaDon();
-                        int soThem = themN(dsMoi);
-                        cuaHangSach.ketThucLapNhieuHoaDon(dsMoi);
+                        int soLuongCanLap = Main.docSoNguyen("Nhap so luong hoa don can lap: ");
+                        if (soLuongCanLap <= 0) {
+                            System.out.println("So luong phai lon hon 0!");
+                            break;
+                        }
+
+                        int soChoTrong = MAX - soLuong;
+                        if (soChoTrong <= 0) {
+                            System.out.println("Danh sach hoa don da day!");
+                            break;
+                        }
+
+                        int soLanThucHien = Math.min(soLuongCanLap, soChoTrong);
+                        if (soLanThucHien < soLuongCanLap) {
+                            System.out.println("Chi con cho trong " + soLanThucHien + " hoa don.");
+                        }
+
+                        HoaDon[] dsMoi = new HoaDon[soLanThucHien];
+                        int soHoaDonHopLe = 0;
+                        for (int i = 0; i < soLanThucHien; i++) {
+                            System.out.println("\n--- Hoa don thu " + (i + 1) + "/" + soLanThucHien + " ---");
+                            HoaDon hd = cuaHangSach.lapHoaDon(dsMoi, soHoaDonHopLe);
+                            if (hd != null) {
+                                dsMoi[soHoaDonHopLe++] = hd;
+                            }
+                        }
+
+                        int soThem = themN(dsMoi, soHoaDonHopLe);
+                        cuaHangSach.ketThucThemNhieuHoaDon(dsMoi, soHoaDonHopLe);
                         System.out.println("Da them " + soThem + " hoa don vao danh sach.");
                     }
                     break;
@@ -305,6 +332,7 @@ package cuahangsach;
             }
         } while (chon != 0);
     }
+
     public void menuXoa() {
         GiaoDienConsole.inTieuDe("XOA HOA DON");
         System.out.println("1. Xoa theo ma hoa don");
